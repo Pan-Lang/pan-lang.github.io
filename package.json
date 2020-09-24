@@ -1,8 +1,8 @@
 {
+  "homepage": "http://pan-lang.github.io/panlang-ui",
   "name": "panlang-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://pan-lang.github.io/panlang-ui",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
