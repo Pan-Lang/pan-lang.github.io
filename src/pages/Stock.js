@@ -28,7 +28,9 @@ function Stock() {
     <Container>
       <h1>Stock</h1>
       <Dropdown onChange={(e) => console.log(e)}>
-        <Dropdown.Toggle id="dropdown-basic" size="lg">Language: {language}</Dropdown.Toggle>
+        <Dropdown.Toggle id="dropdown-basic" size="lg">
+          Language: {language}
+        </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {LANGUAGES.map((lang) => (
@@ -49,7 +51,11 @@ function Stock() {
       )}
       {stock &&
         stock.map((item) => (
-          <StockCard stockItem={item} lang={language === 'english' ? 'name' : language} key={item._id} />
+          <StockCard
+            stockItem={item}
+            lang={language === 'english' ? 'name' : language}
+            key={item._id}
+          />
         ))}
       {error && <p>Error :(</p>}
     </Container>
