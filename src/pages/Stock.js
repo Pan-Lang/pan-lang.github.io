@@ -4,7 +4,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Spinner from 'react-bootstrap/Spinner';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
-import fetchStock from '../api/Stock';
+import { fetchStock } from '../api/Stock';
+import { Button, Col, Row } from 'react-bootstrap';
 
 // TODO: move all languages to a more global constant
 const LANGUAGES = ['english', 'spanish', 'french', 'mandarin'];
@@ -17,36 +18,51 @@ function Stock() {
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
 
-  useEffect(() => {
+  function getStock() {
+    setStock([]);
     fetchStock()
       .then((res) => {
         setStock(res.data);
       })
       .catch((e) => setError(true));
+  }
+
+  useEffect(() => {
+    getStock();
   }, []);
 
   return (
     <Container>
       <h1>Stock</h1>
-      <Dropdown onChange={(e) => console.log(e)}>
-        <Dropdown.Toggle id="dropdown-basic" size="lg">
-          Language: {language}
-        </Dropdown.Toggle>
+      <Row>
+        <Col>
+          <Dropdown onChange={(e) => console.log(e)}>
+            <Dropdown.Toggle id="dropdown-basic" size="lg" className="mb-3">
+              Language: {language}
+            </Dropdown.Toggle>
 
-        <StockInput />
+            <Dropdown.Menu>
+              {LANGUAGES.map((lang) => (
+                <Dropdown.Item
+                  onSelect={(key) => setLanguage(key)}
+                  eventKey={lang}
+                  key={lang}
+                >
+                  {lang}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col>
+          <Button size="lg" onClick={getStock}>
+            Refresh
+          </Button>
+        </Col>
+      </Row>
 
-        <Dropdown.Menu>
-          {LANGUAGES.map((lang) => (
-            <Dropdown.Item
-              onSelect={(key) => setLanguage(key)}
-              eventKey={lang}
-              key={lang}
-            >
-              {lang}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      <StockInput getStock={getStock} />
+
       {stock.length === 0 && !error && (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>

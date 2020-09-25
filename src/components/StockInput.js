@@ -4,13 +4,14 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import { createStockItem } from '../api/Stock';
 
 const stockSchema = Yup.object({
   name: Yup.string().required(),
   count: Yup.number().integer().moreThan(-1).required(),
 });
 
-function StockInput() {
+function StockInput({ getStock }) {
   return (
     <Accordion>
       <Card>
@@ -21,7 +22,10 @@ function StockInput() {
           <Card.Body>
             <Formik
               validationSchema={stockSchema}
-              onSubmit={(e) => console.log(e)}
+              onSubmit={(item) => {
+                getStock();
+                console.log(createStockItem(item));
+              }}
               initialValues={{
                 name: '',
                 count: -1,
@@ -59,7 +63,9 @@ function StockInput() {
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </Form.Group>
-                  <Button variant="success" type="submit">Add item to database</Button>
+                  <Button variant="success" type="submit">
+                    Add item to database
+                  </Button>
                 </Form>
               )}
             </Formik>
