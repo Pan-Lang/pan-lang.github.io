@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
+import StockCard from '../components/StockCard';
 import fetchStock from '../api/Stock';
 
+/**
+ * Displays the stock of food pantry with options for language
+ */
 function Stock() {
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
@@ -11,7 +15,6 @@ function Stock() {
     fetchStock()
       .then((res) => {
         setStock(res.data);
-        console.log(res);
       })
       .catch((e) => setError(true));
   }, []);
@@ -24,9 +27,9 @@ function Stock() {
           <span className="sr-only">Loading...</span>
         </Spinner>
       )}
-      {stock && stock.map((item) => <p>{item.name}</p>)}
+      {stock &&
+        stock.map((item) => <StockCard stockItem={item} key={item._id} />)}
       {error && <p>Error :(</p>}
-      
     </Container>
   );
 }
