@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
 
@@ -11,7 +12,7 @@ function App() {
       <br />
       <Switch>
         <Route exact path="/">
-          <h1>Welcome to PanLang!</h1>
+          <Home />
         </Route>
         <Route path="/stock">
           <Stock />
