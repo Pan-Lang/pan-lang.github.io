@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Order from './pages/Order';
+import Stock from './pages/Stock';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <br />
+      <Switch>
+        <Route exact path="/">
+          <h1>Welcome to PanLang!</h1>
+        </Route>
+        <Route path="/stock">
+          <Stock />
+        </Route>
+        <Route path="/order">
+          <Order />
+        </Route>
+        <Route path="*">
+          <h1>404</h1>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
