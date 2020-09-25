@@ -6,10 +6,10 @@ import Nav from 'react-bootstrap/Nav';
 function NavigationBar() {
   return (
     <Navbar bg="light">
-      <Navbar.Brand href="/">PanLang</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">PanLang</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="/order" >Order</Nav.Link>
-        <Nav.Link href="/stock">Stock</Nav.Link>
+        <Nav.Link as={Link} to="/order">Order</Nav.Link>
+        <Nav.Link as={Link} to="/stock">Stock</Nav.Link>
       </Nav>
     </Navbar>
   );
