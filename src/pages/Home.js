@@ -2,7 +2,7 @@ import React from 'react';
 
 function Home() {
   return (
-    <h1>Welcome to PanLang!</h1>
+    <h1>Welcome to Pan-Lang!</h1> 
   )
 }
 
