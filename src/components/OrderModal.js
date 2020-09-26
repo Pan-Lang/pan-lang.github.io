@@ -71,7 +71,7 @@ function OrderModal({
           <Button size="lg" variant="secondary" disabled>
             {selectedAmount}
           </Button>
-          <Button size="lg" onClick={handleIncrease}>
+          <Button variant="success" size="lg" onClick={handleIncrease}>
             +
           </Button>
         </ButtonGroup>
@@ -80,7 +80,7 @@ function OrderModal({
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={submitRequest}>
+        <Button variant="success" onClick={submitRequest}>
           Request amount
         </Button>
       </Modal.Footer>

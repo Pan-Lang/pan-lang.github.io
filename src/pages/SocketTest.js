@@ -2,12 +2,20 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
 import { Button, Col, Row } from 'react-bootstrap';
-const ENDPOINT = 'https://panlang.herokuapp.com/'; //needs to be changed to heroku after testing
+const ENDPOINT = 'https://panlang.herokuapp.com/'; 
+import Loading from '../components/Loading';
+import { useHistory } from 'react-router-dom';
+import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
+
 
 // List of people with unfulfilled orders
 let listPeople = [];
 
-function SocketTest() {
+/**
+ * Page with list of people with unfulfilled orders
+ */
+function OrderTrackerPage() {
+  const history = useHistory();
   const [response, setResponse] = useState(listPeople);
   const socket = socketIOClient(ENDPOINT);
 
@@ -31,26 +39,23 @@ function SocketTest() {
 
   function personFulfilled(id) {
     socket.emit('personFulfilled', id);
+    // Refresh the page after emitting fulfillment
+    history.go(0);
   }
 
   return (
     <Container>
+      {listPeople.length === 0 && <Loading />}
       {response &&
-        response.map((item, index) => (
-          <Button
-            key={item._id}
-            size="lg"
-            onClick={() => {
-              personFulfilled(item._id);
-            }}
-          >
-            {item._id} {item.lastname},{' '}
-            {item.fulfilled !== undefined ? item.fulfilled.toString() : null},
-            {item[index]}
-          </Button>
+        response.map((person) => (
+          <UnfulfilledOrderCard
+            fulfillPerson={personFulfilled}
+            person={person}
+            key={person._id}
+          />
         ))}
     </Container>
   );
 }
 
-export default SocketTest;
+export default OrderTrackerPage;
