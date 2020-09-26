@@ -52,7 +52,13 @@ function StockCard({ stockItem, lang = 'name' }) {
         </Card.Body>
       </Card>
 
-      <StockModal show={showAmountModal} handleClose={handleClose} />
+      <StockModal
+        show={showAmountModal}
+        handleClose={handleClose}
+        stockName={hasLanguage ? stockItem[lang] : stockItem.name}
+        stockId={stockItem._id}
+        stockCount={stockItem.count}
+      />
     </>
   );
 }

@@ -8,7 +8,7 @@ import { fetchStock } from '../api/Stock';
 import { Button, Col, Row } from 'react-bootstrap';
 
 // TODO: move all languages to a more global constant
-const LANGUAGES = ['english', 'spanish', 'french', 'mandarin'];
+const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
 
 /**
  * Displays the stock of food pantry with options for language
@@ -33,33 +33,29 @@ function Stock() {
 
   return (
     <Container>
-      <h1>Stock</h1>
-      <Row>
-        <Col>
-          <Dropdown onChange={(e) => console.log(e)}>
-            <Dropdown.Toggle id="dropdown-basic" size="md" className="mb-3">
-              Language: <b>{language}</b>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {LANGUAGES.map((lang) => (
-                <Dropdown.Item
-                  onSelect={(key) => setLanguage(key)}
-                  eventKey={lang}
-                  key={lang}
-                >
-                  {lang}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-        <Col>
-          <Button size="md" onClick={getStock}>
-            Refresh
-          </Button>
-        </Col>
-      </Row>
+      <h1 style={{ textAlign: 'center' }}>Stock</h1>
+      <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
+        <Dropdown onChange={(e) => console.log(e)}>
+          <Dropdown.Toggle id="dropdown-basic" size="md" className="mb-3">
+            Language: <b>{language}</b>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {LANGUAGES.map((lang) => (
+              <Dropdown.Item
+                onSelect={(key) => setLanguage(key)}
+                eventKey={lang}
+                key={lang}
+              >
+                {lang}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+        <div style={{ margin: 'auto' }} />
+        <Button size="md" onClick={getStock}>
+          Refresh
+        </Button>
+      </Container>
 
       <StockInput getStock={getStock} />
 
