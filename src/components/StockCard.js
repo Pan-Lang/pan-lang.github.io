@@ -19,13 +19,18 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
     <>
       <Card style={{ margin: 5 }}>
         <Card.Body>
-        <Card.Header as="h2">
-      {hasLanguage ? stockItem[lang] : stockItem.name} 
-          {lang !== 'name' && hasLanguage ? " (" + stockItem['name'] + ")" : ""}
-        </Card.Header>
+          <Card.Header as="h2">
+            {hasLanguage ? stockItem[lang] : stockItem.name}
+            {lang !== 'name' && hasLanguage
+              ? ' (' + stockItem['name'] + ')'
+              : ''}
+          </Card.Header>
 
           <Card.Text>
-            Amount: <h3>{stockItem.count}</h3>
+            Amount:{' '}
+            <font style={{ fontSize: '1.4em', fontWeight: 'bolder' }}>
+              {stockItem.count}
+            </font>
           </Card.Text>
           <Card.Text style={{ textAlign: 'right' }}>
             Last updated:{' '}

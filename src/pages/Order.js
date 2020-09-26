@@ -14,7 +14,7 @@ const orderSchema = Yup.object({
   orderNotes: Yup.string().required(),
 });
 
-function Order() {
+function OrderForm() {
   const history = useHistory();
 
   return (
@@ -117,4 +117,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default OrderForm;
