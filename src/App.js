@@ -21,7 +21,7 @@ function App() {
           <Order />
         </Route>
         <Route path="*">
-          <h1>404</h1>
+          <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>
         </Route>
       </Switch>
     </Router>

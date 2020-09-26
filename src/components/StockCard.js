@@ -16,6 +16,26 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
   }, [lang, stockItem]);
 
   return (
+<<<<<<< HEAD
+    <Card style={{ margin: 5 }}>
+      <Card.Body>
+        <Card.Title>
+          {hasLanguage ? stockItem[lang] : stockItem.name} 
+          {lang !== 'name' && hasLanguage ? " (" + stockItem['name'] + ")" : ""}
+        </Card.Title>
+        <Card.Text>Amount: {stockItem.count}</Card.Text>
+        <Card.Text style={{ textAlign: 'right' }}>
+          Last updated:{' '}
+          {stockItem.timestamp !== undefined
+            ? new Date(stockItem.timestamp).toDateString()
+            : 'Unavailable'}
+        </Card.Text>
+        {!hasLanguage && (
+          <Badge variant="danger">Language unavailable: {lang}</Badge>
+        )}
+      </Card.Body>
+    </Card>
+=======
     <>
       <Card style={{ margin: 5 }}>
         <Card.Body>
@@ -61,6 +81,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
         stockCount={stockItem.count}
       />
     </>
+>>>>>>> 7518abb36a986386e86acf5b115010add964ec8b
   );
 }
 

@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'MyFont';
+  src: local('MyFont'), url(./fonts/Montserrat/Montserrat-Medium.ttf) format('ttf');
+}
