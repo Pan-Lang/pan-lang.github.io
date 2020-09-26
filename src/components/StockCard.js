@@ -19,12 +19,13 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
     <>
       <Card style={{ margin: 5 }}>
         <Card.Body>
-          <Card.Title>
-            {hasLanguage ? stockItem[lang] : stockItem.name}
-          </Card.Title>
+        <Card.Header as="h2">
+      {hasLanguage ? stockItem[lang] : stockItem.name} 
+          {lang !== 'name' && hasLanguage ? " (" + stockItem['name'] + ")" : ""}
+        </Card.Header>
 
           <Card.Text>
-            Amount: <b>{stockItem.count}</b>
+            Amount: <h3>{stockItem.count}</h3>
           </Card.Text>
           <Card.Text style={{ textAlign: 'right' }}>
             Last updated:{' '}
@@ -46,7 +47,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
             </Button>
             <div style={{ margin: 'auto' }} />
             {!hasLanguage && (
-              <Badge variant="danger">Language unavailable</Badge>
+              <Badge variant="danger">Language unavailable: {lang}</Badge>
             )}
           </Container>
         </Card.Body>

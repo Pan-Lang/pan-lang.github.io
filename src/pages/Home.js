@@ -1,11 +1,27 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom'
+import { View } from 'react';
 
 function Home() {
   return (
-    <Container>
-      <h1>Welcome to PanLang!</h1>
-    </Container>
+    <div>
+      <h1 align="center">Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>
+      <br></br>
+      <div>
+      <Link to="/order" style={{color: 'white'}}>
+      <Button variant="success" size="lg" block>New Order
+      </Button>
+      </Link>
+      </div>
+      <br></br>
+      <br></br>
+      <Link to="/stock" style={{color: 'white'}}>
+      <Button variant="success" size="lg" block>Edit Stock</Button>{' '}
+      </Link>
+    </div>
   );
 }
 
