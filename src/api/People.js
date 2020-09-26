@@ -11,3 +11,8 @@ export async function addPersonInfo(item) {
       return false;
     });
 }
+
+export async function fetchPeople() {
+  const promise = await Client.get(PEOPLE_ENDPOINT);
+  return promise;
+}
