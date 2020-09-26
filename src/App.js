@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
 import SocketTest from './pages/SocketTest'
+import SocketHighLevel from './pages/SocketHighLevel'
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Order />
         </Route>
         <Route path="/sockettest">
-          <SocketTest />
+          <SocketHighLevel />
         </Route>
         <Route path="*">
           <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>

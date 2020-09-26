@@ -7,28 +7,19 @@ const ENDPOINT = "http://localhost:3000"; //needs to be changed to heroku after 
 let listpeople = []
 
 function SocketTest() {
-
-  
-  
   const [response, setResponse] = useState(listpeople);
   const socket = socketIOClient(ENDPOINT)
+   
+
     useEffect(() => {
       socket.on("person", data => {
-        eventHandler(data)
-        
-      })
-
-      const eventHandler = (data) => {
         listpeople = listpeople.concat(data)
-          setResponse(listpeople)
-      }
+        setResponse(listpeople)
+      }) 
       return () => {
-        console.log("effect done")
-        socket.off("person", eventHandler(""))
+        socket.disconnect();
       }
-        
-        
-    }, [])
+    },[])
 
     function personFulfilled(id) {
       socket.emit("personFulfilled", id)
@@ -41,9 +32,9 @@ function SocketTest() {
   return (
     <Container>
       {response &&
-        response.map((item, index) => (
+        response.map((item) => (
           <Button key={item._id} size="lg" onClick = {() => {personFulfilled(item._id)}}>
-            {item._id} {item.lastname}, {item.fulfilled.toString()},{item[index]}
+            {item.firstname} {item.lastname}, {item.fulfilled.toString()}
           </Button>
 
         ))}
