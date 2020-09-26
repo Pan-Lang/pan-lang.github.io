@@ -25,13 +25,15 @@ function Home() {
           Edit Stock
         </Button>{' '}
       </Link>
+
+      <br></br><br></br>
       {/* I think we want an anchor tag w/ href and target=_blank , 
       if we use axios we have to hack around downloading the content for the user*/}
       <a
         href={`${BASE_API_URL}${PEOPLE_ENDPOINT}?${new URLSearchParams(date)}`}
       >
         <Button variant="success" size="lg" className="mb-3" block>
-          Download
+          Download Order Data
         </Button>{' '}
       </a>
     </div>
