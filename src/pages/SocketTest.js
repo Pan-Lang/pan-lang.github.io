@@ -25,7 +25,7 @@ function SocketTest() {
       console.log('effect done');
       socket.off('person', eventHandler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // e slint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function personFulfilled(id) {
