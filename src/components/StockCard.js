@@ -48,7 +48,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
             <div style={{ margin: 'auto' }} />
             <Button
               size="sm"
-              variant="info"
+              variant="type"
               style={{ alignSelf: 'center' }}
               onClick={handleShow}
             >
