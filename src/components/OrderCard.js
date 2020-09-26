@@ -35,29 +35,28 @@ function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
               {stockItem.count}
             </font>
           </Card.Text>
-          <Card.Text style={{ textAlign: 'right' }}>
-            Last updated:{' '}
-            {stockItem.timestamp !== undefined
-              ? new Date(stockItem.timestamp).toDateString()
-              : 'Unavailable'}
-          </Card.Text>
-
           <Container
             style={{ display: 'flex', alignItems: 'center', padding: 0 }}
           >
             {!hasLanguage && (
               <Badge variant="danger">Language unavailable: {lang}</Badge>
             )}
-            <div style={{ margin: 'auto' }} />
+            <div style={{ margin: 'left' }} />
             <Button
-              size="sm"
-              variant="info"
-              style={{ alignSelf: 'center' }}
+              size="lg"
+              variant="success"
+              style={{ alignSelf: 'left' }}
               onClick={handleShow}
             >
-              Request item
+              Request Item
             </Button>
           </Container>
+          <Card.Text style={{ textAlign: 'right' }}>
+            Last updated:{' '}
+            {stockItem.timestamp !== undefined
+              ? new Date(stockItem.timestamp).toDateString()
+              : 'Unavailable'}
+          </Card.Text>
         </Card.Body>
       </Card>
 

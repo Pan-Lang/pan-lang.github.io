@@ -101,12 +101,12 @@ function OrderStock() {
         </p>
       ))}
 
-      <Button className="mb-3" onClick={submitRequest} block>
+      <Button variant="type" className="mb-3" onClick={submitRequest} block>
         Submit request
       </Button>
 
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-        <Dropdown onChange={(e) => console.log(e)}>
+        <Dropdown variant="type" onChange={(e) => console.log(e)}>
           <Dropdown.Toggle
             variant="type"
             id="dropdown-basic"
