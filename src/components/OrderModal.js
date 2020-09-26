@@ -33,6 +33,10 @@ function OrderModal({
       requestedCount: selectedAmount,
       countAfterRequest: stockCount - selectedAmount,
     };
+    console.log("submitRequest -> stockCount", stockCount)
+    console.log("submitRequest -> selectedAmount", selectedAmount)
+    
+    console.log("countAfterRequest ->", requestedItem.countAfterRequest);
 
     onRequest(requestedItem);
     handleClose();

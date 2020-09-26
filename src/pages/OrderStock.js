@@ -75,13 +75,15 @@ function OrderStock() {
       children: personInfo.adults,
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
+      fulfilled: false
     };
     addPersonInfo(requestBody);
 
     // Send updates for each requested item to API
-    const stockUpdatePromises = requestedStockItems.map((item) => (
-      updateStockCount(item.id, item.countAfterRequest)
-    ));
+    const stockUpdatePromises = requestedStockItems.map((item) => {
+      console.log('making promise... ', item.countAfterRequest);
+      return updateStockCount(item.id, { newCount: item.countAfterRequest })
+    });
 
     Promise.all(stockUpdatePromises).then((responses) => console.log(responses));
 
