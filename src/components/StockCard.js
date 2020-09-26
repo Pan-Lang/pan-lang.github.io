@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Badge from 'react-bootstrap/Badge';
-import Card from 'react-bootstrap/Card';
+import { Button, Badge, Container, Card } from 'react-bootstrap';
 
 function StockCard({ stockItem, lang = 'name' }) {
   const [hasLanguage, setHasLanguage] = useState(false);
@@ -22,9 +21,17 @@ function StockCard({ stockItem, lang = 'name' }) {
             ? new Date(stockItem.timestamp).toDateString()
             : 'Unavailable'}
         </Card.Text>
-        {!hasLanguage && (
-          <Badge variant="danger">Language unavailable: {lang}</Badge>
-        )}
+        <Container
+          fluid
+          style={{ display: 'flex', flexDirection: 'row-reverse' }}
+        >
+          <Button size="sm" style={{ alignSelf: 'center' }}>
+            Edit amount
+          </Button>
+          {!hasLanguage && (
+            <Badge variant="danger">Language unavailable: {lang}</Badge>
+          )}
+        </Container>
       </Card.Body>
     </Card>
   );

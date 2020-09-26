@@ -11,6 +11,9 @@ const stockSchema = Yup.object({
   count: Yup.number().integer().moreThan(-1).required(),
 });
 
+/**
+ * Handles creation of new stock items
+ */
 function StockInput({ getStock }) {
   return (
     <Accordion>
