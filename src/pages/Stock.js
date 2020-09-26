@@ -33,10 +33,10 @@ function Stock() {
 
   return (
     <Container>
-      <h1>Stock</h1>
-      <Row>
+      <h1 align="center">Stock</h1>
+      <Row align="center">
         <Col>
-          <Dropdown onChange={(e) => console.log(e)}>
+          <Dropdown type="success" onChange={(e) => console.log(e)}>
             <Dropdown.Toggle id="dropdown-basic" size="lg" className="mb-3">
               Language: {language}
             </Dropdown.Toggle>
@@ -55,7 +55,7 @@ function Stock() {
           </Dropdown>
         </Col>
         <Col>
-          <Button size="lg" onClick={getStock}>
+          <Button variant="success" size="lg" onClick={getStock}>
             Refresh
           </Button>
         </Col>

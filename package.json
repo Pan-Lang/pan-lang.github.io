@@ -9,11 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
-<<<<<<< HEAD
-    "konva": "^7.1.3",
-=======
     "formik": "^2.1.5",
->>>>>>> 6ae5aa802e30c8fb3a4d20c3bd58c8ebc80dc3e4
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",
