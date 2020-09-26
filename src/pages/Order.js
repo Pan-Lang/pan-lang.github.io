@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 
 const orderSchema = Yup.object({
   firstName: Yup.string().required(),
@@ -14,20 +15,24 @@ const orderSchema = Yup.object({
 });
 
 function Order() {
+  const history = useHistory();
+
   return (
-    <Container style={{ backgroundColor: 'white' }}>
+    <Container style={{ backgroundColor: 'white', paddingBottom: 120 }}>
       <h1 style={{ textAlign: 'center' }}>Order</h1>
       <Formik
         validationSchema={orderSchema}
-        onSubmit={(e) => {
-          console.log(e);
+        onSubmit={(personInfo) => {
+          console.log(personInfo);
+          history.push('/stock?fromForm=true', { fromForm: true, personInfo })
         }}
         initialValues={{
-          firstName: null,
-          lastName: null,
+          firstName: '',
+          lastName: '',
           adults: -1,
           children: -1,
           zipcode: -1,
+          orderNotes: 'test'
         }}
       >
         {({
@@ -101,10 +106,10 @@ function Order() {
                 />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
+              <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                <Button type="submit">Select order</Button>
+              </div>
             </Form>
-            <Button type="submit" onClick={handleSubmit}>
-              Submit form
-            </Button>
           </div>
         )}
       </Formik>

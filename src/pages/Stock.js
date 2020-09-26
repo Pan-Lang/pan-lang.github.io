@@ -13,7 +13,7 @@ const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
 /**
  * Displays the stock of food pantry with options for language
  */
-function Stock() {
+function Stock({ fromForm=false, personInfo }) {
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
@@ -34,7 +34,8 @@ function Stock() {
 
   useEffect(() => {
     getStock();
-  }, []);
+    if (fromForm) console.log(personInfo);
+  }, [personInfo, fromForm]);
 
   return (
     <Container>
