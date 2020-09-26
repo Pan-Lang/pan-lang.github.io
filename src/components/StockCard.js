@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
 
 function StockCard({ stockItem, lang = 'name' }) {
+  const [showAmountModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
   useEffect(() => {
+    // Determine whether this stock item has a name in the specified language
     setHasLanguage(stockItem[lang] !== undefined);
   }, [lang, stockItem]);
 
@@ -14,23 +16,25 @@ function StockCard({ stockItem, lang = 'name' }) {
         <Card.Title>
           {hasLanguage ? stockItem[lang] : stockItem.name}
         </Card.Title>
-        <Card.Text>Amount: {stockItem.count}</Card.Text>
+
+        <Card.Text>
+          Amount: <b>{stockItem.count}</b>
+        </Card.Text>
         <Card.Text style={{ textAlign: 'right' }}>
           Last updated:{' '}
           {stockItem.timestamp !== undefined
             ? new Date(stockItem.timestamp).toDateString()
             : 'Unavailable'}
         </Card.Text>
+
         <Container
-          fluid
-          style={{ display: 'flex', flexDirection: 'row-reverse' }}
+          style={{ display: 'flex', alignItems: 'center', padding: 0 }}
         >
-          <Button size="sm" style={{ alignSelf: 'center' }}>
+          <Button size="sm" variant="info" style={{ alignSelf: 'center' }}>
             Edit amount
           </Button>
-          {!hasLanguage && (
-            <Badge variant="danger">Language unavailable: {lang}</Badge>
-          )}
+          <div style={{ margin: 'auto' }} />
+          {!hasLanguage && <Badge variant="danger">Language unavailable</Badge>}
         </Container>
       </Card.Body>
     </Card>
