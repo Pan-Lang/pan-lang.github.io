@@ -7,6 +7,7 @@ import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import SocketTest from './pages/SocketTest'
 
+
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
