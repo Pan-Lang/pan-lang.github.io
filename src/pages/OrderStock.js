@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import StockCard from '../components/StockCard';
+import OrderCard from '../components/OrderCard';
 import Loading from '../components/Loading';
 import { fetchStock } from '../api/Stock';
 import LANGUAGES from '../constants/Languages';
@@ -46,16 +46,16 @@ function OrderStock() {
 
   return (
     <Container>
+      <h1 style={{textAlign: 'center'}}>Select stock here</h1>
       {stock.length === 0 && !error && <Loading />}
       {stock &&
         fromForm &&
         stock.map((item) => (
-          <StockCard
+          <OrderCard
             stockItem={item}
             getStock={getStock}
             lang={language === 'english' ? 'name' : language}
             key={item._id}
-            allowEdit={false}
           />
         ))}
       {error && <p>Error</p>}

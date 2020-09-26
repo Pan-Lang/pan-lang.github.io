@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
-import StockModal from './StockModal';
+import OrderModal from './OrderModal';
 
-function StockCard({ stockItem, getStock, lang = 'name' }) {
-  const [showAmountModal, setShowAmountModal] = useState(false);
+function OrderCard({ stockItem, getStock, lang = 'name' }) {
+  const [showOrderModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
-  // Handlers for showing/closing modal when editing item amount
+  // Handlers for showing/closing modal when ordering item
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
 
@@ -14,7 +14,6 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
   useEffect(() => {
     setHasLanguage(stockItem[lang] !== undefined);
   }, [lang, stockItem]);
-
   return (
     <>
       <Card style={{ margin: 5 }}>
@@ -52,14 +51,14 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
               style={{ alignSelf: 'center' }}
               onClick={handleShow}
             >
-              Edit amount
+              Request item
             </Button>
           </Container>
         </Card.Body>
       </Card>
 
-      <StockModal
-        show={showAmountModal}
+      <OrderModal
+        show={showOrderModal}
         handleClose={handleClose}
         getStock={getStock}
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
@@ -70,4 +69,4 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
   );
 }
 
-export default StockCard;
+export default OrderCard;
