@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
 import { Button, Col, Row } from 'react-bootstrap';
-const ENDPOINT = 'http://localhost:3000'; //needs to be changed to heroku after testing
+const ENDPOINT = 'https://panlang.herokuapp.com/'; //needs to be changed to heroku after testing
 
 // List of people with unfulfilled orders
 let listPeople = [];
@@ -13,6 +13,7 @@ function SocketTest() {
 
   useEffect(() => {
     socket.on('person', (data) => {
+      console.log(data)
       eventHandler(data);
     });
 
