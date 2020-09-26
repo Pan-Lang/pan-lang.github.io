@@ -5,10 +5,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
 import { fetchStock } from '../api/Stock';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 // TODO: move all languages to a more global constant
-const LANGUAGES = ['english', 'spanish', 'french', 'mandarin'];
+const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
 
 /**
  * Displays the stock of food pantry with options for language
@@ -18,13 +18,18 @@ function Stock() {
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
 
-  function getStock() {
+  function getStock(timeout = 0) {
+    // Set stock empty to begin loading spinner
     setStock([]);
-    fetchStock()
-      .then((res) => {
-        setStock(res.data);
-      })
-      .catch((e) => setError(true));
+
+    // Fetch stock after designated time
+    setTimeout(() => {
+      fetchStock()
+        .then((res) => {
+          setStock(res.data);
+        })
+        .catch((e) => setError(true));
+    }, timeout);
   }
 
   useEffect(() => {
@@ -33,33 +38,37 @@ function Stock() {
 
   return (
     <Container>
-      <h1>Stock</h1>
-      <Row>
-        <Col>
-          <Dropdown onChange={(e) => console.log(e)}>
-            <Dropdown.Toggle id="dropdown-basic" size="lg" className="mb-3">
-              Language: {language}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {LANGUAGES.map((lang) => (
-                <Dropdown.Item
-                  onSelect={(key) => setLanguage(key)}
-                  eventKey={lang}
-                  key={lang}
-                >
-                  {lang}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-        <Col>
-          <Button size="lg" onClick={getStock}>
-            Refresh
-          </Button>
-        </Col>
-      </Row>
+      <style type="text/css">
+    {`
+    .btn-type {
+      background-color: green;
+      color: white;
+    }
+    `}
+  </style>
+      <h1 style={{ textAlign: 'center' }}>Stock</h1>
+      <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
+        <Dropdown onChange={(e) => console.log(e)}>
+          <Dropdown.Toggle variant="type" id="dropdown-basic" size="md" className="mb-3">
+            Language: <b>{language}</b>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {LANGUAGES.map((lang) => (
+              <Dropdown.Item
+                onSelect={(key) => setLanguage(key)}
+                eventKey={lang}
+                key={lang}
+              >
+                {lang}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+        <div style={{ margin: 'auto' }} />
+        <Button variant="type" size="md" onClick={getStock}>
+          Refresh
+        </Button>
+      </Container>
 
       <StockInput getStock={getStock} />
 
@@ -72,6 +81,7 @@ function Stock() {
         stock.map((item) => (
           <StockCard
             stockItem={item}
+            getStock={getStock}
             lang={language === 'english' ? 'name' : language}
             key={item._id}
           />
