@@ -3,8 +3,7 @@ import Client from './Client';
 const STOCK_ENDPOINT = '/stock';
 
 export async function fetchStock() {
-  const promise = await Client.get(STOCK_ENDPOINT);
-  return promise;
+  return await Client.get(STOCK_ENDPOINT);
 }
 
 export async function createStockItem(item) {
