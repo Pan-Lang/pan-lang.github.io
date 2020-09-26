@@ -38,10 +38,18 @@ function Stock() {
 
   return (
     <Container>
+      <style type="text/css">
+    {`
+    .btn-type {
+      background-color: green;
+      color: white;
+    }
+    `}
+  </style>
       <h1 style={{ textAlign: 'center' }}>Stock</h1>
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown onChange={(e) => console.log(e)}>
-          <Dropdown.Toggle id="dropdown-basic" size="md" className="mb-3">
+          <Dropdown.Toggle variant="type" id="dropdown-basic" size="md" className="mb-3">
             Language: <b>{language}</b>
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -57,7 +65,7 @@ function Stock() {
           </Dropdown.Menu>
         </Dropdown>
         <div style={{ margin: 'auto' }} />
-        <Button size="md" onClick={getStock}>
+        <Button variant="type" size="md" onClick={getStock}>
           Refresh
         </Button>
       </Container>
