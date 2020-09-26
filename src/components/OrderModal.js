@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 
 /**
- * Allows user to select how much of a stock item to request 
+ * Allows user to select how much of a stock item to request
  * TODO: edge cases
  * - user chooses same item more than once
  */
@@ -13,7 +13,7 @@ function OrderModal({
   stockId,
   stockName,
   stockCount,
-  onRequest
+  onRequest,
 }) {
   // Currently requested amount
   const [selectedAmount, setSelectedAmount] = useState(1);
@@ -28,8 +28,10 @@ function OrderModal({
 
   function submitRequest() {
     const requestedItem = {
+      id: stockId,
       name: stockName,
       requestedCount: selectedAmount,
+      countAfterRequest: stockCount - selectedAmount,
     };
 
     onRequest(requestedItem);
@@ -49,9 +51,16 @@ function OrderModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Current amount: <b>{stockCount}</b></p>
-        <p>Amount after order: <b>{stockCount - selectedAmount}</b></p>
-        <ButtonGroup aria-label="Stock item request buttons" style={{ display: 'flex', alignItems: 'center'}}>
+        <p>
+          Current amount: <b>{stockCount}</b>
+        </p>
+        <p>
+          Amount after order: <b>{stockCount - selectedAmount}</b>
+        </p>
+        <ButtonGroup
+          aria-label="Stock item request buttons"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
           <Button size="lg" onClick={handleDecrease}>
             -
           </Button>
