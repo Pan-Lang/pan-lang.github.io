@@ -38,35 +38,6 @@ function Stock() {
 
   return (
     <Container>
-<<<<<<< HEAD
-      <h1 align="center">Stock</h1>
-      <Row align="center">
-        <Col>
-          <Dropdown type="success" onChange={(e) => console.log(e)}>
-            <Dropdown.Toggle id="dropdown-basic" size="lg" className="mb-3">
-              Language: {language}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {LANGUAGES.map((lang) => (
-                <Dropdown.Item
-                  onSelect={(key) => setLanguage(key)}
-                  eventKey={lang}
-                  key={lang}
-                >
-                  {lang}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-        <Col>
-          <Button variant="success" size="lg" onClick={getStock}>
-            Refresh
-          </Button>
-        </Col>
-      </Row>
-=======
       <h1 style={{ textAlign: 'center' }}>Stock</h1>
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown onChange={(e) => console.log(e)}>
@@ -90,7 +61,6 @@ function Stock() {
           Refresh
         </Button>
       </Container>
->>>>>>> 7518abb36a986386e86acf5b115010add964ec8b
 
       <StockInput getStock={getStock} />
 
