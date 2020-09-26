@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Spinner from 'react-bootstrap/Spinner';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
 import { fetchStock } from '../api/Stock';
 import { Button } from 'react-bootstrap';
-
-// TODO: move all languages to a more global constant
-const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
+import Loading from '../components/Loading';
+import LANGUAGES from '../constants/Languages';
 
 /**
  * Displays the stock of food pantry with options for language
@@ -36,21 +34,23 @@ function Stock() {
     getStock();
   }, []);
 
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   return (
     <Container>
-      <style type="text/css">
-    {`
-    .btn-type {
-      background-color: green;
-      color: white;
-    }
-    `}
-  </style>
       <h1 style={{ textAlign: 'center' }}>Stock</h1>
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown onChange={(e) => console.log(e)}>
-          <Dropdown.Toggle variant="type" id="dropdown-basic" size="md" className="mb-3">
-            Language: <b>{language}</b>
+          <Dropdown.Toggle
+            variant="type"
+            id="dropdown-basic"
+            size="md"
+            className="mb-3"
+            style={{ backgroundColor: 'green', color: 'white' }}
+          >
+            Language: <b>{capitalize(language)}</b>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {LANGUAGES.map((lang) => (
@@ -59,24 +59,25 @@ function Stock() {
                 eventKey={lang}
                 key={lang}
               >
-                {lang}
+                {capitalize(lang)}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
         </Dropdown>
         <div style={{ margin: 'auto' }} />
-        <Button variant="type" size="md" onClick={getStock}>
+        <Button
+          variant="type"
+          size="md"
+          onClick={getStock}
+          style={{ backgroundColor: 'green', color: 'white' }}
+        >
           Refresh
         </Button>
       </Container>
 
       <StockInput getStock={getStock} />
 
-      {stock.length === 0 && !error && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      )}
+      {stock.length === 0 && !error && <Loading />}
       {stock &&
         stock.map((item) => (
           <StockCard

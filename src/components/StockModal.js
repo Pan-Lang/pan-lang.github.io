@@ -37,7 +37,7 @@ function StockModal({ show, handleClose, getStock, stockId, stockName, stockCoun
           isValid,
           errors,
         }) => (
-          <div>
+          <>
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
                 Edit amount for: {stockName}
@@ -67,7 +67,7 @@ function StockModal({ show, handleClose, getStock, stockId, stockName, stockCoun
                 Save new amount
               </Button>
             </Modal.Footer>
-          </div>
+          </>
         )}
       </Formik>
     </Modal>

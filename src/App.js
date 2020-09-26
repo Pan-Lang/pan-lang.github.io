@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
+import OrderStock from './pages/OrderStock';
 import SocketTest from './pages/SocketTest'
 import SocketHighLevel from './pages/SocketHighLevel'
 
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/order">
           <Order />
+        </Route>
+        <Route path="/order-stock">
+          <OrderStock />
         </Route>
         <Route path="/sockettest">
           <SocketHighLevel />
