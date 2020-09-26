@@ -39,7 +39,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
           >
             <Button
               size="sm"
-              variant="info"
+              variant="type"
               style={{ alignSelf: 'center' }}
               onClick={handleShow}
             >
