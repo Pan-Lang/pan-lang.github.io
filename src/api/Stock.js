@@ -16,3 +16,15 @@ export async function createStockItem(item) {
       return false;
     });
 }
+
+export async function updateStockCount(id, updated) {
+  Client.put(`${STOCK_ENDPOINT}/${id}`, updated)
+    .then((res) => {
+      console.log(res);
+      return true;
+    })
+    .catch((e) => {
+      console.error(e)
+      return false;
+    })
+}

@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
 import { fetchStock } from '../api/Stock';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 // TODO: move all languages to a more global constant
 const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
@@ -18,13 +18,18 @@ function Stock() {
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
 
-  function getStock() {
+  function getStock(timeout = 0) {
+    // Set stock empty to begin loading spinner
     setStock([]);
-    fetchStock()
-      .then((res) => {
-        setStock(res.data);
-      })
-      .catch((e) => setError(true));
+
+    // Fetch stock after designated time
+    setTimeout(() => {
+      fetchStock()
+        .then((res) => {
+          setStock(res.data);
+        })
+        .catch((e) => setError(true));
+    }, timeout);
   }
 
   useEffect(() => {
@@ -68,6 +73,7 @@ function Stock() {
         stock.map((item) => (
           <StockCard
             stockItem={item}
+            getStock={getStock}
             lang={language === 'english' ? 'name' : language}
             key={item._id}
           />

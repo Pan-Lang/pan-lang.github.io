@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
 import StockModal from './StockModal';
 
-function StockCard({ stockItem, lang = 'name' }) {
+function StockCard({ stockItem, getStock, lang = 'name' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
@@ -55,6 +55,7 @@ function StockCard({ stockItem, lang = 'name' }) {
       <StockModal
         show={showAmountModal}
         handleClose={handleClose}
+        getStock={getStock}
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
         stockId={stockItem._id}
         stockCount={stockItem.count}

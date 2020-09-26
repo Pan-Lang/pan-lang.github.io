@@ -26,7 +26,7 @@ function StockInput({ getStock }) {
             <Formik
               validationSchema={stockSchema}
               onSubmit={(item) => {
-                getStock();
+                getStock(500);
                 console.log(createStockItem(item));
               }}
               initialValues={{

@@ -2,12 +2,13 @@ import React from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { updateStockCount } from '../api/Stock';
 
 const amountSchema = Yup.object({
-  count: Yup.number().integer().moreThan(-1).required(),
+  newCount: Yup.number().integer().moreThan(-1).required(),
 });
 
-function StockModal({ show, handleClose, stockId, stockName, stockCount }) {
+function StockModal({ show, handleClose, getStock, stockId, stockName, stockCount }) {
   return (
     <Modal
       show={show}
@@ -17,13 +18,14 @@ function StockModal({ show, handleClose, stockId, stockName, stockCount }) {
     >
       <Formik
         validationSchema={amountSchema}
-        onSubmit={(e) => {
-          console.log(e);
-          // send put request
+        onSubmit={(updatedCount) => {
+          console.log(updatedCount);
+          updateStockCount(stockId, updatedCount);
           handleClose();
+          getStock(500);
         }}
         initialValues={{
-          count: -1,
+          newCount: -1,
         }}
       >
         {({
@@ -47,11 +49,11 @@ function StockModal({ show, handleClose, stockId, stockName, stockCount }) {
                 <Form.Group controlId="stockCount">
                   <Form.Control
                     type="number"
-                    name="count"
+                    name="newCount"
                     placeholder={'Insert new item count'}
                     onChange={handleChange}
-                    isValid={touched.count && !errors.count}
-                    isInvalid={!!errors.count}
+                    isValid={touched.newCount && !errors.newCount}
+                    isInvalid={!!errors.newCount}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
