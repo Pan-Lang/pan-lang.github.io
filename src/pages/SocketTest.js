@@ -33,8 +33,8 @@ function OrderTrackerPage() {
       console.log('effect done');
       socket.off('person', eventHandler);
     };
-  // e slint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function personFulfilled(id) {
     socket.emit('personFulfilled', id);
