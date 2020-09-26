@@ -3,6 +3,8 @@ import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 
 /**
  * Allows user to select how much of a stock item to request 
+ * TODO: edge cases
+ * - user chooses same item more than once
  */
 function OrderModal({
   show,
@@ -11,16 +13,27 @@ function OrderModal({
   stockId,
   stockName,
   stockCount,
+  onRequest
 }) {
   // Currently requested amount
-  const [selectedAmount, setSelectedAmount] = useState(0);
+  const [selectedAmount, setSelectedAmount] = useState(1);
 
   function handleDecrease() {
-    if (selectedAmount > 0) setSelectedAmount(selectedAmount - 1);
+    if (selectedAmount > 1) setSelectedAmount(selectedAmount - 1);
   }
 
   function handleIncrease() {
     if (selectedAmount < stockCount) setSelectedAmount(selectedAmount + 1);
+  }
+
+  function submitRequest() {
+    const requestedItem = {
+      name: stockName,
+      requestedCount: selectedAmount,
+    };
+
+    onRequest(requestedItem);
+    handleClose();
   }
 
   return (
@@ -54,7 +67,7 @@ function OrderModal({
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary">
+        <Button variant="primary" onClick={submitRequest}>
           Request amount
         </Button>
       </Modal.Footer>

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
 import OrderModal from './OrderModal';
 
-function OrderCard({ stockItem, getStock, lang = 'name' }) {
+/**
+ * Stock item card on order screen
+ */
+function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
   const [showOrderModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
@@ -14,6 +17,7 @@ function OrderCard({ stockItem, getStock, lang = 'name' }) {
   useEffect(() => {
     setHasLanguage(stockItem[lang] !== undefined);
   }, [lang, stockItem]);
+
   return (
     <>
       <Card style={{ margin: 5 }}>
@@ -64,6 +68,7 @@ function OrderCard({ stockItem, getStock, lang = 'name' }) {
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
         stockId={stockItem._id}
         stockCount={stockItem.count}
+        onRequest={onRequest}
       />
     </>
   );
