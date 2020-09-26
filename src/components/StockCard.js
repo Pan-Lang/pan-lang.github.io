@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
 import StockModal from './StockModal';
 
-function StockCard({ stockItem, getStock, lang = 'name' }) {
+function StockCard({ stockItem, getStock, lang = 'name', allowEdit = true }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
@@ -42,18 +42,18 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
           <Container
             style={{ display: 'flex', alignItems: 'center', padding: 0 }}
           >
-            <Button
+            {!hasLanguage && (
+              <Badge variant="danger">Language unavailable: {lang}</Badge>
+            )}
+            <div style={{ margin: 'auto' }} />
+            {allowEdit && <Button
               size="sm"
               variant="info"
               style={{ alignSelf: 'center' }}
               onClick={handleShow}
             >
               Edit amount
-            </Button>
-            <div style={{ margin: 'auto' }} />
-            {!hasLanguage && (
-              <Badge variant="danger">Language unavailable: {lang}</Badge>
-            )}
+            </Button>}
           </Container>
         </Card.Body>
       </Card>

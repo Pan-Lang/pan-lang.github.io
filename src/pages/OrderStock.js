@@ -6,6 +6,9 @@ import LANGUAGES from '../constants/Languages';
 import { Container } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 
+/**
+ * Allows user to order stock items only after they've filled out form
+ */
 function OrderStock() {
   const history = useHistory();
   const location = useLocation();
@@ -52,6 +55,7 @@ function OrderStock() {
             getStock={getStock}
             lang={language === 'english' ? 'name' : language}
             key={item._id}
+            allowEdit={false}
           />
         ))}
       {error && <p>Error</p>}
