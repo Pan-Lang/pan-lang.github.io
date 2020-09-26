@@ -23,7 +23,6 @@ function OrderForm() {
       <Formik
         validationSchema={orderSchema}
         onSubmit={(personInfo) => {
-          console.log(personInfo);
           history.push('/order-stock', { fromForm: true, personInfo })
         }}
         initialValues={{
