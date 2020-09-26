@@ -14,6 +14,7 @@ function NavigationBar() {
       <Nav className="mr-auto">
         <Nav.Link as={Link} to="/order">Order</Nav.Link>
         <Nav.Link as={Link} to="/stock">Stock</Nav.Link>
+        <Nav.Link as={Link} to="/sockettest">Order Tracker</Nav.Link>
       </Nav>
     </Navbar>
   );
