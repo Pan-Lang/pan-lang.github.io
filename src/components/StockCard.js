@@ -13,7 +13,8 @@ function StockCard({ stockItem, lang = 'name' }) {
     <Card style={{ margin: 5 }}>
       <Card.Body>
         <Card.Title>
-          {hasLanguage ? stockItem[lang] : stockItem.name}
+          {hasLanguage ? stockItem[lang] : stockItem.name} 
+          {lang !== 'name' && hasLanguage ? " (" + stockItem['name'] + ")" : ""}
         </Card.Title>
         <Card.Text>Amount: {stockItem.count}</Card.Text>
         <Card.Text style={{ textAlign: 'right' }}>
