@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Spinner from 'react-bootstrap/Spinner';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
 import { fetchStock } from '../api/Stock';
 import { Button } from 'react-bootstrap';
 import Loading from '../components/Loading';
-
-// TODO: move all languages to a more global constant
-const LANGUAGES = ['english', 'spanish', 'french', 'chinese'];
+import LANGUAGES from '../constants/Languages';
 
 /**
  * Displays the stock of food pantry with options for language
  */
-function Stock({ fromForm = false, personInfo }) {
+function Stock() {
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
@@ -35,8 +32,7 @@ function Stock({ fromForm = false, personInfo }) {
 
   useEffect(() => {
     getStock();
-    if (fromForm) console.log(personInfo);
-  }, [personInfo, fromForm]);
+  }, []);
 
   function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);

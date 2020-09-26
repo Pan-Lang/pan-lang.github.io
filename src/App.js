@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
+import OrderStock from './pages/OrderStock';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/order">
           <Order />
+        </Route>
+        <Route path="/order-stock">
+          <OrderStock />
         </Route>
         <Route path="*">
           <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>

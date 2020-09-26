@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const orderSchema = Yup.object({
   firstName: Yup.string().required(),
@@ -24,7 +24,7 @@ function OrderForm() {
         validationSchema={orderSchema}
         onSubmit={(personInfo) => {
           console.log(personInfo);
-          history.push('/stock?fromForm=true', { fromForm: true, personInfo })
+          history.push('/order-stock', { fromForm: true, personInfo })
         }}
         initialValues={{
           firstName: '',
