@@ -7,7 +7,7 @@ import Stock from './pages/Stock';
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Navbar ç/>
       <br />
       <Switch>
