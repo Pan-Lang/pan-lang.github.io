@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
-import { Button, Col, Row } from 'react-bootstrap';
-const ENDPOINT = 'https://panlang.herokuapp.com/'; 
 import Loading from '../components/Loading';
 import { useHistory } from 'react-router-dom';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
+const ENDPOINT = 'https://panlang.herokuapp.com/'; 
 
 
 // List of people with unfulfilled orders
@@ -35,7 +34,7 @@ function OrderTrackerPage() {
       socket.off('person', eventHandler);
     };
   // e slint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [socket]);
 
   function personFulfilled(id) {
     socket.emit('personFulfilled', id);
