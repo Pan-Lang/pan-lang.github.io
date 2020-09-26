@@ -63,7 +63,7 @@ function StockModal({ show, handleClose, getStock, stockId, stockName, stockCoun
               <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleSubmit}>
+              <Button variant="success" onClick={handleSubmit}>
                 Save new amount
               </Button>
             </Modal.Footer>
