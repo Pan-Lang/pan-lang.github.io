@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
-import { Button, Col, Row } from 'react-bootstrap';
+import Loading from '../components/Loading';
+import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
 const ENDPOINT = 'http://localhost:3000'; //needs to be changed to heroku after testing
 
 // List of people with unfulfilled orders
 let listPeople = [];
 
-function SocketTest() {
+/**
+ * Page with list of people with unfulfilled orders
+ */
+function OrderTrackerPage() {
   const [response, setResponse] = useState(listPeople);
   const socket = socketIOClient(ENDPOINT);
 
@@ -34,22 +38,17 @@ function SocketTest() {
 
   return (
     <Container>
+      {listPeople.length === 0 && <Loading />}
       {response &&
-        response.map((item, index) => (
-          <Button
-            key={item._id}
-            size="lg"
-            onClick={() => {
-              personFulfilled(item._id);
-            }}
-          >
-            {item._id} {item.lastname},{' '}
-            {item.fulfilled !== undefined ? item.fulfilled.toString() : null},
-            {item[index]}
-          </Button>
+        response.map((person) => (
+          <UnfulfilledOrderCard
+            fulfillPerson={personFulfilled}
+            person={person}
+            key={person._id}
+          />
         ))}
     </Container>
   );
 }
 
-export default SocketTest;
+export default OrderTrackerPage;
