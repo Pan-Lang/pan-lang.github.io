@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
-import SocketTest from './pages/SocketTest'
+import OrderTrack from './pages/OrderTrack'
 
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
         <Route path="/order-stock">
           <OrderStock />
         </Route>
-        <Route path="/sockettest">
-          <SocketTest />
+        <Route path="/order-track">
+          <OrderTrack />
         </Route>
         <Route path="*">
           <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>
