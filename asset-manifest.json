@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/panlang-ui/static/css/main.b7cefdde.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.a96df787.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.a96df787.chunk.js.map",
+    "main.js": "/panlang-ui/static/js/main.81c81adc.chunk.js",
+    "main.js.map": "/panlang-ui/static/js/main.81c81adc.chunk.js.map",
     "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
     "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
     "static/js/2.8377ac45.chunk.js": "/panlang-ui/static/js/2.8377ac45.chunk.js",
     "static/js/2.8377ac45.chunk.js.map": "/panlang-ui/static/js/2.8377ac45.chunk.js.map",
     "index.html": "/panlang-ui/index.html",
-    "precache-manifest.36b1bb238b9fac542749be666634ae3a.js": "/panlang-ui/precache-manifest.36b1bb238b9fac542749be666634ae3a.js",
+    "precache-manifest.d6c87c138ae1ab2dd72e7d5c98e7c700.js": "/panlang-ui/precache-manifest.d6c87c138ae1ab2dd72e7d5c98e7c700.js",
     "service-worker.js": "/panlang-ui/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.b7cefdde.chunk.css.map": "/panlang-ui/static/css/main.b7cefdde.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.d9ad5f5c.chunk.css",
     "static/js/2.8377ac45.chunk.js",
     "static/css/main.b7cefdde.chunk.css",
-    "static/js/main.a96df787.chunk.js"
+    "static/js/main.81c81adc.chunk.js"
   ]
 }
