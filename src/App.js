@@ -26,7 +26,7 @@ function App() {
         <Route path="/order-stock">
           <OrderStock />
         </Route>
-        <Route path="/sockettest">
+        <Route path="/order-tracker">
           <SocketTest />
         </Route>
         <Route path="*">
