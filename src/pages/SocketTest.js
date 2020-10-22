@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
-import Loading from '../components/Loading';
 import { useHistory } from 'react-router-dom';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
-const ENDPOINT = 'https://panlang.herokuapp.com/'; 
-
+import { BASE_API_URL } from '../api/Client';
 
 // List of people with unfulfilled orders
 let listPeople = [];
@@ -16,11 +14,11 @@ let listPeople = [];
 function OrderTrackerPage() {
   const history = useHistory();
   const [response, setResponse] = useState(listPeople);
-  const socket = socketIOClient(ENDPOINT);
+  const socket = socketIOClient(BASE_API_URL);
 
   useEffect(() => {
     socket.on('person', (data) => {
-      console.log(data)
+      console.log(data);
       eventHandler(data);
     });
 
@@ -33,7 +31,7 @@ function OrderTrackerPage() {
       console.log('effect done');
       socket.off('person', eventHandler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function personFulfilled(id) {
@@ -44,7 +42,7 @@ function OrderTrackerPage() {
 
   return (
     <Container>
-      {listPeople.length === 0 && <Loading />}
+      {listPeople.length === 0 && <p>No orders at the moment.</p>}
       {response &&
         response.map((person) => (
           <UnfulfilledOrderCard
