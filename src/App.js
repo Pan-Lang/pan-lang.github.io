@@ -5,13 +5,12 @@ import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
-import SocketTest from './pages/SocketTest'
-
+import OrderTracker from './pages/OrderTracker';
 
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Navbar ç/>
+      <Navbar ç />
       <br />
       <Switch>
         <Route exact path="/">
@@ -27,10 +26,12 @@ function App() {
           <OrderStock />
         </Route>
         <Route path="/order-tracker">
-          <SocketTest />
+          <OrderTracker />
         </Route>
         <Route path="*">
-          <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>
+          <h1>
+            Welcome to <font style={{ color: '#26B020' }}>Pan-Lang</font>!
+          </h1>
         </Route>
       </Switch>
     </Router>

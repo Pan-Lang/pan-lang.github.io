@@ -7,7 +7,7 @@ import { BASE_API_URL } from '../api/Client';
 /**
  * Page with list of people with unfulfilled orders
  */
-function OrderTrackerPage() {
+function OrderTracker() {
   const [ordersList, setOrdersList] = useState([]);
   const socket = socketIOClient(BASE_API_URL);
 
@@ -49,4 +49,4 @@ function OrderTrackerPage() {
   );
 }
 
-export default OrderTrackerPage;
+export default OrderTracker;
