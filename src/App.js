@@ -6,6 +6,7 @@ import Order from './pages/Order';
 import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import OrderTracker from './pages/OrderTracker';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route path="/order-tracker">
           <OrderTracker />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="*">
           <h1>

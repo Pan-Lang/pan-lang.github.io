@@ -5,17 +5,21 @@ import Nav from 'react-bootstrap/Nav';
 
 function NavigationBar() {
   return (
-    <Navbar bg="light">
-      <Navbar.Brand as={Link} to="/">
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="#home" as={Link} to="/">
         <div id="logo">
           <img src={require('../images/logo.png')} alt="Pan-Lang" style={{width:150, height:45}}></img>
         </div>
       </Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link as={Link} to="/order">Order</Nav.Link>
-        <Nav.Link as={Link} to="/stock">Stock</Nav.Link>
-        <Nav.Link as={Link} to="/order-tracker">Order Tracker</Nav.Link>
-      </Nav>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/order">Order</Nav.Link>
+          <Nav.Link as={Link} to="/stock">Stock</Nav.Link>
+          <Nav.Link as={Link} to="/order-tracker">Order Tracker</Nav.Link>
+          <Nav.Link as={Link} to="/login">Login</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 }
