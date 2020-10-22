@@ -1,27 +1,26 @@
 {
   "files": {
-    "main.css": "/panlang-ui/static/css/main.b7cefdde.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.81c81adc.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.81c81adc.chunk.js.map",
+    "main.css": "/panlang-ui/static/css/main.9be44ac0.chunk.css",
+    "main.js": "/panlang-ui/static/js/main.fe6b1241.chunk.js",
+    "main.js.map": "/panlang-ui/static/js/main.fe6b1241.chunk.js.map",
     "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
     "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.8377ac45.chunk.js": "/panlang-ui/static/js/2.8377ac45.chunk.js",
-    "static/js/2.8377ac45.chunk.js.map": "/panlang-ui/static/js/2.8377ac45.chunk.js.map",
+    "static/js/2.6148f3bd.chunk.js": "/panlang-ui/static/js/2.6148f3bd.chunk.js",
+    "static/js/2.6148f3bd.chunk.js.map": "/panlang-ui/static/js/2.6148f3bd.chunk.js.map",
     "index.html": "/panlang-ui/index.html",
-    "precache-manifest.d6c87c138ae1ab2dd72e7d5c98e7c700.js": "/panlang-ui/precache-manifest.d6c87c138ae1ab2dd72e7d5c98e7c700.js",
+    "precache-manifest.60e1ff8d2f67bd30431e1c39c9332a18.js": "/panlang-ui/precache-manifest.60e1ff8d2f67bd30431e1c39c9332a18.js",
     "service-worker.js": "/panlang-ui/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
-    "static/css/main.b7cefdde.chunk.css.map": "/panlang-ui/static/css/main.b7cefdde.chunk.css.map",
-    "static/js/2.8377ac45.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.8377ac45.chunk.js.LICENSE.txt",
-    "static/media/logo.png": "/panlang-ui/static/media/logo.07da641c.png",
-    "static/media/index.css": "/panlang-ui/static/media/pantry.51c21c1c.png"
+    "static/css/main.9be44ac0.chunk.css.map": "/panlang-ui/static/css/main.9be44ac0.chunk.css.map",
+    "static/js/2.6148f3bd.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.6148f3bd.chunk.js.LICENSE.txt",
+    "static/media/logo.png": "/panlang-ui/static/media/logo.07da641c.png"
   },
   "entrypoints": [
     "static/js/runtime-main.8fc7666c.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.8377ac45.chunk.js",
-    "static/css/main.b7cefdde.chunk.css",
-    "static/js/main.81c81adc.chunk.js"
+    "static/js/2.6148f3bd.chunk.js",
+    "static/css/main.9be44ac0.chunk.css",
+    "static/js/main.fe6b1241.chunk.js"
   ]
 }
