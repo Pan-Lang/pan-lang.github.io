@@ -19,6 +19,7 @@ function OrderTracker() {
 
     const eventHandler = (personData) => {
       setOrdersList(ordersList.concat(personData));
+      console.log(ordersList);
     };
 
     return () => {
