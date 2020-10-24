@@ -5,7 +5,13 @@ import OrderModal from './OrderModal';
 /**
  * Stock item card on order screen
  */
-function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
+function OrderCard({
+  stockItem,
+  getStock,
+  lang = 'name',
+  onRequest,
+  isRequested = false,
+}) {
   const [showOrderModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
@@ -17,6 +23,16 @@ function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
   useEffect(() => {
     setHasLanguage(stockItem[lang] !== undefined);
   }, [lang, stockItem]);
+
+  function getRequestButtonText() {
+    if (stockItem.count <= 0) {
+      return 'Out of stock';
+    } else if (isRequested) {
+      return 'Edit requested amount';
+    } else {
+      return 'Request item';
+    }
+  }
 
   return (
     <>
@@ -49,7 +65,7 @@ function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
               onClick={handleShow}
               disabled={stockItem.count <= 0}
             >
-              {stockItem.count > 0 ? 'Request item' : 'Out of stock'}
+              {getRequestButtonText()}
             </Button>
           </Container>
           <Card.Text style={{ textAlign: 'right' }}>

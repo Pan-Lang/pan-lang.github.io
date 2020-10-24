@@ -65,11 +65,13 @@ function OrderStock() {
       setRequestedStockItems(requestedStockItems.concat(requestedItem));
     } else {
       let itemIndex = requestedStockItems.indexOf(alreadyRequested);
-      
+
       let updatedStockItems = [...requestedStockItems];
-      updatedStockItems[itemIndex].requestedCount = requestedItem.requestedCount;
-      updatedStockItems[itemIndex].countAfterRequest = requestedItem.countAfterRequest;
-      
+      updatedStockItems[itemIndex].requestedCount =
+        requestedItem.requestedCount;
+      updatedStockItems[itemIndex].countAfterRequest =
+        requestedItem.countAfterRequest;
+
       setRequestedStockItems(updatedStockItems);
     }
   }
@@ -173,6 +175,9 @@ function OrderStock() {
             lang={language === 'english' ? 'name' : language}
             key={item._id}
             onRequest={onRequest}
+            isRequested={requestedStockItems.some(
+              (requested) => item._id === requested.id
+            )}
           />
         ))}
       {error && <p>Error</p>}
