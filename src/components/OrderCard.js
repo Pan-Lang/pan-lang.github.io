@@ -47,8 +47,9 @@ function OrderCard({ stockItem, getStock, lang = 'name', onRequest }) {
               variant="success"
               style={{ alignSelf: 'left' }}
               onClick={handleShow}
+              disabled={stockItem.count <= 0}
             >
-              Request Item
+              {stockItem.count > 0 ? 'Request item' : 'Out of stock'}
             </Button>
           </Container>
           <Card.Text style={{ textAlign: 'right' }}>
