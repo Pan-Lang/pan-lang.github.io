@@ -12,14 +12,14 @@ function Home() {
   return (
     <Container style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1>Welcome to</h1>{' '}
+        <h1>Welcome to </h1>{' '}
         <h1>
-          <font style={{ color: '#26B020', fontWeight: 'bold' }}>Pan-Lang</font>
+          <font style={{ color: '#35B82A', fontWeight: 'bold' }}>Pan-Lang</font>
         </h1>
       </div>
       <div>
         <Link to="/order" style={{ color: 'white' }}>
-          <Button variant="success" size="lg" className="mb-3" block>
+          <Button color="#2EFFD5" size="lg" className="mb-3" block>
             New Order
           </Button>
         </Link>
