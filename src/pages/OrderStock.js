@@ -55,7 +55,23 @@ function OrderStock() {
    * @param {Object} requestedItem { id, name, requestedCount, countAfterRequest }
    */
   function onRequest(requestedItem) {
-    setRequestedStockItems(requestedStockItems.concat(requestedItem));
+    // Check if item is already in list
+    let alreadyRequested = requestedStockItems.find(
+      (item) => item.id === requestedItem.id
+    );
+
+    // If item is already in list, update its values instead of adding
+    if (alreadyRequested === undefined) {
+      setRequestedStockItems(requestedStockItems.concat(requestedItem));
+    } else {
+      let itemIndex = requestedStockItems.indexOf(alreadyRequested);
+      
+      let updatedStockItems = [...requestedStockItems];
+      updatedStockItems[itemIndex].requestedCount = requestedItem.requestedCount;
+      updatedStockItems[itemIndex].countAfterRequest = requestedItem.countAfterRequest;
+      
+      setRequestedStockItems(updatedStockItems);
+    }
   }
 
   function writeRequestToNotes() {
