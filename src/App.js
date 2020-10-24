@@ -5,8 +5,6 @@ import Home from './pages/Home';
 import Order from './pages/Order';
 import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
-import OrderTrack from './pages/OrderTrack'
-
 import OrderTracker from './pages/OrderTracker';
 
 function App() {
@@ -26,9 +24,6 @@ function App() {
         </Route>
         <Route path="/order-stock">
           <OrderStock />
-        </Route>
-        <Route path="/order-track">
-          <OrderTrack />
         </Route>
         <Route path="/order-tracker"> 
           <OrderTracker />
