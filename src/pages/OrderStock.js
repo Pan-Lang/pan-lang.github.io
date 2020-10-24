@@ -75,17 +75,19 @@ function OrderStock() {
       children: personInfo.adults,
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
-      fulfilled: false
+      fulfilled: false,
     };
     addPersonInfo(requestBody);
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
       console.log('making promise... ', item.countAfterRequest);
-      return updateStockCount(item.id, { newCount: item.countAfterRequest })
+      return updateStockCount(item.id, { newCount: item.countAfterRequest });
     });
 
-    Promise.all(stockUpdatePromises).then((responses) => console.log(responses));
+    Promise.all(stockUpdatePromises).then((responses) =>
+      console.log(responses)
+    );
 
     // Redirect back home
     history.push('/');
@@ -101,7 +103,13 @@ function OrderStock() {
         </p>
       ))}
 
-      <Button variant="type" className="mb-3" onClick={submitRequest} block>
+      <Button
+        variant="type"
+        className="mb-3"
+        onClick={submitRequest}
+        block
+        style={{ backgroundColor: 'green', color: 'white' }}
+      >
         Submit request
       </Button>
 
