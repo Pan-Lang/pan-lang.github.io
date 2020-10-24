@@ -7,11 +7,12 @@ import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import OrderTrack from './pages/OrderTrack'
 
+import OrderTracker from './pages/OrderTracker';
 
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Navbar ç/>
+      <Navbar ç />
       <br />
       <Switch>
         <Route exact path="/">
@@ -29,8 +30,13 @@ function App() {
         <Route path="/order-track">
           <OrderTrack />
         </Route>
+        <Route path="/order-tracker"> 
+          <OrderTracker />
+        </Route>
         <Route path="*">
-          <h1>Welcome to <font style={{color:'#26B020'}}>Pan-Lang</font>!</h1>
+          <h1>
+            Welcome to <font style={{ color: '#26B020' }}>Pan-Lang</font>!
+          </h1>
         </Route>
       </Switch>
     </Router>

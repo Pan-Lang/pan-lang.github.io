@@ -106,7 +106,7 @@ function OrderForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button variant="success" block>Select order</Button>
+                <Button type="submit" variant="success" block>Select order</Button>
               </div>
             </Form>
           </div>

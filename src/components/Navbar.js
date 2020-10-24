@@ -15,6 +15,7 @@ function NavigationBar() {
         <Nav.Link as={Link} to="/order">Order</Nav.Link>
         <Nav.Link as={Link} to="/stock">Stock</Nav.Link>
         <Nav.Link as={Link} to="/order-track">Order Tracker</Nav.Link>
+        <Nav.Link as={Link} to="/order-tracker">Order Tracker</Nav.Link>
       </Nav>
     </Navbar>
   );
