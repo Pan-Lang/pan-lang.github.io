@@ -5,13 +5,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 import { PEOPLE_ENDPOINT } from '../api/People';
 import { BASE_API_URL } from '../api/Client';
-import MONTHS from '../constants/Months';
+import { MONTHS, MONTH_NAMES } from '../constants/Months';
 import YEARS from '../constants/Years';
 
 function Home() {
-  // TODO: find a way to select date
-  // const [date, setDate] = useState({ month: 9, year: 2020 });
-  const [date, setDate] = useState({ month: MONTHS[0], year: YEARS[0] });
+  const current = new Date();
+  const [date, setDate] = useState({
+    month: MONTHS[current.getMonth()],
+    year: current.getFullYear(),
+  });
 
   return (
     <Container style={{ textAlign: 'center' }}>
@@ -46,61 +48,53 @@ function Home() {
         </Button>{' '}
       </a>
 
-
-
       {/* Month selection dropdown here */}
       <Dropdown onChange={(e) => console.log(e)}>
-          <Dropdown.Toggle
-            variant="type"
-            id="dropdown-basic"
-            size="md"
-            className="mb-3"
-            style={{ backgroundColor: 'green', color: 'white' }}
-          >
-            Month: <b>{date.month}</b>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {MONTHS.map((month) => (
-              <Dropdown.Item
-                onSelect={(key) => setDate({...date, month: key})}
-                // onSelect={(key) => console.log(key)}
+        <Dropdown.Toggle
+          variant="type"
+          id="dropdown-basic"
+          size="md"
+          className="mb-3"
+          style={{ backgroundColor: 'green', color: 'white' }}
+        >
+          Month: <b>{MONTH_NAMES[MONTHS.indexOf(date.month)]}</b>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {MONTHS.map((month) => (
+            <Dropdown.Item
+              onSelect={(key) => setDate({ ...date, month: key })}
+              eventKey={month}
+              key={month}
+            >
+              {MONTH_NAMES[MONTHS.indexOf(month)]}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
 
-                eventKey={month}
-                key={month}
-              >
-                {month}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-
-
-        {/* Year selection dropdown here */}
-        <Dropdown onChange={(e) => console.log(e)}>
-          <Dropdown.Toggle
-            variant="type"
-            id="dropdown-basic"
-            size="md"
-            className="mb-3"
-            style={{ backgroundColor: 'green', color: 'white' }}
-          >
-            Year: <b>{date.year}</b>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {YEARS.map((year) => (
-              <Dropdown.Item
-                onSelect={(key) => setDate({...date, year: key})}
-                
-                eventKey={year}
-                key={year}
-              >
-                {year}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>        
-
-
+      {/* Year selection dropdown here */}
+      <Dropdown onChange={(e) => console.log(e)}>
+        <Dropdown.Toggle
+          variant="type"
+          id="dropdown-basic"
+          size="md"
+          className="mb-3"
+          style={{ backgroundColor: 'green', color: 'white' }}
+        >
+          Year: <b>{date.year}</b>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {YEARS.map((year) => (
+            <Dropdown.Item
+              onSelect={(key) => setDate({ ...date, year: key })}
+              eventKey={year}
+              key={year}
+            >
+              {year}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
     </Container>
   );
 }
