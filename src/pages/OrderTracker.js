@@ -9,17 +9,15 @@ import { BASE_API_URL } from '../api/Client';
  */
 function OrderTracker() {
   const [ordersList, setOrdersList] = useState([]);
-  
+
   useEffect(() => {
     const socket = socketIOClient(BASE_API_URL);
     socket.on('person', (data) => {
-      console.log(data);
       eventHandler(data);
     });
 
     const eventHandler = (personData) => {
-      setOrdersList(ordersList.concat(personData));
-      console.log(ordersList);
+      setOrdersList((currentOrders) => [...currentOrders, personData]);
     };
 
     return () => {
@@ -31,15 +29,15 @@ function OrderTracker() {
 
   function personFulfilled(id) {
     const socket = socketIOClient(BASE_API_URL);
-    console.log("printing socket object: ")
-    console.log(socket)
+    console.log('printing socket object: ');
+    console.log(socket);
 
-    console.log("emitting personfulfilled");
-    socket.emit('personFulfilled', id)
-    socket.on("personFulfillSuccess", function(confirmation) {
-      console.log("confirmed " + confirmation);
+    console.log('emitting personfulfilled');
+    socket.emit('personFulfilled', id);
+    socket.on('personFulfillSuccess', function (confirmation) {
+      console.log('confirmed ' + confirmation);
       socket.disconnect();
-    })
+    });
     // Remove fulfilled order from list after emitting fulfillment through socket
     setOrdersList(ordersList.filter((order) => order._id !== id));
   }
