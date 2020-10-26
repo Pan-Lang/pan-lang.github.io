@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/panlang-ui/precache-manifest.60e1ff8d2f67bd30431e1c39c9332a18.js"
+  "/panlang-ui/precache-manifest.8aaf5eb416f24aea8c06d5f0e3987b46.js"
 );
 
 self.addEventListener('message', (event) => {
