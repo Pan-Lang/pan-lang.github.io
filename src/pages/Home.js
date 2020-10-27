@@ -26,13 +26,13 @@ function Home() {
       <div>
         <Link to="/order" style={{ color: 'white' }}>
           <Button variant="success" size="lg" className="mb-3" block>
-            New Order
+            Start a new order
           </Button>
         </Link>
       </div>
       <Link to="/stock" style={{ color: 'white' }}>
         <Button variant="success" size="lg" className="mb-3" block>
-          Edit Stock
+          Edit and add stock items
         </Button>{' '}
       </Link>
 
@@ -44,7 +44,7 @@ function Home() {
         href={`${BASE_API_URL}${PEOPLE_ENDPOINT}?${new URLSearchParams(date)}`}
       >
         <Button variant="success" size="lg" className="mb-3" block>
-          Download Order Data
+          Download order data
         </Button>{' '}
       </a>
 
