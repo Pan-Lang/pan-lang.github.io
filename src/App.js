@@ -12,7 +12,8 @@ function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Navbar ç />
-      <br />
+      {/* FIXME: naive fix for keeping a fixed navbar */}
+      <div style={{ padding: 45 }} />
       <Switch>
         <Route exact path="/">
           <Home />

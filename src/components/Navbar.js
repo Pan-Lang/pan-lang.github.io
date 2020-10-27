@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 
 function NavigationBar() {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" fixed="top">
       <Navbar.Brand href="#home" as={Link} to="/">
         <div id="logo">
           <img src={require('../images/logo.png')} alt="Pan-Lang" style={{width:150, height:45}}></img>
