@@ -8,6 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
 import ConfirmationModal from '../components/ConfirmationModal';
+import ErrorAlert from '../components/ErrorAlert';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -37,6 +38,7 @@ function OrderStock() {
   function getStock(timeout = 0) {
     // Set stock empty to begin loading spinner
     setStock([]);
+    setError(false);
 
     // Fetch stock after designated time
     setTimeout(() => {
@@ -109,7 +111,7 @@ function OrderStock() {
       console.log(responses)
     );
 
-    // TODO: Show confirmation popup
+    // Show confirmation popup
     setShowConfirmation(true);
   }
 
@@ -123,15 +125,16 @@ function OrderStock() {
         </p>
       ))}
 
-      <Button
+      {!error && <Button
         variant="type"
         className="mb-3"
         onClick={submitRequest}
         block
         style={{ backgroundColor: 'green', color: 'white' }}
+        disabled={requestedStockItems.length === 0}
       >
-        Submit request
-      </Button>
+        {requestedStockItems.length > 0 ? 'Submit request' : 'Select items below'}
+      </Button>}
 
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown variant="type" onChange={(e) => console.log(e)}>
@@ -183,7 +186,7 @@ function OrderStock() {
             )}
           />
         ))}
-      {error && <p>Error</p>}
+      {error && <ErrorAlert heading="Error" body="An error occurred while trying to get the stock." dismissible={false} />}
 
       {/* Confirmation popup */}
       <ConfirmationModal
