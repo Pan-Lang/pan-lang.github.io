@@ -81,7 +81,7 @@ function OrderCard({
         show={showOrderModal}
         handleClose={handleClose}
         getStock={getStock}
-        stockName={hasLanguage ? stockItem[lang] : stockItem.name}
+        stockName={stockItem.name}
         stockId={stockItem._id}
         stockCount={stockItem.count}
         onRequest={onRequest}
