@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,32 @@ const amountSchema = Yup.object({
   newCount: Yup.number().integer().moreThan(-1).required(),
 });
 
-function StockModal({ show, handleClose, getStock, stockId, stockName, stockCount }) {
+function StockModal({
+  show,
+  handleClose,
+  getStock,
+  stockId,
+  stockName,
+  stockCount,
+}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  async function onSubmit(updatedCount) {
+    setLoading(true);
+    const updateIsSuccessful = await updateStockCount(stockId, updatedCount);
+
+    setLoading(false);
+
+    if (!updateIsSuccessful) {
+      setError(true);
+    } else {
+      handleClose();
+      getStock(500);
+    }
+
+  }
+
   return (
     <Modal
       show={show}
@@ -18,12 +43,7 @@ function StockModal({ show, handleClose, getStock, stockId, stockName, stockCoun
     >
       <Formik
         validationSchema={amountSchema}
-        onSubmit={(updatedCount) => {
-          console.log(updatedCount);
-          updateStockCount(stockId, updatedCount);
-          handleClose();
-          getStock(500);
-        }}
+        onSubmit={onSubmit}
         initialValues={{
           newCount: -1,
         }}
@@ -43,29 +63,44 @@ function StockModal({ show, handleClose, getStock, stockId, stockName, stockCoun
                 Edit amount for: {stockName}
               </Modal.Title>
             </Modal.Header>
+
+            {/* Body of modal; changes upon sending update request */}
             <Modal.Body>
-              <p>Current amount: {stockCount}</p>
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group controlId="stockCount">
-                  <Form.Control
-                    type="number"
-                    name="newCount"
-                    placeholder={'Insert new item count'}
-                    onChange={handleChange}
-                    isValid={touched.newCount && !errors.newCount}
-                    isInvalid={!!errors.newCount}
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </Form.Group>
-              </Form>
+              {!loading && (
+                <>
+                  <p>Current amount: {stockCount}</p>
+                  <Form noValidate onSubmit={handleSubmit}>
+                    <Form.Group controlId="stockCount">
+                      <Form.Control
+                        type="number"
+                        name="newCount"
+                        placeholder={'Insert new item count'}
+                        onChange={handleChange}
+                        isValid={touched.newCount && !errors.newCount}
+                        isInvalid={!!errors.newCount}
+                      />
+                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                  </Form>
+                </>
+              )}
+
+              {loading && <p>Updating stock count for {stockName}...</p>}
+
+              {error && <p>An error occurred.</p>}
             </Modal.Body>
+
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="success" onClick={handleSubmit}>
-                Save new amount
-              </Button>
+              {!loading && (
+                <>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="success" onClick={handleSubmit}>
+                    Save new amount
+                  </Button>
+                </>
+              )}
             </Modal.Footer>
           </>
         )}

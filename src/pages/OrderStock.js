@@ -189,6 +189,7 @@ function OrderStock() {
       <ConfirmationModal
         title="Order successfully placed!"
         body="Thanks for your patronage! Your order will be fulfilled shortly."
+        buttonText="Back to Home"
         show={showConfirmation}
         handleClose={() => {
           setShowConfirmation(false);
