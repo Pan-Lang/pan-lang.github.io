@@ -7,6 +7,7 @@ import { Container, Dropdown, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
+import ConfirmationModal from '../components/ConfirmationModal';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -21,6 +22,7 @@ function OrderStock() {
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [requestedStockItems, setRequestedStockItems] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     // Send user back to form if they didn't fill it out
@@ -107,8 +109,8 @@ function OrderStock() {
       console.log(responses)
     );
 
-    // Redirect back home
-    history.push('/');
+    // TODO: Show confirmation popup
+    setShowConfirmation(true);
   }
 
   return (
@@ -165,6 +167,7 @@ function OrderStock() {
         </Button>
       </Container>
 
+      {/* List of stock */}
       {stock.length === 0 && !error && <Loading />}
       {stock &&
         fromForm &&
@@ -181,6 +184,17 @@ function OrderStock() {
           />
         ))}
       {error && <p>Error</p>}
+
+      {/* Confirmation popup */}
+      <ConfirmationModal
+        title="Order successfully placed!"
+        body="Thanks for your patronage! Your order will be fulfilled shortly."
+        show={showConfirmation}
+        handleClose={() => {
+          setShowConfirmation(false);
+          history.push('/'); // Redirect back home
+        }}
+      />
     </Container>
   );
 }
