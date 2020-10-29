@@ -31,7 +31,6 @@ function StockModal({
       handleClose();
       getStock(500);
     }
-
   }
 
   return (
@@ -93,16 +92,21 @@ function StockModal({
             <Modal.Footer>
               {!loading && (
                 <>
-                  <Button variant="secondary" onClick={() => {
-                    setError(false);
-                    setLoading(false);
-                    handleClose();
-                  }}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      setError(false);
+                      setLoading(false);
+                      handleClose();
+                    }}
+                  >
                     Close
                   </Button>
-                  {!error && <Button variant="success" onClick={handleSubmit}>
-                    Save new amount
-                  </Button>}
+                  {!error && (
+                    <Button variant="success" onClick={handleSubmit}>
+                      Save new amount
+                    </Button>
+                  )}
                 </>
               )}
             </Modal.Footer>
