@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Badge, Container, Card } from 'react-bootstrap';
 import StockModal from './StockModal';
+import ErrorAlert from './ErrorAlert';
 
 function StockCard({ stockItem, getStock, lang = 'name' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
@@ -32,6 +33,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
               {stockItem.count}
             </font>
           </Card.Text>
+
           <Card.Text style={{ textAlign: 'right' }}>
             Last updated:{' '}
             {stockItem.timestamp !== undefined
@@ -55,6 +57,8 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
               Edit amount
             </Button>
           </Container>
+
+          {stockItem.count <= 0 && <ErrorAlert body="Warning: Out of stock" />}
         </Card.Body>
       </Card>
 
