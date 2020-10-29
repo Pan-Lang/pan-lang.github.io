@@ -125,16 +125,20 @@ function OrderStock() {
         </p>
       ))}
 
-      {!error && <Button
-        variant="type"
-        className="mb-3"
-        onClick={submitRequest}
-        block
-        style={{ backgroundColor: 'green', color: 'white' }}
-        disabled={requestedStockItems.length === 0}
-      >
-        {requestedStockItems.length > 0 ? 'Submit request' : 'Select items below'}
-      </Button>}
+      {!error && (
+        <Button
+          variant="type"
+          className="mb-3"
+          onClick={submitRequest}
+          block
+          style={{ backgroundColor: 'green', color: 'white' }}
+          disabled={requestedStockItems.length === 0}
+        >
+          {requestedStockItems.length > 0
+            ? 'Submit request'
+            : 'Select items below'}
+        </Button>
+      )}
 
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown variant="type" onChange={(e) => console.log(e)}>
@@ -186,7 +190,13 @@ function OrderStock() {
             )}
           />
         ))}
-      {error && <ErrorAlert heading="Error" body="An error occurred while trying to get the stock." dismissible={false} />}
+      {error && (
+        <ErrorAlert
+          heading="Error"
+          body="An error occurred while trying to get the stock."
+          dismissible={false}
+        />
+      )}
 
       {/* Confirmation popup */}
       <ConfirmationModal
