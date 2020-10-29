@@ -66,7 +66,7 @@ function StockModal({
 
             {/* Body of modal; changes upon sending update request */}
             <Modal.Body>
-              {!loading && (
+              {!loading && !error && (
                 <>
                   <p>Current amount: {stockCount}</p>
                   <Form noValidate onSubmit={handleSubmit}>
@@ -87,18 +87,22 @@ function StockModal({
 
               {loading && <p>Updating stock count for {stockName}...</p>}
 
-              {error && <p>An error occurred.</p>}
+              {error && <p>An error occurred when trying to update stock.</p>}
             </Modal.Body>
 
             <Modal.Footer>
               {!loading && (
                 <>
-                  <Button variant="secondary" onClick={handleClose}>
+                  <Button variant="secondary" onClick={() => {
+                    setError(false);
+                    setLoading(false);
+                    handleClose();
+                  }}>
                     Close
                   </Button>
-                  <Button variant="success" onClick={handleSubmit}>
+                  {!error && <Button variant="success" onClick={handleSubmit}>
                     Save new amount
-                  </Button>
+                  </Button>}
                 </>
               )}
             </Modal.Footer>

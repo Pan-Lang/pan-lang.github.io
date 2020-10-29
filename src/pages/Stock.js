@@ -87,7 +87,7 @@ function Stock() {
             key={item._id}
           />
         ))}
-      {error && <p>Error :(</p>}
+      {error && <p>An error occurred when loading stock.</p>}
     </Container>
   );
 }
