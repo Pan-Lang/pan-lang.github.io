@@ -63,22 +63,27 @@ function OrderModal({
           aria-label="Stock item request buttons"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          <Button size="lg" onClick={handleDecrease}>
+          <Button size="lg" 
+          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFFF', color: '#FFFFFF'}}
+          onClick={handleDecrease}>
             -
           </Button>
-          <Button size="lg" variant="secondary" disabled>
+          <Button size="lg" variant="secondary" style={{borderColor: '#FFFFFF'}} disabled>
             {selectedAmount}
           </Button>
-          <Button variant="success" size="lg" onClick={handleIncrease}>
+          <Button size="lg"
+          style={{backgroundColor: '#2EFFD5', borderColor: '#FFFFFF', color: '#FFFFFF'}}
+          onClick={handleIncrease}>
             +
           </Button>
         </ButtonGroup>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" style={{borderRadius: '200px'}} onClick={handleClose}>
           Close
         </Button>
-        <Button variant="success" onClick={submitRequest}>
+        <Button onClick={submitRequest}
+        style={{backgroundColor: '#35E82A', borderColor: '#35E82A', borderRadius: '200px', color: '#FFFFFF'}}>
           Request amount
         </Button>
       </Modal.Footer>
