@@ -29,10 +29,11 @@ function FulfillModal({ person, show, handleClose, fulfillPerson }) {
         <p>{person['order-notes']}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" style={{borderRadius: '200px'}} onClick={handleClose}>
           Close
         </Button>
-        <Button variant="success" onClick={handleConfirm}>
+        <Button onClick={handleConfirm}
+        style={{backgroundColor: '#35E82A', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}>
           Confirm fulfillment
         </Button>
       </Modal.Footer>

@@ -9,9 +9,9 @@ function NavigationBar() {
       <Navbar.Brand href="#home" as={Link} to="/">
         <div id="logo">
           <img
-            src={require('../images/logo.png')}
+            src={require('../images/logo_nobg.png')}
             alt="Pan-Lang"
-            style={{ width: 150, height: 45 }}
+            style={{ width: 75, height: 75 }}
           ></img>
         </div>
       </Navbar.Brand>

@@ -18,20 +18,21 @@ function Home() {
   return (
     <Container style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 20 }}>
-        <h1>Welcome to</h1>{' '}
+        <br></br>
+        <h1>Welcome to </h1>{' '}
         <h1>
-          <font style={{ color: '#26B020', fontWeight: 'bold' }}>Pan-Lang</font>
+          <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-</font><font style={{ color: '#2EFFD5', fontWeight: 'bold' }}>Lang</font>
         </h1>
       </div>
       <div>
         <Link to="/order" style={{ color: 'white' }}>
-          <Button variant="success" size="lg" className="mb-3" block>
+          <Button style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}} size="lg" className="mb-3" block>
             Start a new order
           </Button>
         </Link>
       </div>
       <Link to="/stock" style={{ color: 'white' }}>
-        <Button variant="success" size="lg" className="mb-3" block>
+        <Button style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}} size="lg" className="mb-3" block>
           Edit and add stock items
         </Button>{' '}
       </Link>
@@ -43,7 +44,7 @@ function Home() {
       <a
         href={`${BASE_API_URL}${PEOPLE_ENDPOINT}?${new URLSearchParams(date)}`}
       >
-        <Button variant="success" size="lg" className="mb-3" block>
+        <Button style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}} size="lg" className="mb-3" block>
           Download order data
         </Button>{' '}
       </a>
@@ -55,7 +56,7 @@ function Home() {
           id="dropdown-basic"
           size="md"
           className="mb-3"
-          style={{ backgroundColor: 'green', color: 'white' }}
+          style={{backgroundColor: '#35E82A', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
         >
           Month: <b>{MONTH_NAMES[MONTHS.indexOf(date.month)]}</b>
         </Dropdown.Toggle>
@@ -79,7 +80,7 @@ function Home() {
           id="dropdown-basic"
           size="md"
           className="mb-3"
-          style={{ backgroundColor: 'green', color: 'white' }}
+          style={{backgroundColor: '#35E82A', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
         >
           Year: <b>{date.year}</b>
         </Dropdown.Toggle>

@@ -22,7 +22,8 @@ function ConfirmationModal({ title, body, buttonText, show, handleClose }) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="success" onClick={handleClose}>
+        <Button onClick={handleClose}
+        style={{backgroundColor: '#16AB8D', borderColor: '#16AB8D', borderRadius: '200px', color: '#FFFFFF'}}>
           {buttonText}
         </Button>
       </Modal.Footer>

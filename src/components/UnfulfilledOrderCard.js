@@ -28,7 +28,8 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
             {person.firstname} {person.lastname}
           </Card.Header>
           <Card.Text>{person['order-notes']}</Card.Text>
-          <Button variant="success" onClick={handleShow} block>
+          <Button onClick={handleShow} block
+          style={{backgroundColor: '#16AB8D', borderColor: '#16AB8D', borderRadius: '200px', color: '#FFFFFF'}}>
             Fulfill Order
           </Button>
         </Card.Body>
