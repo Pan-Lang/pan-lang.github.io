@@ -21,13 +21,16 @@ function NavigationBar() {
           <Nav.Link eventKey="0" as={Link} to="/">
             Home
           </Nav.Link>
-          <Nav.Link eventKey="1" as={Link} to="/order">
+          <Nav.Link eventKey="1" as={Link} to="/about">
+            About
+          </Nav.Link>
+          <Nav.Link eventKey="2" as={Link} to="/order">
             Order
           </Nav.Link>
-          <Nav.Link eventKey="2" as={Link} to="/stock">
+          <Nav.Link eventKey="3" as={Link} to="/stock">
             Stock
           </Nav.Link>
-          <Nav.Link eventKey="3" as={Link} to="/order-tracker">
+          <Nav.Link eventKey="4" as={Link} to="/order-tracker">
             Order Tracker
           </Nav.Link>
         </Nav>
