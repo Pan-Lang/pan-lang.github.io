@@ -17,13 +17,15 @@ function OrderStock() {
   const history = useHistory();
   const location = useLocation();
   const fromForm = location.state !== undefined;
-  const personInfo = fromForm
-    ? location.state.personInfo
-    : retrieveFromStorage('personInfo', undefined);
 
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
+  const [personInfo, setPersonInfo] = useState(
+    fromForm
+      ? location.state.personInfo
+      : retrieveFromStorage('personInfo', undefined)
+  );
   const [requestedStockItems, setRequestedStockItems] = useState(
     retrieveFromStorage('requestedStockItems', [])
   );
