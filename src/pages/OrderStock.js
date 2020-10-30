@@ -17,23 +17,39 @@ function OrderStock() {
   const history = useHistory();
   const location = useLocation();
   const fromForm = location.state !== undefined;
-  const personInfo = fromForm ? location.state.personInfo : {};
 
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [requestedStockItems, setRequestedStockItems] = useState([]);
+  const [personInfo, setPersonInfo] = useState(
+    fromForm
+      ? location.state.personInfo
+      : retrieveFromStorage('personInfo', undefined)
+  );
+  const [requestedStockItems, setRequestedStockItems] = useState(
+    retrieveFromStorage('requestedStockItems', [])
+  );
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     // Send user back to form if they didn't fill it out
-    if (!fromForm) {
+    if (!personInfo) {
       history.push('/order');
     } else {
+      localStorage.setItem('personInfo', JSON.stringify(personInfo));
       getStock();
       console.log(personInfo);
     }
   }, [fromForm, history, personInfo]);
+
+  function retrieveFromStorage(key, defaultValue) {
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      return JSON.parse(stored);
+    } else {
+      return defaultValue;
+    }
+  }
 
   function getStock(timeout = 0) {
     // Set stock empty to begin loading spinner
@@ -64,20 +80,30 @@ function OrderStock() {
       (item) => item.id === requestedItem.id
     );
 
-    // If item is already in list, update its values instead of adding
+    let updatedRequestedItems;
+
     if (alreadyRequested === undefined) {
-      setRequestedStockItems(requestedStockItems.concat(requestedItem));
+      // If item isn't in list, simply add it
+      updatedRequestedItems = requestedStockItems.concat(requestedItem);
     } else {
+      // If item is already in list, update its values instead of adding
       let itemIndex = requestedStockItems.indexOf(alreadyRequested);
 
-      let updatedStockItems = [...requestedStockItems];
-      updatedStockItems[itemIndex].requestedCount =
-        requestedItem.requestedCount;
-      updatedStockItems[itemIndex].countAfterRequest =
-        requestedItem.countAfterRequest;
+      updatedRequestedItems = [...requestedStockItems];
 
-      setRequestedStockItems(updatedStockItems);
+      // Replace old values with new values
+      updatedRequestedItems[itemIndex].requestedCount =
+        requestedItem.requestedCount;
+      updatedRequestedItems[itemIndex].countAfterRequest =
+        requestedItem.countAfterRequest;
     }
+
+    // Update state and local storage
+    setRequestedStockItems(updatedRequestedItems);
+    localStorage.setItem(
+      'requestedStockItems',
+      JSON.stringify(updatedRequestedItems)
+    );
   }
 
   function writeRequestToNotes() {
@@ -111,6 +137,10 @@ function OrderStock() {
       console.log(responses)
     );
 
+    // Clear local storage
+    localStorage.removeItem('requestedStockItems');
+    localStorage.removeItem('personInfo');
+
     // Show confirmation popup
     setShowConfirmation(true);
   }
@@ -131,7 +161,12 @@ function OrderStock() {
           className="mb-3"
           onClick={submitRequest}
           block
-          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
+          style={{
+            backgroundColor: '#16AB8D',
+            borderColor: '#FFFFF5',
+            color: '#FFFFFF',
+            borderRadius: '200px',
+          }}
           disabled={requestedStockItems.length === 0}
         >
           {requestedStockItems.length > 0
@@ -147,7 +182,12 @@ function OrderStock() {
             id="dropdown-basic"
             size="md"
             className="mb-3"
-            style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
+            style={{
+              backgroundColor: '#16AB8D',
+              borderColor: '#FFFFF5',
+              color: '#FFFFFF',
+              borderRadius: '200px',
+            }}
           >
             Language: <b>{capitalize(language)}</b>
           </Dropdown.Toggle>
@@ -168,7 +208,12 @@ function OrderStock() {
           variant="type"
           size="md"
           onClick={getStock}
-          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
+          style={{
+            backgroundColor: '#16AB8D',
+            borderColor: '#FFFFF5',
+            color: '#FFFFFF',
+            borderRadius: '200px',
+          }}
         >
           Refresh
         </Button>
@@ -177,7 +222,7 @@ function OrderStock() {
       {/* List of stock */}
       {stock.length === 0 && !error && <Loading />}
       {stock &&
-        fromForm &&
+        personInfo &&
         stock.map((item) => (
           <OrderCard
             stockItem={item}
@@ -200,7 +245,11 @@ function OrderStock() {
 
       {/* Confirmation popup */}
       <ConfirmationModal
-        style={{backgroundColor: '#16AB8D', borderColor: '#16AB8D', color: '#FFFFFF'}}
+        style={{
+          backgroundColor: '#16AB8D',
+          borderColor: '#16AB8D',
+          color: '#FFFFFF',
+        }}
         title="Order successfully placed!"
         body="Thanks for your patronage! Your order will be fulfilled shortly."
         buttonText="Back to Home"
