@@ -10,8 +10,8 @@ import OrderTracker from './pages/OrderTracker';
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Navbar ç />
-      <br />
+      <Navbar/>
+      <br/>
       <Switch>
         <Route exact path="/">
           <Home />
