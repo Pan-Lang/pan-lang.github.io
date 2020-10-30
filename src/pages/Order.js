@@ -106,7 +106,7 @@ function OrderForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button type="submit" variant="success" block>Select order</Button>
+                <Button type="submit" style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}} block>Select order</Button>
               </div>
             </Form>
           </div>
