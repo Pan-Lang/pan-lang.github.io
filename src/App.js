@@ -6,12 +6,14 @@ import Order from './pages/Order';
 import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import OrderTracker from './pages/OrderTracker';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Navbar/>
-      <br/>
+      <Navbar ç />
+      {/* FIXME: naive fix for keeping a fixed navbar */}
+      <div style={{ padding: 45 }} />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -25,8 +27,11 @@ function App() {
         <Route path="/order-stock">
           <OrderStock />
         </Route>
-        <Route path="/order-tracker">
+        <Route path="/order-tracker"> 
           <OrderTracker />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="*">
           <h1>

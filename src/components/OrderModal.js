@@ -3,8 +3,6 @@ import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 
 /**
  * Allows user to select how much of a stock item to request
- * TODO: edge cases
- * - user chooses same item more than once
  */
 function OrderModal({
   show,

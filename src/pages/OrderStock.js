@@ -7,6 +7,8 @@ import { Container, Dropdown, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
+import ConfirmationModal from '../components/ConfirmationModal';
+import ErrorAlert from '../components/ErrorAlert';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -21,6 +23,7 @@ function OrderStock() {
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [requestedStockItems, setRequestedStockItems] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     // Send user back to form if they didn't fill it out
@@ -35,6 +38,7 @@ function OrderStock() {
   function getStock(timeout = 0) {
     // Set stock empty to begin loading spinner
     setStock([]);
+    setError(false);
 
     // Fetch stock after designated time
     setTimeout(() => {
@@ -55,7 +59,25 @@ function OrderStock() {
    * @param {Object} requestedItem { id, name, requestedCount, countAfterRequest }
    */
   function onRequest(requestedItem) {
-    setRequestedStockItems(requestedStockItems.concat(requestedItem));
+    // Check if item is already in list
+    let alreadyRequested = requestedStockItems.find(
+      (item) => item.id === requestedItem.id
+    );
+
+    // If item is already in list, update its values instead of adding
+    if (alreadyRequested === undefined) {
+      setRequestedStockItems(requestedStockItems.concat(requestedItem));
+    } else {
+      let itemIndex = requestedStockItems.indexOf(alreadyRequested);
+
+      let updatedStockItems = [...requestedStockItems];
+      updatedStockItems[itemIndex].requestedCount =
+        requestedItem.requestedCount;
+      updatedStockItems[itemIndex].countAfterRequest =
+        requestedItem.countAfterRequest;
+
+      setRequestedStockItems(updatedStockItems);
+    }
   }
 
   function writeRequestToNotes() {
@@ -75,20 +97,22 @@ function OrderStock() {
       children: personInfo.adults,
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
-      fulfilled: false
+      fulfilled: false,
     };
     addPersonInfo(requestBody);
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
       console.log('making promise... ', item.countAfterRequest);
-      return updateStockCount(item.id, { newCount: item.countAfterRequest })
+      return updateStockCount(item.id, { newCount: item.countAfterRequest });
     });
 
-    Promise.all(stockUpdatePromises).then((responses) => console.log(responses));
+    Promise.all(stockUpdatePromises).then((responses) =>
+      console.log(responses)
+    );
 
-    // Redirect back home
-    history.push('/');
+    // Show confirmation popup
+    setShowConfirmation(true);
   }
 
   return (
@@ -101,9 +125,20 @@ function OrderStock() {
         </p>
       ))}
 
-      <Button variant="type" className="mb-3" onClick={submitRequest} block>
-        Submit request
-      </Button>
+      {!error && (
+        <Button
+          variant="type"
+          className="mb-3"
+          onClick={submitRequest}
+          block
+          style={{ backgroundColor: 'green', color: 'white' }}
+          disabled={requestedStockItems.length === 0}
+        >
+          {requestedStockItems.length > 0
+            ? 'Submit request'
+            : 'Select items below'}
+        </Button>
+      )}
 
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
         <Dropdown variant="type" onChange={(e) => console.log(e)}>
@@ -139,6 +174,7 @@ function OrderStock() {
         </Button>
       </Container>
 
+      {/* List of stock */}
       {stock.length === 0 && !error && <Loading />}
       {stock &&
         fromForm &&
@@ -149,9 +185,30 @@ function OrderStock() {
             lang={language === 'english' ? 'name' : language}
             key={item._id}
             onRequest={onRequest}
+            isRequested={requestedStockItems.some(
+              (requested) => item._id === requested.id
+            )}
           />
         ))}
-      {error && <p>Error</p>}
+      {error && (
+        <ErrorAlert
+          heading="Error"
+          body="An error occurred while trying to get the stock."
+          dismissible={false}
+        />
+      )}
+
+      {/* Confirmation popup */}
+      <ConfirmationModal
+        title="Order successfully placed!"
+        body="Thanks for your patronage! Your order will be fulfilled shortly."
+        buttonText="Back to Home"
+        show={showConfirmation}
+        handleClose={() => {
+          setShowConfirmation(false);
+          history.push('/'); // Redirect back home
+        }}
+      />
     </Container>
   );
 }

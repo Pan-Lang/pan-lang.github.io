@@ -1,5 +1,9 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
-  background: url("../src/images/My\ Post.png");
+  background: url("../src/images/bg.png");
   background-size: cover;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',

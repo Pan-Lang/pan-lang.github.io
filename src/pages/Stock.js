@@ -7,6 +7,7 @@ import { fetchStock } from '../api/Stock';
 import { Button } from 'react-bootstrap';
 import Loading from '../components/Loading';
 import LANGUAGES from '../constants/Languages';
+import ErrorAlert from '../components/ErrorAlert';
 
 /**
  * Displays the stock of food pantry with options for language
@@ -19,6 +20,7 @@ function Stock() {
   function getStock(timeout = 0) {
     // Set stock empty to begin loading spinner
     setStock([]);
+    setError(false);
 
     // Fetch stock after designated time
     setTimeout(() => {
@@ -75,7 +77,7 @@ function Stock() {
         </Button>
       </Container>
 
-      <StockInput getStock={getStock} />
+      {!error && <StockInput getStock={getStock} />}
 
       {stock.length === 0 && !error && <Loading />}
       {stock &&
@@ -87,7 +89,7 @@ function Stock() {
             key={item._id}
           />
         ))}
-      {error && <p>Error :(</p>}
+      {error && <ErrorAlert heading="Error" body="An error occurred while trying to get the stock." dismissible={false} />}
     </Container>
   );
 }
