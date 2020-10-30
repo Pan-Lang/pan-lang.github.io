@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2a2692de680880d8bec426624dae4c0d",
+    "revision": "db1c1864ce1df80be3a9d59ab66278ba",
     "url": "/panlang-ui/index.html"
   },
   {
