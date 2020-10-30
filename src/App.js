@@ -13,7 +13,7 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Navbar ç />
       {/* FIXME: naive fix for keeping a fixed navbar */}
-      <div style={{ padding: 45 }} />
+      <div style={{ padding: 55 }} />
       <Switch>
         <Route exact path="/">
           <Home />
