@@ -222,7 +222,7 @@ function OrderStock() {
       {/* List of stock */}
       {stock.length === 0 && !error && <Loading />}
       {stock &&
-        fromForm &&
+        personInfo &&
         stock.map((item) => (
           <OrderCard
             stockItem={item}
