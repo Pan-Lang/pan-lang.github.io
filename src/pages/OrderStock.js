@@ -131,7 +131,7 @@ function OrderStock() {
           className="mb-3"
           onClick={submitRequest}
           block
-          style={{ backgroundColor: 'green', color: 'white' }}
+          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
           disabled={requestedStockItems.length === 0}
         >
           {requestedStockItems.length > 0
@@ -147,7 +147,7 @@ function OrderStock() {
             id="dropdown-basic"
             size="md"
             className="mb-3"
-            style={{ backgroundColor: 'green', color: 'white' }}
+            style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
           >
             Language: <b>{capitalize(language)}</b>
           </Dropdown.Toggle>
@@ -168,7 +168,7 @@ function OrderStock() {
           variant="type"
           size="md"
           onClick={getStock}
-          style={{ backgroundColor: 'green', color: 'white' }}
+          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
         >
           Refresh
         </Button>
@@ -200,6 +200,7 @@ function OrderStock() {
 
       {/* Confirmation popup */}
       <ConfirmationModal
+        style={{backgroundColor: '#16AB8D', borderColor: '#16AB8D', color: '#FFFFFF'}}
         title="Order successfully placed!"
         body="Thanks for your patronage! Your order will be fulfilled shortly."
         buttonText="Back to Home"

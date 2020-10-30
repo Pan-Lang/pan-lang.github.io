@@ -60,8 +60,7 @@ function OrderCard({
             <div style={{ margin: 'left' }} />
             <Button
               size="lg"
-              variant="success"
-              style={{ alignSelf: 'left' }}
+              style={{alignSelf: 'left', backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
               onClick={handleShow}
               disabled={stockItem.count <= 0}
             >

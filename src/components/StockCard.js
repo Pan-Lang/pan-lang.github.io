@@ -50,8 +50,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
             <div style={{ margin: 'auto' }} />
             <Button
               size="sm"
-              variant="success"
-              style={{ alignSelf: 'center' }}
+              style={{alignSelf: 'center', backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
               onClick={handleShow}
             >
               Edit amount

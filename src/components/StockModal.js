@@ -94,6 +94,7 @@ function StockModal({
                 <>
                   <Button
                     variant="secondary"
+                    style={{borderRadius: '200px'}}
                     onClick={() => {
                       setError(false);
                       setLoading(false);
@@ -103,7 +104,8 @@ function StockModal({
                     Close
                   </Button>
                   {!error && (
-                    <Button variant="success" onClick={handleSubmit}>
+                    <Button onClick={handleSubmit}
+                    style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}>
                       Save new amount
                     </Button>
                   )}
