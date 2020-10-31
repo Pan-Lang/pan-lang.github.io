@@ -1,68 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Frontend
+Repository for the front for UI.
 
-## Available Scripts
+# Access Here
+https://pan-lang.github.io/panlang-ui/
 
-In the project directory, you can run:
+## Project Motivation
+One of our team members currently volunteers at the Mckinley Foundation Food Pantry at the Garden Hills Elementary. He noticed that there were communication barriers between the pantry coordinator and the non-english speaking people. Our team decided to tackle this problem by creating a webapp and helping the food pantry coordinator with direct translations of stock items and common phrases/questions for multiple languages, while also keeping track of the stock of the food items.
 
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Tech Stack
+The frontend was built with:
+  - [React](https://reactjs.org/)
+  - [Socket.io](https://socket.io/)
+  - [Node.js](https://nodejs.org/en/)
+  - [Express](https://expressjs.com/)
+  
+  ## Layout
+  ![Home Screen](https://i.imgur.com/u7PRu0P.png)
+  
+  ![Order Page](https://i.imgur.com/9uHDO49.png)
+  
+  ![Stock Page](https://i.imgur.com/FfRAhnb.png)
+  
+  ## Installation
+  1. Make sure to have npm installed on your machine. Instructions for installing npm can be found [here](https://www.npmjs.com/get-npm).
+  2. `git clone Pan-Lang` in the designated folder on your machine.
+  3. `npm install` to install the project dependencies.
+  4. The core component of this project makes use of the Google Cloud Translate API. If you want to use translation features, you'll have to make a new project on Google Cloud Platform and generate a new API key. Detailed instructions for this setup can be found [here](https://cloud.google.com/translate/docs/setup).
