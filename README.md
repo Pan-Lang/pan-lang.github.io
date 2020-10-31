@@ -15,7 +15,7 @@ The frontend was built with:
   - [Express](https://expressjs.com/)
   
   ## Layout
-  ![Home Screen](https://i.imgur.com/u7PRu0P.png)
+  ![Home Screen](https://imgur.com/KGQU9MB)
   
   ![Order Page](https://i.imgur.com/9uHDO49.png)
   
