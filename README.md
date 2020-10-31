@@ -15,11 +15,11 @@ The frontend was built with:
   - [Express](https://expressjs.com/)
   
   ## Layout
-  ![Home Screen](https://i.imgur.com/KGQU9MB.png)
+  ![Home Screen](https://i.imgur.com/MBkCd2z.png)
   
   ![Order Page](https://i.imgur.com/XOxpZuT.png)
   
-  ![Stock Page](https://i.imgur.com/MBkCd2z.png)
+  ![Stock Page](https://i.imgur.com/KGQU9MB.png)
   
   ## Installation
   1. Make sure to have npm installed on your machine. Instructions for installing npm can be found [here](https://www.npmjs.com/get-npm).
