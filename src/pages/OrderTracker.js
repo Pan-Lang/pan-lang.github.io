@@ -3,6 +3,7 @@ import socketIOClient from 'socket.io-client';
 import Container from 'react-bootstrap/Container';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
 import { BASE_API_URL } from '../api/Client';
+import Dialog from '../components/Dialog'
 
 /**
  * Page with list of people with unfulfilled orders
@@ -44,7 +45,7 @@ function OrderTracker() {
 
   return (
     <Container>
-      {ordersList.length === 0 && <p>No orders at the moment.</p>}
+      {ordersList.length === 0 && <Dialog/>}
       {ordersList &&
         ordersList.map((order) => (
           <UnfulfilledOrderCard
