@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/';
 import Home from './pages/Home';
 import About from './pages/About';
 import Order from './pages/Order';
@@ -12,7 +12,7 @@ import Login from './pages/Login';
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <Navbar ç />
+      <Navbar />
       {/* FIXME: naive fix for keeping a fixed navbar */}
       <div style={{ padding: 55 }} />
       <Switch>
