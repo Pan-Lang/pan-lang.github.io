@@ -46,6 +46,7 @@ function CollapsingMenu() {
 
   return (
     <div className={classes.root}>
+      {/* Mobile */}
       <CollapsingButton>
         {navigation.map((nav) => (
           <MenuItem key={nav.to} component={Link} to={nav.to}>
@@ -56,6 +57,8 @@ function CollapsingMenu() {
           Login
         </MenuItem>
       </CollapsingButton>
+
+      {/* Desktop */}
       <nav className={classes.buttonBar} id="appbar-collapse">
         {navigation.map((nav) => (
           <Button
