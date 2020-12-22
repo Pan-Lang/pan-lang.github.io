@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Navigation bar at the top of window
  */
-function NavBar() {
+function Navbar() {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ function NavBar() {
         {/* Logo */}
         <Link to="/">
           <img
-            src={require('../images/logo_nobg.png')}
+            src={require('../../images/logo_nobg.png')}
             alt="Pan-Lang"
             style={{ width: 75, height: 75 }}
           />
@@ -47,4 +47,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navbar;

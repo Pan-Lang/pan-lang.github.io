@@ -63,7 +63,6 @@ function CollapsingMenu() {
         {navigation.map((nav) => (
           <Button
             component={Link}
-            color="textPrimary"
             className={classes.link}
             to={nav.to}
             key={nav.to}

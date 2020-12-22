@@ -8,8 +8,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import cart from '../images/empty-cart.svg';
 import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -17,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   dialog: {
-    margin: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
     margin: 'auto',
@@ -50,8 +47,6 @@ const Theme = createMuiTheme({
 export default function AlertDialogSlide() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const handleClose = () => {
     setOpen(false);
   };
@@ -81,7 +76,7 @@ export default function AlertDialogSlide() {
       <Grid container className={classes.grid}>
         <Grid item lg={4} sm={4}></Grid>
         <Grid item xs={12} lg={4} sm={4} className={classes.grid}>
-          <img src={cart} className={classes.image}></img>
+          <img alt="Shopping cart" src={cart} className={classes.image} />
         </Grid>
         <Grid item lg={4} sm={4}></Grid>
       </Grid>
