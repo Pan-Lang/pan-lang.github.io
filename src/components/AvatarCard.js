@@ -1,5 +1,11 @@
 import React from 'react';
-import { Avatar, Container, makeStyles, Paper, Typography } from '@material-ui/core';
+import {
+  Avatar,
+  Container,
+  makeStyles,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -25,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AvatarCard({ name, src, alt }) {
+function AvatarCard({ name, src, alt, role = 'Developer' }) {
   const classes = useStyles();
 
   return (
@@ -33,7 +39,7 @@ function AvatarCard({ name, src, alt }) {
       <Container>
         <Avatar src={src} alt={alt} className={classes.avatar} />
         <Typography variant="h5">{name}</Typography>
-        <Typography variant="subtitle1">Developer</Typography>
+        <Typography variant="subtitle1">{role}</Typography>
       </Container>
     </Paper>
   );

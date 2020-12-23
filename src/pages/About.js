@@ -1,6 +1,10 @@
 import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import AvatarCard from '../components/AvatarCard';
+import QwertycowMoo from '../images/QwertycowMoo.png';
+import kgs5 from '../images/kgs5.png';
+import renzol2 from '../images/renzol2.png';
+import evanmm3 from '../images/evanmm3.png';
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -33,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
 function About() {
   const classes = useStyles();
   const team = [
-    { name: 'Kevin Zhou' },
-    { name: 'Katie Sanders' },
-    { name: 'Renzo Ledesma' },
-    { name: 'Evan Matthews' },
+    { name: 'Kevin Zhou', src: QwertycowMoo, role: 'Lead Developer' },
+    { name: 'Katie Sanders', src: kgs5 },
+    { name: 'Renzo Ledesma', src: renzol2 },
+    { name: 'Evan Matthews', src: evanmm3 },
   ];
 
   return (
@@ -81,8 +85,9 @@ function About() {
           {team.map((member) => (
             <AvatarCard
               name={member.name}
-              src={'/src/images/logo.png'}
+              src={member.src}
               alt={member.name}
+              role={member.role}
             />
           ))}
         </Container>
