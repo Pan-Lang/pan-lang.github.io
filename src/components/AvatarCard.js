@@ -31,14 +31,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AvatarCard({ name, src, alt, role = 'Developer' }) {
+/**
+ * Card on About page representing each team member
+ */
+function AvatarCard({ name, src, alt, role = 'Software Developer', github }) {
   const classes = useStyles();
 
   return (
     <Paper elevation={3} className={classes.card}>
       <Container>
         <Avatar src={src} alt={alt} className={classes.avatar} />
-        <Typography variant="h5">{name}</Typography>
+        <Typography variant="h5">
+          <a href={github} target="_blank" rel="noopener noreferrer">
+            {name}
+          </a>
+        </Typography>
         <Typography variant="subtitle1">{role}</Typography>
       </Container>
     </Paper>

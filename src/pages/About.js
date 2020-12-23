@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 50,
   },
   avatarGroup: {
+    marginTop: 15,
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'stretch',
@@ -37,10 +38,23 @@ const useStyles = makeStyles((theme) => ({
 function About() {
   const classes = useStyles();
   const team = [
-    { name: 'Kevin Zhou', src: QwertycowMoo, role: 'Lead Developer' },
-    { name: 'Katie Sanders', src: kgs5 },
-    { name: 'Renzo Ledesma', src: renzol2 },
-    { name: 'Evan Matthews', src: evanmm3 },
+    {
+      name: 'Kevin Zhou',
+      src: QwertycowMoo,
+      github: 'https://github.com/QwertycowMoo',
+      role: 'Lead Software Developer',
+    },
+    { name: 'Katie Sanders', src: kgs5, github: 'https://github.com/kgs5' },
+    {
+      name: 'Renzo Ledesma',
+      src: renzol2,
+      github: 'https://github.com/renzol2',
+    },
+    {
+      name: 'Evan Matthews',
+      src: evanmm3,
+      github: 'https://github.com/evanmm3',
+    },
   ];
 
   return (
@@ -88,6 +102,7 @@ function About() {
               src={member.src}
               alt={member.name}
               role={member.role}
+              github={member.github}
             />
           ))}
         </Container>
