@@ -1,28 +1,32 @@
 {
   "files": {
     "main.css": "/panlang-ui/static/css/main.b4bd43e8.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.e19c56c8.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.e19c56c8.chunk.js.map",
+    "main.js": "/panlang-ui/static/js/main.ed7f255e.chunk.js",
+    "main.js.map": "/panlang-ui/static/js/main.ed7f255e.chunk.js.map",
     "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
     "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.3d90ae4d.chunk.js": "/panlang-ui/static/js/2.3d90ae4d.chunk.js",
-    "static/js/2.3d90ae4d.chunk.js.map": "/panlang-ui/static/js/2.3d90ae4d.chunk.js.map",
+    "static/js/2.6712bf01.chunk.js": "/panlang-ui/static/js/2.6712bf01.chunk.js",
+    "static/js/2.6712bf01.chunk.js.map": "/panlang-ui/static/js/2.6712bf01.chunk.js.map",
     "index.html": "/panlang-ui/index.html",
-    "precache-manifest.6e0e01e01bf473904f13f159631764f5.js": "/panlang-ui/precache-manifest.6e0e01e01bf473904f13f159631764f5.js",
+    "precache-manifest.7c37233f16e859af37c78bf3eea5efee.js": "/panlang-ui/precache-manifest.7c37233f16e859af37c78bf3eea5efee.js",
     "service-worker.js": "/panlang-ui/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.b4bd43e8.chunk.css.map": "/panlang-ui/static/css/main.b4bd43e8.chunk.css.map",
-    "static/js/2.3d90ae4d.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.3d90ae4d.chunk.js.LICENSE.txt",
+    "static/js/2.6712bf01.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.6712bf01.chunk.js.LICENSE.txt",
+    "static/media/QwertycowMoo.png": "/panlang-ui/static/media/QwertycowMoo.c4707b2e.png",
     "static/media/index.css": "/panlang-ui/static/media/bg.0b11c120.png",
     "static/media/empty-cart.svg": "/panlang-ui/static/media/empty-cart.302b7b48.svg",
-    "static/media/logo_nobg.png": "/panlang-ui/static/media/logo_nobg.484389dc.png"
+    "static/media/evanmm3.png": "/panlang-ui/static/media/evanmm3.c4869c53.png",
+    "static/media/kgs5.png": "/panlang-ui/static/media/kgs5.ed891ef2.png",
+    "static/media/logo_nobg.png": "/panlang-ui/static/media/logo_nobg.484389dc.png",
+    "static/media/renzol2.png": "/panlang-ui/static/media/renzol2.726b433f.png"
   },
   "entrypoints": [
     "static/js/runtime-main.8fc7666c.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.3d90ae4d.chunk.js",
+    "static/js/2.6712bf01.chunk.js",
     "static/css/main.b4bd43e8.chunk.css",
-    "static/js/main.e19c56c8.chunk.js"
+    "static/js/main.ed7f255e.chunk.js"
   ]
 }
