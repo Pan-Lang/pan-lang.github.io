@@ -98,6 +98,7 @@ function About() {
         <Container className={classes.avatarGroup}>
           {team.map((member) => (
             <AvatarCard
+              key={member.src}
               name={member.name}
               src={member.src}
               alt={member.name}
