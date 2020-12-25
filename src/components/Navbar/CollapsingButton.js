@@ -4,16 +4,6 @@ import { Menu } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu'
 
-const useStyles = makeStyles((theme) => ({
-  buttonCollapse: {
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-    margin: '10px',
-    boxShadow: 'none',
-  },
-}));
-
 /**
  * Responsive button for use in navbar
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
@@ -48,5 +38,15 @@ function CollapsingButton({ children }) {
     </div>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  buttonCollapse: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+    margin: '10px',
+    boxShadow: 'none',
+  },
+}));
 
 export default CollapsingButton;

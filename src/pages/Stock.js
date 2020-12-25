@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
@@ -8,6 +9,7 @@ import { Button } from 'react-bootstrap';
 import Loading from '../components/Loading';
 import LANGUAGES from '../constants/Languages';
 import ErrorAlert from '../components/ErrorAlert';
+import { makeStyles } from '@material-ui/core';
 
 /**
  * Displays the stock of food pantry with options for language
@@ -53,16 +55,20 @@ function Stock() {
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
+  const classes = useStyles();
   return (
     <Container>
-      <h1 style={{ textAlign: 'center' }}>Stock</h1>
-      <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
+      <Typography variant="h1" className={classes.title}>
+        Stock
+      </Typography>
+      <Container
+        style={{ display: 'flex', alignItems: 'center', paddingBottom: 10 }}
+      >
         <Dropdown onChange={(e) => console.log(e)}>
           <Dropdown.Toggle
             variant="type"
             id="dropdown-basic"
             size="md"
-            className="mb-3"
             style={{
               backgroundColor: '#16AB8D',
               borderColor: '#FFFFF5',
@@ -121,5 +127,13 @@ function Stock() {
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    textAlign: 'center',
+    fontSize: theme.typography.h2.fontSize,
+    marginBottom: 3,
+  },
+}));
 
 export default Stock;

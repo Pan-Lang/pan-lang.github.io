@@ -7,6 +7,27 @@ import {
   Typography,
 } from '@material-ui/core';
 
+/**
+ * Card on About page representing each team member
+ */
+function AvatarCard({ name, src, alt, role = 'Software Developer', github }) {
+  const classes = useStyles();
+
+  return (
+    <Paper elevation={3} className={classes.card}>
+      <Container>
+        <Avatar src={src} alt={alt} className={classes.avatar} />
+        <Typography variant="h5">
+          <a href={github} target="_blank" rel="noopener noreferrer">
+            {name}
+          </a>
+        </Typography>
+        <Typography variant="subtitle1">{role}</Typography>
+      </Container>
+    </Paper>
+  );
+}
+
 const useStyles = makeStyles((theme) => ({
   card: {
     paddingTop: 20,
@@ -30,26 +51,5 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
 }));
-
-/**
- * Card on About page representing each team member
- */
-function AvatarCard({ name, src, alt, role = 'Software Developer', github }) {
-  const classes = useStyles();
-
-  return (
-    <Paper elevation={3} className={classes.card}>
-      <Container>
-        <Avatar src={src} alt={alt} className={classes.avatar} />
-        <Typography variant="h5">
-          <a href={github} target="_blank" rel="noopener noreferrer">
-            {name}
-          </a>
-        </Typography>
-        <Typography variant="subtitle1">{role}</Typography>
-      </Container>
-    </Paper>
-  );
-}
 
 export default AvatarCard;
