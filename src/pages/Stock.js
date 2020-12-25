@@ -14,13 +14,17 @@ import ErrorAlert from '../components/ErrorAlert';
  */
 function Stock() {
   const [stock, setStock] = useState([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [language, setLanguage] = useState(LANGUAGES[0]);
 
+  /**
+   * Fetches stock from API and stores in state
+   * @param {Number} timeout ms to wait before fetching stock
+   */
   function getStock(timeout = 0) {
     // Set stock empty to begin loading spinner
     setStock([]);
-    setError(false);
+    setError(null);
 
     // Fetch stock after designated time
     setTimeout(() => {
@@ -28,14 +32,23 @@ function Stock() {
         .then((res) => {
           setStock(res.data);
         })
-        .catch((e) => setError(true));
+        .catch((e) => {
+          setError(e);
+        });
     }, timeout);
   }
 
+  /**
+   * Fetch stock as soon as page is rendered
+   */
   useEffect(() => {
     getStock();
   }, []);
 
+  /**
+   * Capitalizes the first letter of a string
+   * @param {String} s string to capitalize
+   */
   function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
@@ -50,7 +63,12 @@ function Stock() {
             id="dropdown-basic"
             size="md"
             className="mb-3"
-            style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
+            style={{
+              backgroundColor: '#16AB8D',
+              borderColor: '#FFFFF5',
+              color: '#FFFFFF',
+              borderRadius: '200px',
+            }}
           >
             Language: <b>{capitalize(language)}</b>
           </Dropdown.Toggle>
@@ -71,13 +89,25 @@ function Stock() {
           variant="type"
           size="md"
           onClick={getStock}
-          style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}>
+          style={{
+            backgroundColor: '#16AB8D',
+            borderColor: '#FFFFF5',
+            color: '#FFFFFF',
+            borderRadius: '200px',
+          }}
+        >
           Refresh
         </Button>
       </Container>
 
       {!error && <StockInput getStock={getStock} />}
 
+      {error && (
+        <ErrorAlert
+          heading="Error"
+          body={`An error occurred while trying to get the stock. ${error}`}
+        />
+      )}
       {stock.length === 0 && !error && <Loading />}
       {stock &&
         stock.map((item) => (
@@ -88,7 +118,6 @@ function Stock() {
             key={item._id}
           />
         ))}
-      {error && <ErrorAlert heading="Error" body="An error occurred while trying to get the stock." dismissible={false} />}
     </Container>
   );
 }

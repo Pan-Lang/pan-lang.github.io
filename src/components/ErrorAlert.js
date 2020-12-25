@@ -1,10 +1,13 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-function ErrorAlert({ heading = '', body, dismissible = false, onClose }) {
+/**
+ * Component signifying an error has occurred
+ */
+function ErrorAlert({ heading = '', body, onClose }) {
   return (
-    <Alert variant="danger" onClose={onClose} dismissible={dismissible} className={'mt-3'}>
-      {heading.length > 0 && <Alert.Heading>{heading}</Alert.Heading>}
+    <Alert severity="error" onClose={onClose}>
+      {heading.length > 0 && <AlertTitle>{heading}</AlertTitle>}
       {body}
     </Alert>
   );
