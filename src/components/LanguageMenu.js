@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, MenuItem, Menu, Button } from '@material-ui/core';
+import { MenuItem, Menu, Button } from '@material-ui/core';
 
 /**
  * Menu to select language when viewing Stock
@@ -47,7 +47,6 @@ function LanguageMenu({
         {languages.map((lang, index) => (
           <MenuItem
             key={lang}
-            disabled={index === 0}
             selected={index === selectedIndex}
             onClick={(event) => handleMenuItemClick(event, index)}
           >
@@ -58,7 +57,5 @@ function LanguageMenu({
     </div>
   );
 }
-
-const useStyles = makeStyles((theme) => ({}));
 
 export default LanguageMenu;

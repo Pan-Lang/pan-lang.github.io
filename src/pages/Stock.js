@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
 import { fetchStock } from '../api/Stock';
@@ -12,7 +9,6 @@ import Loading from '../components/Loading';
 import LANGUAGES from '../constants/Languages';
 import ErrorAlert from '../components/ErrorAlert';
 import { makeStyles } from '@material-ui/core';
-import LanguageDropdown from '../components/LanguageDropdown';
 import LanguageMenu from '../components/LanguageMenu';
 
 /**
@@ -87,7 +83,7 @@ function Stock() {
         </Button>
       </Container>
 
-      {/* Stock selection */}
+      {/* Input to create stock item */}
       {Boolean(stock.length) && <StockInput getStock={getStock} />}
 
       {/* Error */}
@@ -119,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: 'center',
     fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.typography.h4.fontSize,
+    },
     marginBottom: 3,
   },
   buttonBar: {
