@@ -20,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  spinner: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
 }));
 
 export default Loading;

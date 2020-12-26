@@ -13,6 +13,7 @@ import LANGUAGES from '../constants/Languages';
 import ErrorAlert from '../components/ErrorAlert';
 import { makeStyles } from '@material-ui/core';
 import LanguageDropdown from '../components/LanguageDropdown';
+import LanguageMenu from '../components/LanguageMenu';
 
 /**
  * Displays the stock of food pantry with options for language
@@ -68,7 +69,7 @@ function Stock() {
       {/* Button bar */}
       <Container className={classes.buttonBar}>
         {/* Language selection */}
-        <LanguageDropdown
+        <LanguageMenu
           languages={LANGUAGES}
           currentLanguage={language}
           buttonClass={classes.button}
@@ -107,7 +108,7 @@ function Stock() {
             stockItem={item}
             getStock={getStock}
             lang={language === 'english' ? 'name' : language}
-            key={item._id}
+            key={item.name}
           />
         ))}
     </Container>

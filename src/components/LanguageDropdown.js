@@ -13,6 +13,9 @@ import {
 /**
  * Dropdown to select language
  * Base code: https://material-ui.com/components/menus/#menulist-composition
+ * 
+ * NOTE: LanguageMenu is favored over this since this has issues with components
+ * rendering on top of it...
  */
 function LanguageDropdown({
   languages = [],
