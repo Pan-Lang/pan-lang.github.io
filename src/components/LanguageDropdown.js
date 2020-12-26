@@ -27,6 +27,8 @@ function LanguageDropdown({
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
+    // FIXME: Disallowing toggle while error because the error icon
+    // shows over the dropdown...
     if (isError) return;
     setOpen((prevOpen) => !prevOpen);
   };
@@ -53,7 +55,7 @@ function LanguageDropdown({
     setTimeout(() => handleClose(event), 140);
   }
 
-  // return focus to the button when we transitioned from !open -> open
+  // Return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -65,6 +67,7 @@ function LanguageDropdown({
 
   return (
     <div>
+      {/* Dropdown button toggle */}
       <Button
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
@@ -74,6 +77,8 @@ function LanguageDropdown({
       >
         {`Language: ${capitalize(currentLanguage)}`}
       </Button>
+
+      {/* Dropdown positioner */}
       <Popper
         open={open}
         anchorEl={anchorRef.current}
@@ -81,6 +86,7 @@ function LanguageDropdown({
         transition
         disablePortal
       >
+        {/* Dropdown animation */}
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
@@ -89,13 +95,17 @@ function LanguageDropdown({
                 placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
+            {/* Dropdown container */}
             <Paper className={classes.paper}>
               <ClickAwayListener onClickAway={handleClose}>
+
+                {/* Dropdown component */}
                 <MenuList
                   autoFocusItem={open}
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
+                  {/* Language options */}
                   {languages.map((lang) => (
                     <MenuItem
                       key={lang}

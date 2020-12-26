@@ -1,20 +1,29 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Spinner from 'react-bootstrap/Spinner';
+import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core';
 
+/**
+ * Centered spinner to signify loading
+ */
 function Loading() {
+  const classes = useStyles();
   return (
-    <Container style={{ display: 'flex', justifyContent: 'center' }}>
-      <Spinner
-        animation="border"
-        role="status"
-        className="mt-3"
-        style={{ marginLeft: 'auto', marginRight: 'auto' }}
-      >
-        <span className="sr-only">Loading...</span>
-      </Spinner>
+    <Container className={classes.spinnerDiv}>
+      <CircularProgress />
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  spinnerDiv: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  spinner: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+}));
 
 export default Loading;
