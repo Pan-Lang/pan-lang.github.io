@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Badge, Container, Card } from 'react-bootstrap';
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { Badge } from 'react-bootstrap';
 import StockModal from './StockModal';
 import ErrorAlert from './ErrorAlert';
+import { makeStyles } from '@material-ui/core';
 
 function StockCard({ stockItem, getStock, lang = 'name' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
@@ -16,31 +23,43 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
     setHasLanguage(stockItem[lang] !== undefined);
   }, [lang, stockItem]);
 
+  /**
+   * Gets a String representing an item's timestamp
+   * @param {Object} stockItem 
+   */
+  function getItemDateString(stockItem) {
+    let seconds = stockItem.timestamp._seconds;
+    // Date constructor takes in milliseconds
+    return (new Date(seconds * 1000)).toDateString();
+  }
+
+  const classes = useStyles();
   return (
     <>
-      <Card style={{ margin: 5 }}>
-        <Card.Body>
-          <Card.Header as="h2">
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography variant="h4">
             {hasLanguage ? stockItem[lang] : stockItem.name}
             {lang !== 'name' && hasLanguage
               ? ' (' + stockItem['name'] + ')'
               : ''}
-          </Card.Header>
+          </Typography>
 
-          <Card.Text>
+          <Typography>
             Amount:{' '}
-            <font style={{ fontSize: '1.4em', fontWeight: 'bolder' }}>
-              {stockItem.count}
-            </font>
-          </Card.Text>
+            <font style={{ fontWeight: 'bolder' }}>{stockItem.count}</font>
+          </Typography>
 
-          <Card.Text style={{ textAlign: 'right' }}>
+          <Typography style={{ textAlign: 'right' }}>
             Last updated:{' '}
             {stockItem.timestamp !== undefined
-              ? new Date(stockItem.timestamp).toDateString()
+              ? getItemDateString(stockItem)
               : 'Unavailable'}
-          </Card.Text>
+          </Typography>
 
+          {stockItem.count <= 0 && <ErrorAlert body="Warning: Out of stock" />}
+        </CardContent>
+        <CardActions>
           <Container
             style={{ display: 'flex', alignItems: 'center', padding: 0 }}
           >
@@ -49,16 +68,14 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
             )}
             <div style={{ margin: 'auto' }} />
             <Button
-              size="sm"
-              style={{alignSelf: 'center', backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}
+              size="small"
+              className={classes.button}
               onClick={handleShow}
             >
               Edit amount
             </Button>
           </Container>
-
-          {stockItem.count <= 0 && <ErrorAlert body="Warning: Out of stock" />}
-        </Card.Body>
+        </CardActions>
       </Card>
 
       <StockModal
@@ -72,5 +89,17 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
     </>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    margin: 5,
+  },
+  button: {
+    alignSelf: 'center',
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+  },
+}));
 
 export default StockCard;

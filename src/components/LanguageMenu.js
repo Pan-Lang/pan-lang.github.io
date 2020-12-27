@@ -20,7 +20,7 @@ function LanguageMenu({
   };
 
   const handleMenuItemClick = (event, index) => {
-    setLanguage(event.currentTarget.textContent);
+    setLanguage(event.currentTarget.textContent.toLowerCase());
     setSelectedIndex(index);
     setAnchorEl(null);
   };
