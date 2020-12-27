@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import { Grid, makeStyles, Paper } from '@material-ui/core';
 import StockCard from '../components/StockCard';
 import StockInput from '../components/StockInput';
-import { fetchStock } from '../api/Stock';
 import Loading from '../components/Loading';
-import LANGUAGES from '../constants/Languages';
 import ErrorAlert from '../components/ErrorAlert';
-import { makeStyles } from '@material-ui/core';
 import LanguageMenu from '../components/LanguageMenu';
+import LANGUAGES from '../constants/Languages';
+import { fetchStock } from '../api/Stock';
 
 /**
  * Displays the stock of food pantry with options for language
@@ -62,51 +62,72 @@ function Stock() {
         Stock Dashboard
       </Typography>
 
-      {/* Button bar */}
-      <Container className={classes.buttonBar}>
-        {/* Language selection */}
-        <LanguageMenu
-          languages={LANGUAGES}
-          currentLanguage={language}
-          buttonClass={classes.button}
-          capitalize={capitalize}
-          setLanguage={setLanguage}
-          isError={error}
-        />
+      {/* Two column desktop layout, one column mobile layout */}
+      <Grid container spacing={2}>
+        {/* Left column */}
+        <Grid item xs={12} md={4}>
+          <Paper elevation={2} className={classes.column}>
+            <Typography variant="h5" className={classes.subheading}>
+              Options
+            </Typography>
 
-        {/* Spacer */}
-        <div style={{ margin: 'auto' }} />
+            {/* Button bar */}
+            <Container className={classes.buttonBar}>
+              {/* Language selection */}
+              <LanguageMenu
+                languages={LANGUAGES}
+                currentLanguage={language}
+                buttonClass={classes.button}
+                capitalize={capitalize}
+                setLanguage={setLanguage}
+                isError={error}
+              />
 
-        {/* Refresh */}
-        <Button size="medium" onClick={getStock} className={classes.button}>
-          Refresh
-        </Button>
-      </Container>
+              {/* Spacer */}
+              <div style={{ margin: 'auto' }} />
 
-      {/* Input to create stock item */}
-      {Boolean(stock.length) && <StockInput getStock={getStock} />}
+              {/* Refresh */}
+              <Button
+                size="medium"
+                onClick={getStock}
+                className={classes.button}
+              >
+                Refresh
+              </Button>
+            </Container>
 
-      {/* Error */}
-      {error && (
-        <ErrorAlert
-          heading="Error"
-          body={`An error occurred while trying to get the stock. ${error}`}
-        />
-      )}
+            {/* Input to create stock item */}
+            {<StockInput getStock={getStock} />}
+          </Paper>
+        </Grid>
 
-      {/* Loading spinner */}
-      {stock.length === 0 && !error && <Loading />}
+        {/* Right column */}
+        <Grid item xs={12} md={8}>
+          <Paper elevation={2} className={classes.column}>
+            {/* Loading spinner */}
+            {stock.length === 0 && !error && <Loading />}
 
-      {/* Stock items */}
-      {stock &&
-        stock.map((item) => (
-          <StockCard
-            stockItem={item}
-            getStock={getStock}
-            lang={language === 'english' ? 'name' : language}
-            key={item.name}
-          />
-        ))}
+            {/* Error alert */}
+            {error && (
+              <ErrorAlert
+                heading="Error"
+                body={`An error occurred while trying to get the stock. ${error}`}
+              />
+            )}
+
+            {/* Stock items */}
+            {stock &&
+              stock.map((item) => (
+                <StockCard
+                  stockItem={item}
+                  getStock={getStock}
+                  lang={language === 'english' ? 'name' : language}
+                  key={item.name}
+                />
+              ))}
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
@@ -118,7 +139,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: theme.typography.h4.fontSize,
     },
-    marginBottom: 3,
+    marginBottom: theme.spacing(2),
+  },
+  subheading: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  column: {
+    padding: theme.spacing(2),
   },
   buttonBar: {
     display: 'flex',
