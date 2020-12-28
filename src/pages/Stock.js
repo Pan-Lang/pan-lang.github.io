@@ -106,16 +106,13 @@ function Stock() {
                 isError={error}
               />
 
-              {/* Spacer */}
-              <div style={{ margin: 'auto' }} />
-
               {/* Refresh */}
               <Button
                 size="medium"
                 onClick={getStock}
                 className={classes.button}
               >
-                Refresh
+                Refresh stock list
               </Button>
             </Container>
 
@@ -189,9 +186,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   buttonBar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingBottom: 10,
     paddingLeft: 0,
     paddingRight: 0,
@@ -204,6 +198,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#119178'
     },
+    width: '100%',
+    marginTop: 5,
+    marginBottom: 5,
   },
   searchPaper: {
     margin: 5,
