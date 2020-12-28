@@ -12,7 +12,7 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
 /**
- * Handles creation of new stock items
+ * Form component that handles creation of new stock items
  */
 function StockInputForm({
   values,

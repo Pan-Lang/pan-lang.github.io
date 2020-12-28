@@ -151,6 +151,7 @@ function Stock() {
               <StockCard
                 stockItem={item}
                 getStock={getStock}
+                // Key of English name is always 'name'
                 lang={language === 'english' ? 'name' : language}
                 key={item.name}
               />
