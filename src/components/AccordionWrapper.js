@@ -6,6 +6,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 
+/**
+ * Component that wraps children in accordion
+ */
 function AccordionWrapper({ summary, children }) {
   const classes = useStyles();
   return (
