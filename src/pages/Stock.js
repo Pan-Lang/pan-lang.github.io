@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Paper from '@material-ui/core/Paper';
+import Search from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import {
-  Grid,
   makeStyles,
-  Paper,
-  TextField,
-  InputAdornment,
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import Search from '@material-ui/icons/Search';
-import StockCard from '../components/StockCard';
-import StockInput from '../components/StockInput';
-import Loading from '../components/Loading';
+import AccordionWrapper from '../components/AccordionWrapper';
 import ErrorAlert from '../components/ErrorAlert';
-import LanguageMenu from '../components/LanguageMenu';
+import Loading from '../components/Loading';
+import StockCard from '../components/StockCard';
+import StockOptions from '../components/StockOptions';
 import LANGUAGES from '../constants/Languages';
 import { fetchStock } from '../api/Stock';
 
 /**
- * Displays the stock of food pantry with options for language
+ * Page displaying the stock of food pantry with options for language
  */
 function Stock() {
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(null);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
-  const isMobile = !(useMediaQuery(useTheme().breakpoints.up('xs')));
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
 
   /**
    * Fetches stock from API and stores in state
@@ -92,36 +91,36 @@ function Stock() {
       <Grid container spacing={isMobile ? 0 : 2}>
         {/* Left column */}
         <Grid item xs={12} md={4}>
-          <Paper elevation={2} className={classes.column}>
-            <Typography variant="h5" className={classes.subheading}>
-              Options
-            </Typography>
-
-            {/* Button bar */}
-            <Container className={classes.buttonBar}>
-              {/* Language selection */}
-              <LanguageMenu
+          {/* On mobile: hide options in accordion */}
+          {isMobile && (
+            <AccordionWrapper summary="Options">
+              <StockOptions
                 languages={LANGUAGES}
                 currentLanguage={language}
-                buttonClass={classes.button}
-                capitalize={capitalize}
                 setLanguage={setLanguage}
+                capitalize={capitalize}
+                getStock={getStock}
                 isError={error}
               />
+            </AccordionWrapper>
+          )}
 
-              {/* Refresh */}
-              <Button
-                size="medium"
-                onClick={getStock}
-                className={classes.button}
-              >
-                Refresh stock list
-              </Button>
-            </Container>
-
-            {/* Input to create stock item */}
-            {<StockInput getStock={getStock} />}
-          </Paper>
+          {/* On desktop: keep options bar open */}
+          {!isMobile && (
+            <Paper elevation={2} className={classes.column}>
+              <Typography variant="h5" className={classes.subheading}>
+                Options
+              </Typography>
+              <StockOptions
+                languages={LANGUAGES}
+                currentLanguage={language}
+                setLanguage={setLanguage}
+                capitalize={capitalize}
+                getStock={getStock}
+                isError={error}
+              />
+            </Paper>
+          )}
         </Grid>
 
         {/* Right column */}
@@ -177,7 +176,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.only('xs')]: {
       paddingLeft: 2,
-      paddingRight: 2,  
+      paddingRight: 2,
     },
   },
   title: {
@@ -195,29 +194,15 @@ const useStyles = makeStyles((theme) => ({
   column: {
     padding: theme.spacing(2),
   },
-  buttonBar: {
-    paddingBottom: 10,
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-  button: {
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
-    textTransform: 'none',
-    '&:hover': {
-      backgroundColor: '#119178'
-    },
-    width: '100%',
-    marginTop: 5,
-    marginBottom: 5,
-  },
   searchPaper: {
     margin: 5,
     padding: theme.spacing(2),
   },
   search: {
     width: '95%',
+  },
+  details: {
+    display: 'block',
   },
 }));
 

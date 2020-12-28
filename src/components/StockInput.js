@@ -77,7 +77,7 @@ function StockInputForm({
                 disabled={isSubmitting}
                 className={classes.button}
               >
-                Add item
+                {isSubmitting ? 'Adding...' : 'Add item'}
               </Button>
               <Button
                 color="secondary"
@@ -114,7 +114,7 @@ const StockInput = withFormik({
   handleSubmit: (values, { setSubmitting }) => {
     setTimeout(() => {
       // TODO: send information to API
-      alert(JSON.stringify(values, null, 2));
+      alert('API not connected');
       setSubmitting(false);
     }, 1000);
   },
