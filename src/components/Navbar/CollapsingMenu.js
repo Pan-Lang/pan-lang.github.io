@@ -4,31 +4,6 @@ import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'absolute',
-    right: 0,
-  },
-  buttonBar: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-    margin: '10px',
-    paddingLeft: '16px',
-    right: 0,
-    position: 'relative',
-    width: '100%',
-    background: 'transparent',
-  },
-  link: {
-    margin: theme.spacing(1, 1),
-    color: 'gray',
-  },
-  login: {
-    margin: '10px',
-  },
-}));
-
 // Pages to navigate to
 const navigation = [
   { page: 'About', to: '/about' },
@@ -82,5 +57,30 @@ function CollapsingMenu() {
     </div>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'absolute',
+    right: 0,
+  },
+  buttonBar: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
+    margin: '10px',
+    paddingLeft: '16px',
+    right: 0,
+    position: 'relative',
+    width: '100%',
+    background: 'transparent',
+  },
+  link: {
+    margin: theme.spacing(1, 1),
+    color: 'gray',
+  },
+  login: {
+    margin: '10px',
+  },
+}));
 
 export default CollapsingMenu;

@@ -6,24 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Slide from '@material-ui/core/Slide';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  navigation: {
-    backgroundColor: 'white',
-  },
-  toggleDrawer: {},
-  appTitle: {},
-}));
-
 /**
  * Navigation bar at the top of window
  */
@@ -51,5 +33,23 @@ function Navbar() {
     </Slide>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  navigation: {
+    backgroundColor: 'white',
+  },
+  toggleDrawer: {},
+  appTitle: {},
+}));
 
 export default Navbar;
