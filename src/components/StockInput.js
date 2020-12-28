@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: '#16AB8D',
     '&:hover': {
-      backgroundColor: '#119178'
+      backgroundColor: '#119178',
     },
     borderColor: '#FFFFF5',
     color: '#FFFFFF',

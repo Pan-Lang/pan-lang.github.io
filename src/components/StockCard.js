@@ -4,8 +4,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Chip from '@material-ui/core/Chip';
+import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
-import { Fade, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import StockModal from './StockModal';
 
 /**

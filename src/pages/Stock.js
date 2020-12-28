@@ -6,11 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Search from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import {
-  makeStyles,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import AccordionWrapper from '../components/AccordionWrapper';
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';

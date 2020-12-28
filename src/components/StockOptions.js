@@ -1,10 +1,10 @@
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import React from 'react';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core';
 import LanguageMenu from './LanguageMenu';
 import StockInput from './StockInput';
-import { makeStyles } from '@material-ui/core';
 
 /**
  * Options on stock dashboard
@@ -18,7 +18,7 @@ function StockOptions({
   capitalize,
   setLanguage,
   isError,
-  getStock
+  getStock,
 }) {
   const classes = useStyles();
   return (

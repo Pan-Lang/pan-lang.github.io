@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import Backdrop from '@material-ui/core/Backdrop';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Fade from '@material-ui/core/Fade';
+import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import ErrorAlert from './ErrorAlert';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import TextField from '@material-ui/core/TextField';
-import Fade from '@material-ui/core/Fade';
-import { Button, Container, Paper, Typography } from '@material-ui/core';
 import { updateStockCount } from '../api/Stock';
-import ErrorAlert from './ErrorAlert';
 
 /**
  * Popup modal for editing the stock count of an item
@@ -87,7 +90,7 @@ function StockModal({
                 <Typography variant="h5">
                   Edit amount for: {stockName}
                 </Typography>
-                
+
                 {/* Text field for entering new amount */}
                 {!loading && !error && (
                   <Container className={classes.form}>
@@ -115,11 +118,9 @@ function StockModal({
                     Updating stock count for {stockName}...
                   </Typography>
                 )}
-                
+
                 {/* Error message */}
-                {error && (
-                  <ErrorAlert body="An error occurred." />
-                )}
+                {error && <ErrorAlert body="An error occurred." />}
 
                 {/* Action buttons */}
                 {!loading && (
