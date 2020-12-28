@@ -43,7 +43,7 @@ function StockInputForm({
             {/* Item name text field */}
             <TextField
               id="itemName"
-              label="New item name"
+              label="Enter new item name"
               value={values.itemName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -57,7 +57,7 @@ function StockInputForm({
             {/* Item count text field */}
             <TextField
               id="itemCount"
-              label="New item count"
+              label="Enter new item count"
               value={values.itemCount}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -70,10 +70,20 @@ function StockInputForm({
 
             {/* Form buttons */}
             <Container className={classes.actions}>
-              <Button type="submit" color="primary" disabled={isSubmitting}>
+              <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={isSubmitting}
+                className={classes.button}
+              >
                 Add item
               </Button>
-              <Button color="secondary" onClick={handleReset}>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={handleReset}
+              >
                 Clear
               </Button>
             </Container>
@@ -131,6 +141,16 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingBottom: 0,
+  },
+  button: {
+    backgroundColor: '#16AB8D',
+    '&:hover': {
+      backgroundColor: '#119178'
+    },
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    marginRight: theme.spacing(1),
   },
 }));
 

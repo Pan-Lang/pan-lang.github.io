@@ -201,6 +201,9 @@ const useStyles = makeStyles((theme) => ({
     borderColor: '#FFFFF5',
     color: '#FFFFFF',
     textTransform: 'none',
+    '&:hover': {
+      backgroundColor: '#119178'
+    },
   },
   searchPaper: {
     margin: 5,

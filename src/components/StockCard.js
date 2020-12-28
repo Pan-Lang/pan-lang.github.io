@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,8 +8,11 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Fade, makeStyles } from '@material-ui/core';
 import StockModal from './StockModal';
-import ErrorAlert from './ErrorAlert';
 
+/**
+ * Card component that displays a stock item and allows
+ * for editing its amount through a modal popup
+ */
 function StockCard({ stockItem, getStock, lang = 'name' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
