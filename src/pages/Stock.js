@@ -126,17 +126,6 @@ function Stock() {
 
         {/* Right column */}
         <Grid item xs={12} md={8}>
-          {/* Loading spinner */}
-          {stock.length === 0 && !error && <Loading />}
-
-          {/* Error alert */}
-          {error && (
-            <ErrorAlert
-              heading="Error"
-              body={`An error occurred while trying to get the stock. ${error}`}
-            />
-          )}
-
           {/* Search bar */}
           <Paper elevation={1} className={classes.searchPaper}>
             <TextField
@@ -166,6 +155,17 @@ function Stock() {
                 key={item.name}
               />
             ))}
+
+          {/* Loading spinner */}
+          {stock.length === 0 && !error && <Loading />}
+
+          {/* Error alert */}
+          {error && (
+            <ErrorAlert
+              heading="Error"
+              body={`An error occurred while trying to get the stock. ${error}`}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>

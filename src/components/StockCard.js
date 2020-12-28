@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core';
+import { Fade, makeStyles } from '@material-ui/core';
 import StockModal from './StockModal';
 import ErrorAlert from './ErrorAlert';
 
@@ -36,51 +36,55 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
   const classes = useStyles();
   return (
     <>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h4">
-            {hasLanguage ? stockItem[lang] : stockItem.name}
-            {lang !== 'name' && hasLanguage
-              ? ' (' + stockItem['name'] + ')'
-              : ''}
-          </Typography>
+      <Fade in={true}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h4" className={classes.name}>
+              {hasLanguage ? stockItem[lang] : stockItem.name}
+              {lang !== 'name' && hasLanguage
+                ? ' (' + stockItem['name'] + ')'
+                : ''}
+            </Typography>
 
-          <Typography>
-            Amount:{' '}
-            <font style={{ fontWeight: 'bolder' }}>{stockItem.count}</font>
-          </Typography>
+            <Typography>
+              Amount:{' '}
+              <font style={{ fontWeight: 'bolder' }}>{stockItem.count}</font>
+            </Typography>
 
-          <Typography style={{ textAlign: 'right' }}>
-            Last updated:{' '}
-            {stockItem.timestamp !== undefined
-              ? getItemDateString(stockItem)
-              : 'Unavailable'}
-          </Typography>
+            <Typography style={{ textAlign: 'right' }}>
+              Last updated:{' '}
+              {stockItem.timestamp !== undefined
+                ? getItemDateString(stockItem)
+                : 'Unavailable'}
+            </Typography>
 
-          {stockItem.count <= 0 && <ErrorAlert body="Warning: Out of stock" />}
-        </CardContent>
-        <CardActions>
-          <Container
-            style={{ display: 'flex', alignItems: 'center', padding: 0 }}
-          >
-            {!hasLanguage && (
-              <Chip
-                size="small"
-                color="secondary"
-                label={'Language unavailable'}
-              />
+            {stockItem.count <= 0 && (
+              <ErrorAlert body="Warning: Out of stock" />
             )}
-            <div style={{ margin: 'auto' }} />
-            <Button
-              size="small"
-              className={classes.button}
-              onClick={handleShow}
+          </CardContent>
+          <CardActions>
+            <Container
+              style={{ display: 'flex', alignItems: 'center', padding: 0 }}
             >
-              Edit amount
-            </Button>
-          </Container>
-        </CardActions>
-      </Card>
+              {!hasLanguage && (
+                <Chip
+                  size="small"
+                  color="secondary"
+                  label={'Language unavailable'}
+                />
+              )}
+              <div style={{ margin: 'auto' }} />
+              <Button
+                size="small"
+                className={classes.button}
+                onClick={handleShow}
+              >
+                Edit amount
+              </Button>
+            </Container>
+          </CardActions>
+        </Card>
+      </Fade>
 
       <StockModal
         show={showAmountModal}
@@ -96,7 +100,18 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    margin: 5,
+    margin: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    borderRadius: '50px',
+  },
+  name: {
+    fontWeight: 'bold', 
+  },
+  subname: {
+    fontSize: theme.typography.caption.fontSize,
   },
   button: {
     alignSelf: 'center',
