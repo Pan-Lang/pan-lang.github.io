@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Chip from '@material-ui/core/Chip';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Fade, makeStyles } from '@material-ui/core';
 import StockModal from './StockModal';
@@ -33,7 +32,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
   function getItemDateString(stockItem) {
     let seconds = stockItem.timestamp._seconds;
     // Date constructor takes in milliseconds
-    return new Date(seconds * 1000).toDateString();
+    return new Date(seconds * 1000).toDateString().substr(3);
   }
 
   const classes = useStyles();
@@ -42,10 +41,10 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
       <Fade in={true}>
         <Card className={classes.card} onClick={handleShow}>
           {/* Action area makes entire component focusable */}
-          <CardActionArea>
+          <CardActionArea className={classes.cardAction}>
             <CardContent>
               {/* Top content of card */}
-              <Container className={classes.topContent}>
+              <Box className={classes.topContent}>
                 {/* Name and translation (left) */}
                 <Box className={classes.nameContainer}>
                   {/* Name */}
@@ -76,11 +75,13 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
                     {stockItem.count}
                   </Typography>
                 </Box>
-              </Container>
-              <Container className={classes.bottomContent}>
+              </Box>
+
+              {/* Bottom content */}
+              <Box className={classes.bottomContent}>
                 {/* Date */}
                 <Typography className={classes.date}>
-                  Last updated:{' '}
+                  Updated:{' '}
                   {stockItem.timestamp !== undefined
                     ? getItemDateString(stockItem)
                     : 'Unavailable'}
@@ -88,24 +89,21 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
 
                 {/* Out of stock alert */}
                 {stockItem.count <= 0 && (
-                  <Chip
-                    size="small"
-                    color="secondary"
-                    label={'Out of stock'}
-                  />
+                  <Chip size="small" color="secondary" label={'Out of stock'} />
                 )}
-              </Container>
+              </Box>
             </CardContent>
           </CardActionArea>
         </Card>
       </Fade>
 
+      {/* Popup modal for editing stock count */}
       <StockModal
         show={showAmountModal}
         handleClose={handleClose}
         getStock={getStock}
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
-        stockId={stockItem._id}
+        stockId={stockItem._id !== undefined ? stockItem._id : 'no id lol'}
         stockCount={stockItem.count}
       />
     </>
@@ -116,12 +114,21 @@ const useStyles = makeStyles((theme) => ({
   card: {
     margin: theme.spacing(1),
     borderRadius: '30px',
+    maxWidth: '100vw',
   },
   cardAction: {
-    paddingLeft: theme.spacing(0),
-    paddingRight: theme.spacing(0),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
+    [theme.breakpoints.only('sm')]: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
+    [theme.breakpoints.only('xs')]: {
+      paddingLeft: theme.spacing(0),
+      paddingRight: theme.spacing(0),
+    },
   },
   topContent: {
     display: 'flex',
@@ -138,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '30px',
     [theme.breakpoints.down('md')]: {
       fontSize: '22px',
-    }
+    },
   },
   noTranslation: {
     marginTop: 5,
@@ -148,13 +155,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '18px',
       marginTop: -4,
-    }
+    },
   },
   date: {
     color: 'gray',
     [theme.breakpoints.down('md')]: {
       fontSize: '12px',
-    }
+    },
   },
   countContainer: {},
   countHeader: {
@@ -167,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     [theme.breakpoints.down('md')]: {
       fontSize: '27px',
-    }
+    },
   },
   button: {
     alignSelf: 'center',

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import TextField from '@material-ui/core/TextField';
+import Fade from '@material-ui/core/Fade';
+import { Button, Container, Paper, Typography } from '@material-ui/core';
 import { updateStockCount } from '../api/Stock';
+import ErrorAlert from './ErrorAlert';
 
-const amountSchema = Yup.object({
-  newCount: Yup.number().integer().moreThan(-1).required(),
-});
-
+/**
+ * Popup modal for editing the stock count of an item
+ */
 function StockModal({
   show,
   handleClose,
@@ -19,104 +24,181 @@ function StockModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  /**
+   * Sends PUT request with updated stock count from input
+   * @param {Number} updatedCount updated count
+   */
   async function onSubmit(updatedCount) {
     setLoading(true);
-    const updateIsSuccessful = await updateStockCount(stockId, updatedCount);
-
-    setLoading(false);
-
-    if (!updateIsSuccessful) {
-      setError(true);
-    } else {
+    setTimeout(() => {
+      setLoading(false);
       handleClose();
       getStock(500);
-    }
+      alert('Not connected to API');
+    }, 500);
+
+    // TODO: send PUT request to API
+    // const updateIsSuccessful = await updateStockCount(stockId, updatedCount);
+
+    // setLoading(false);
+
+    // if (!updateIsSuccessful) {
+    //   setError(true);
+    // } else {
+    //   handleClose();
+    //   getStock(500);
+    // }
   }
 
+  const classes = useStyles();
   return (
     <Modal
-      show={show}
-      onHide={handleClose}
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      className={classes.modal}
+      open={show}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
     >
-      <Formik
-        validationSchema={amountSchema}
-        onSubmit={onSubmit}
-        initialValues={{
-          newCount: -1,
-        }}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          touched,
-          isValid,
-          errors,
-        }) => (
-          <>
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-vcenter">
-                Edit amount for: {stockName}
-              </Modal.Title>
-            </Modal.Header>
-
-            {/* Body of modal; changes upon sending update request */}
-            <Modal.Body>
-              {!loading && !error && (
-                <>
-                  <p>Current amount: {stockCount}</p>
-                  <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group controlId="stockCount">
-                      <Form.Control
-                        type="number"
-                        name="newCount"
-                        placeholder={'Insert new item count'}
+      <Fade in={show}>
+        <Paper className={classes.paper}>
+          <Formik
+            validationSchema={amountSchema}
+            onSubmit={onSubmit}
+            initialValues={{
+              newCount: '',
+            }}
+          >
+            {/* Formik component */}
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+            }) => (
+              <>
+                <Typography variant="h5">
+                  Edit amount for: {stockName}
+                </Typography>
+                
+                {/* Text field for entering new amount */}
+                {!loading && !error && (
+                  <Container className={classes.form}>
+                    <Typography>Current amount: {stockCount}</Typography>
+                    <form onSubmit={handleSubmit}>
+                      <TextField
+                        id="newCount"
+                        label="Enter new item count"
+                        value={values.newCount}
                         onChange={handleChange}
-                        isValid={touched.newCount && !errors.newCount}
-                        isInvalid={!!errors.newCount}
+                        onBlur={handleBlur}
+                        helperText={touched.newCount ? errors.newCount : ''}
+                        error={touched.newCount && Boolean(errors.newCount)}
+                        margin="dense"
+                        variant="outlined"
+                        fullWidth
                       />
-                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                  </Form>
-                </>
-              )}
+                    </form>
+                  </Container>
+                )}
 
-              {loading && <p>Updating stock count for {stockName}...</p>}
+                {/* Message when processing request */}
+                {loading && (
+                  <Typography>
+                    Updating stock count for {stockName}...
+                  </Typography>
+                )}
+                
+                {/* Error message */}
+                {error && (
+                  <ErrorAlert body="An error occurred." />
+                )}
 
-              {error && <p>An error occurred when trying to update stock.</p>}
-            </Modal.Body>
+                {/* Action buttons */}
+                {!loading && (
+                  <Container className={classes.actions}>
+                    {/* Submit button */}
+                    {!error && (
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={handleSubmit}
+                        className={classes.button}
+                      >
+                        Save new amount
+                      </Button>
+                    )}
 
-            <Modal.Footer>
-              {!loading && (
-                <>
-                  <Button
-                    variant="secondary"
-                    style={{borderRadius: '200px'}}
-                    onClick={() => {
-                      setError(false);
-                      setLoading(false);
-                      handleClose();
-                    }}
-                  >
-                    Close
-                  </Button>
-                  {!error && (
-                    <Button onClick={handleSubmit}
-                    style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}}>
-                      Save new amount
+                    {/* Close modal button */}
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      className={classes.closeButton}
+                      onClick={() => {
+                        // Set timer so buttons don't reappear during
+                        // fade out animation
+                        setTimeout(() => {
+                          setError(false);
+                          setLoading(false);
+                        }, 120);
+
+                        handleClose();
+                      }}
+                    >
+                      Close
                     </Button>
-                  )}
-                </>
-              )}
-            </Modal.Footer>
-          </>
-        )}
-      </Formik>
+                  </Container>
+                )}
+              </>
+            )}
+          </Formik>
+        </Paper>
+      </Fade>
     </Modal>
   );
 }
+
+// Schema for updating count
+const amountSchema = Yup.object({
+  newCount: Yup.number().integer().moreThan(-1).required(),
+});
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    borderRadius: '15px',
+  },
+  button: {
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
+    width: '100%',
+    marginBottom: 5,
+  },
+  closeButton: {
+    width: '100%',
+  },
+  form: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 export default StockModal;

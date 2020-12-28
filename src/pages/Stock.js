@@ -8,6 +8,8 @@ import {
   Paper,
   TextField,
   InputAdornment,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 import StockCard from '../components/StockCard';
@@ -26,6 +28,7 @@ function Stock() {
   const [error, setError] = useState(null);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
+  const isMobile = !(useMediaQuery(useTheme().breakpoints.up('xs')));
 
   /**
    * Fetches stock from API and stores in state
@@ -80,13 +83,13 @@ function Stock() {
 
   const classes = useStyles();
   return (
-    <Container>
+    <Container className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Stock Dashboard
       </Typography>
 
       {/* Two column desktop layout, one column mobile layout */}
-      <Grid container spacing={2}>
+      <Grid container spacing={isMobile ? 0 : 2}>
         {/* Left column */}
         <Grid item xs={12} md={4}>
           <Paper elevation={2} className={classes.column}>
@@ -170,6 +173,12 @@ function Stock() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.only('xs')]: {
+      paddingLeft: 2,
+      paddingRight: 2,  
+    },
+  },
   title: {
     textAlign: 'center',
     fontSize: theme.typography.h3.fontSize,
