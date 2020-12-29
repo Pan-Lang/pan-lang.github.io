@@ -16,3 +16,15 @@ export async function fetchPeople() {
   const promise = await Client.get(PEOPLE_ENDPOINT);
   return promise;
 }
+
+export async function updatePerson(id, update) {
+  Client.put(`${PEOPLE_ENDPOINT}/${id}`, update)
+    .then((res) => {
+      return true;
+    })
+    .catch((e) => {
+      return false;
+    })
+    
+  return promise
+}
