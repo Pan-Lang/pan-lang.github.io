@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
 import { makeStyles } from '@material-ui/core/styles';
+import { ABOUT, ORDER_FORM, ORDER_TRACKER, SIGN_IN, STOCK } from '../../constants/Routes';
 
 // Pages to navigate to
 const navigation = [
-  { page: 'About', to: '/about' },
-  { page: 'Order Form', to: '/order' },
-  { page: 'Order Tracker', to: '/order-tracker' },
-  { page: 'Stock', to: '/stock' },
+  { page: 'About', to: ABOUT },
+  { page: 'Order Form', to: ORDER_FORM },
+  { page: 'Order Tracker', to: ORDER_TRACKER },
+  { page: 'Stock', to: STOCK },
 ];
 
 /**
@@ -47,11 +48,11 @@ function CollapsingMenu() {
         ))}
         <Button
           component={Link}
-          to="/login"
+          to={SIGN_IN}
           variant="contained"
           className={classes.login}
         >
-          Login
+          Sign in
         </Button>
       </nav>
     </div>

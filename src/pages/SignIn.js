@@ -3,7 +3,7 @@ import { Card, FormControl, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-function Login() {
+function SignIn() {
   const [pantryName, setPantryName] = useState('');
 
   function handlePantryNameChange(e) {
@@ -52,4 +52,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignIn;
