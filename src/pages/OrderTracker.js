@@ -21,6 +21,7 @@ function OrderTracker() {
   })
 
   function personFulfilled(id) {
+    console.log(snapshot.size);
     console.log("trying to fulfill", id);
     const requestBody = {
       fulfilled: true
@@ -52,4 +53,4 @@ function OrderTracker() {
   );
 }
 
-export default OrderTracker;
+export default withFirebase(OrderTracker);
