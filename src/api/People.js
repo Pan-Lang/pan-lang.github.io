@@ -25,6 +25,5 @@ export async function updatePerson(id, update) {
     .catch((e) => {
       return false;
     })
-    
-  return promise
+
 }
