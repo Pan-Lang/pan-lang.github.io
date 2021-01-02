@@ -7,6 +7,8 @@ import { PEOPLE_ENDPOINT } from '../api/People';
 import { BASE_API_URL } from '../api/Client';
 import { MONTHS, MONTH_NAMES } from '../constants/Months';
 import YEARS from '../constants/Years';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, signInWithGoogle } from '../firebase';
 
 function Home() {
   const current = new Date();

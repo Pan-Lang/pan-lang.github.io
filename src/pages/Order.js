@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { ORDER_STOCK } from '../constants/Routes';
 
 const orderSchema = Yup.object({
   firstName: Yup.string().required(),
@@ -23,7 +24,7 @@ function OrderForm() {
       <Formik
         validationSchema={orderSchema}
         onSubmit={(personInfo) => {
-          history.push('/order-stock', { fromForm: true, personInfo })
+          history.push(ORDER_STOCK, { fromForm: true, personInfo })
         }}
         initialValues={{
           firstName: '',

@@ -6,16 +6,15 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-import Firebase, { FirebaseContext } from './components/Firebase';
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
-     <React.StrictMode>
-      <React.Fragment>
-        <CssBaseline />
-        <App />
-      </React.Fragment>
-    </React.StrictMode>
-  </FirebaseContext.Provider>,
+
+  <React.StrictMode>
+    <React.Fragment>
+      <CssBaseline />
+      <App />
+    </React.Fragment>
+  </React.StrictMode>,
+
  
   document.getElementById('root')
 );

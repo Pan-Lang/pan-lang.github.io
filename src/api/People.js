@@ -18,7 +18,7 @@ export async function fetchPeople() {
 }
 
 export async function updatePerson(id, update) {
-  Client.put(`${PEOPLE_ENDPOINT}/${id}`, update)
+  Client.put(PEOPLE_ENDPOINT, update)
     .then((res) => {
       return true;
     })
