@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { ORDER_STOCK } from '../constants/Routes';
+import { ORDER_STOCK, LANDING } from '../constants/Routes';
+import { auth } from '../firebase';
 
 const orderSchema = Yup.object({
   firstName: Yup.string().required(),
@@ -18,13 +19,20 @@ const orderSchema = Yup.object({
 function OrderForm() {
   const history = useHistory();
 
+  // Immediately send user back to homepage if not signed in
+  useEffect(() => {
+    if (!Boolean(auth.currentUser)) {
+      history.push(LANDING);
+    }
+  }, [history]);
+
   return (
     <Container style={{ backgroundColor: 'white', paddingBottom: 120 }}>
       <h1 style={{ textAlign: 'center' }}>Order</h1>
       <Formik
         validationSchema={orderSchema}
         onSubmit={(personInfo) => {
-          history.push(ORDER_STOCK, { fromForm: true, personInfo })
+          history.push(ORDER_STOCK, { fromForm: true, personInfo });
         }}
         initialValues={{
           firstName: '',
@@ -32,7 +40,7 @@ function OrderForm() {
           adults: -1,
           children: -1,
           zipcode: -1,
-          orderNotes: 'test'
+          orderNotes: 'test',
         }}
       >
         {({
@@ -107,7 +115,18 @@ function OrderForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button type="submit" style={{backgroundColor: '#16AB8D', borderColor: '#FFFFF5', color: '#FFFFFF', borderRadius: '200px'}} block>Select order</Button>
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: '#16AB8D',
+                    borderColor: '#FFFFF5',
+                    color: '#FFFFFF',
+                    borderRadius: '200px',
+                  }}
+                  block
+                >
+                  Select order
+                </Button>
               </div>
             </Form>
           </div>

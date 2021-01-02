@@ -14,6 +14,9 @@ import StockCard from '../components/StockCard';
 import StockOptions from '../components/StockOptions';
 import LANGUAGES from '../constants/Languages';
 import { fetchStock } from '../api/Stock';
+import { auth } from '../firebase';
+import { useHistory } from 'react-router-dom';
+import { LANDING } from '../constants/Routes';
 
 /**
  * Page displaying the stock of food pantry with options for language
@@ -24,6 +27,7 @@ function Stock() {
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
+  const history = useHistory();
 
   /**
    * Fetches stock from API and stores in state
@@ -47,11 +51,16 @@ function Stock() {
   }
 
   /**
-   * Fetch stock as soon as page is rendered
+   * Fetch stock as soon as page is rendered, if user is signed in
    */
   useEffect(() => {
-    getStock();
-  }, []);
+    if (Boolean(auth.currentUser)) {
+      getStock();
+    } else {
+      // Redirect to home page
+      history.push(LANDING);
+    }
+  }, [history]);
 
   /**
    * Capitalizes the first letter of a string
