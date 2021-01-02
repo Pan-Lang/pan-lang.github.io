@@ -1,55 +1,68 @@
 import React, { useState } from 'react';
-import { Card, FormControl, InputGroup } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Loading from '../components/Loading';
+import ErrorAlert from '../components/ErrorAlert';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, signInWithGoogle } from '../firebase';
+import { makeStyles } from '@material-ui/core';
 
 function SignIn() {
-  const [pantryName, setPantryName] = useState('');
+  const [user, loading, error] = useAuthState(auth);
 
-  function handlePantryNameChange(e) {
-    setPantryName(e.target.value);
+  function handleSignIn() {
+    signInWithGoogle();
   }
 
-  function handleLogin() {
-    console.log(`log in to pantry: ${pantryName}`);
+  function handleSignOut() {
+    auth.signOut();
   }
 
-  function handleSignup() {
-    console.log('signup');
-  }
-
+  const classes = useStyles();
   return (
-    <Container style={{ textAlign: 'center' }}>
-      <h1>Log In</h1>
-      <Card className="mb-3">
-        <Card.Body>
-          <p>Gain full access to your pantry's stock and current orders.</p>
-          <InputGroup
-            className="mb-3"
-            size="lg"
-            onChange={handlePantryNameChange}
-          >
-            <FormControl
-              aria-label="Default"
-              placeholder="Enter your pantry name here"
-              aria-describedby="inputGroup-sizing-default"
-            />
-          </InputGroup>
-          <Button style={{ backgroundColor: 'green' }} onClick={handleLogin}>
-            Login to your pantry
-          </Button>
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Body>
-          <p>Don't have a pantry with us yet?</p>
-          <Button style={{ backgroundColor: 'green' }} onClick={handleSignup}>
-            Sign up to create a pantry
-          </Button>
-        </Card.Body>
-      </Card>
+    <Container>
+      <Typography variant="h1">
+        Join Pan-Lang today.
+      </Typography>
+      <Button className={classes.button} onClick={handleSignIn}>
+        Sign in with Google
+      </Button>
+      <Button className={classes.button} onClick={handleSignOut}>
+        Sign out
+      </Button>
+      <Typography variant="h3">
+        Signed in: {String(Boolean(user))}
+      </Typography>
+
+      {/* Loading */}
+      {loading && <Loading />}
+
+      {/* Error */}
+      {error && <ErrorAlert body="An error occurred." />}
+      
+      {/* Display user info */}
+      {Boolean(user) && (
+        <Container>
+          <Typography>
+            Name: {user.displayName}
+          </Typography>
+          <Typography>
+            Email: {user.email}
+          </Typography>
+          </Container>
+      )}
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    alignSelf: 'center',
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+  },
+}));
 
 export default SignIn;

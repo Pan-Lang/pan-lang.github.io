@@ -29,7 +29,7 @@ function CollapsingMenu() {
             {nav.page}
           </MenuItem>
         ))}
-        <MenuItem component={Link} to="/login">
+        <MenuItem component={Link} to={SIGN_IN}>
           Login
         </MenuItem>
       </CollapsingButton>
