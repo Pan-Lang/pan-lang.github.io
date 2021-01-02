@@ -22,35 +22,27 @@ function SignIn() {
   const classes = useStyles();
   return (
     <Container>
-      <Typography variant="h1">
-        Join Pan-Lang today.
-      </Typography>
+      <Typography variant="h1">Join Pan-Lang today.</Typography>
       <Button className={classes.button} onClick={handleSignIn}>
         Sign in with Google
       </Button>
       <Button className={classes.button} onClick={handleSignOut}>
         Sign out
       </Button>
-      <Typography variant="h3">
-        Signed in: {String(Boolean(user))}
-      </Typography>
+      <Typography variant="h3">Signed in: {String(Boolean(user))}</Typography>
 
       {/* Loading */}
       {loading && <Loading />}
 
       {/* Error */}
       {error && <ErrorAlert body="An error occurred." />}
-      
+
       {/* Display user info */}
       {Boolean(user) && (
         <Container>
-          <Typography>
-            Name: {user.displayName}
-          </Typography>
-          <Typography>
-            Email: {user.email}
-          </Typography>
-          </Container>
+          <Typography>Name: {user.displayName}</Typography>
+          <Typography>Email: {user.email}</Typography>
+        </Container>
       )}
     </Container>
   );

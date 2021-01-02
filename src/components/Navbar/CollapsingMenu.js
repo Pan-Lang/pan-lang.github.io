@@ -3,23 +3,35 @@ import { Link } from 'react-router-dom';
 import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { ABOUT, ORDER_FORM, ORDER_TRACKER, SIGN_IN, STOCK } from '../../constants/Routes';
-
-// Pages to navigate to
-const navigation = [
-  { page: 'About', to: ABOUT },
-  { page: 'Order Form', to: ORDER_FORM },
-  { page: 'Order Tracker', to: ORDER_TRACKER },
-  { page: 'Stock', to: STOCK },
-];
+import {
+  ABOUT,
+  ORDER_FORM,
+  ORDER_TRACKER,
+  SIGN_IN,
+  STOCK,
+} from '../../constants/Routes';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase';
 
 /**
  * Responsive navigation menu
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
 function CollapsingMenu() {
-  const classes = useStyles();
+  const [user, loading, error] = useAuthState(auth);
+  
+  // Pages to navigate to
+  const fullNavigation = [
+    { page: 'About', to: ABOUT },
+    { page: 'Order Form', to: ORDER_FORM },
+    { page: 'Order Tracker', to: ORDER_TRACKER },
+    { page: 'Stock', to: STOCK },
+  ];
+  
+  // Only show About page when user is not logged in
+  const navigation = Boolean(user) ? fullNavigation : [ fullNavigation[0] ];
 
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       {/* Mobile */}
