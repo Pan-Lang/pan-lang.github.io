@@ -17,9 +17,11 @@ export async function fetchPeople() {
   return promise;
 }
 
-export async function updatePerson(id, update) {
+export async function updatePerson(update) {
+  //not finished yet, but we're getting there
   Client.put(PEOPLE_ENDPOINT, update)
     .then((res) => {
+      console.log(res);
       return true;
     })
     .catch((e) => {
