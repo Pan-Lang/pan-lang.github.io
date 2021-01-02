@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   ABOUT,
@@ -19,7 +20,7 @@ import { auth } from '../../firebase';
  */
 function CollapsingMenu() {
   const [user, loading, error] = useAuthState(auth);
-  
+
   // Pages to navigate to
   const fullNavigation = [
     { page: 'About', to: ABOUT },
@@ -27,9 +28,13 @@ function CollapsingMenu() {
     { page: 'Order Tracker', to: ORDER_TRACKER },
     { page: 'Stock', to: STOCK },
   ];
-  
+
   // Only show About page when user is not logged in
-  const navigation = Boolean(user) ? fullNavigation : [ fullNavigation[0] ];
+  const navigation = Boolean(user) ? fullNavigation : [fullNavigation[0]];
+
+  function getAuthButtonText() {
+    return Boolean(user) ? user.displayName.split(' ')[0] : 'Sign In';
+  }
 
   const classes = useStyles();
   return (
@@ -42,7 +47,10 @@ function CollapsingMenu() {
           </MenuItem>
         ))}
         <MenuItem component={Link} to={SIGN_IN}>
-          Login
+          {getAuthButtonText()}
+          {Boolean(user) && (
+            <AccountCircleIcon className={classes.profileIcon} />
+          )}
         </MenuItem>
       </CollapsingButton>
 
@@ -64,7 +72,10 @@ function CollapsingMenu() {
           variant="contained"
           className={classes.login}
         >
-          Sign in
+          {getAuthButtonText()}
+          {Boolean(user) && (
+            <AccountCircleIcon className={classes.profileIcon} />
+          )}
         </Button>
       </nav>
     </div>
@@ -93,6 +104,9 @@ const useStyles = makeStyles((theme) => ({
   },
   login: {
     margin: '10px',
+  },
+  profileIcon: {
+    marginLeft: '4px',
   },
 }));
 
