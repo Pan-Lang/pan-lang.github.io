@@ -8,7 +8,15 @@ import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import OrderTracker from './pages/OrderTracker';
 import SignIn from './pages/SignIn';
-import { ABOUT, ORDER_FORM, ORDER_TRACKER, LANDING, SIGN_IN, STOCK, ORDER_STOCK } from './constants/Routes';
+import {
+  ABOUT,
+  ORDER_FORM,
+  ORDER_TRACKER,
+  LANDING,
+  SIGN_IN,
+  STOCK,
+  ORDER_STOCK,
+} from './constants/Routes';
 
 function App() {
   return (
@@ -32,7 +40,7 @@ function App() {
         <Route path={ORDER_STOCK}>
           <OrderStock />
         </Route>
-        <Route path={ORDER_TRACKER}> 
+        <Route path={ORDER_TRACKER}>
           <OrderTracker />
         </Route>
         <Route path={SIGN_IN}>

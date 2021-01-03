@@ -6,6 +6,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   ABOUT,
+  LANDING,
   ORDER_FORM,
   ORDER_TRACKER,
   SIGN_IN,
@@ -19,7 +20,7 @@ import { auth } from '../../firebase';
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
 function CollapsingMenu() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   // Pages to navigate to
   const fullNavigation = [
@@ -32,8 +33,14 @@ function CollapsingMenu() {
   // Only show About page when user is not logged in
   const navigation = Boolean(user) ? fullNavigation : [fullNavigation[0]];
 
+  // Auth button text depends on whether user is logged in
   function getAuthButtonText() {
     return Boolean(user) ? user.displayName.split(' ')[0] : 'Sign In';
+  }
+
+  // Profile button redirects to landing page
+  function getAuthButtonLink() {
+    return Boolean(user) ? LANDING : SIGN_IN;
   }
 
   const classes = useStyles();
@@ -46,7 +53,7 @@ function CollapsingMenu() {
             {nav.page}
           </MenuItem>
         ))}
-        <MenuItem component={Link} to={SIGN_IN}>
+        <MenuItem component={Link} to={getAuthButtonLink()}>
           {getAuthButtonText()}
           {Boolean(user) && (
             <AccountCircleIcon className={classes.profileIcon} />
@@ -68,7 +75,7 @@ function CollapsingMenu() {
         ))}
         <Button
           component={Link}
-          to={SIGN_IN}
+          to={getAuthButtonLink()}
           variant="contained"
           className={classes.login}
         >
