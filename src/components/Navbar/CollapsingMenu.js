@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
@@ -20,6 +20,7 @@ import { auth } from '../../firebase';
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
 function CollapsingMenu() {
+  const [isOpen, setOpen] = useState(false);
   const [user] = useAuthState(auth);
 
   // Pages to navigate to
@@ -47,13 +48,24 @@ function CollapsingMenu() {
   return (
     <div className={classes.root}>
       {/* Mobile */}
-      <CollapsingButton>
+      <CollapsingButton isOpen={isOpen} setOpen={setOpen}>
         {navigation.map((nav) => (
-          <MenuItem key={nav.to} component={Link} to={nav.to}>
+          <MenuItem
+            key={nav.to}
+            component={Link}
+            to={nav.to}
+            // FIXME: sometimes causes menu to pop up in weird places
+            // try: open menu -> About -> open menu again
+            onClick={() => setOpen(false)}
+          >
             {nav.page}
           </MenuItem>
         ))}
-        <MenuItem component={Link} to={getAuthButtonLink()}>
+        <MenuItem
+          component={Link}
+          to={getAuthButtonLink()}
+          onClick={() => setOpen(false)}
+        >
           {getAuthButtonText()}
           {Boolean(user) && (
             <AccountCircleIcon className={classes.profileIcon} />

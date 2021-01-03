@@ -10,7 +10,7 @@ function Home() {
   const [user] = useAuthState(auth);
 
   if (!Boolean(user)) {
-    return <Container>Please sign in!</Container>;
+    return <Container>We'll make this pretty later, just sign in.</Container>;
   }
 
   else return (

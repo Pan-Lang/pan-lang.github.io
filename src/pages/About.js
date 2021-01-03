@@ -45,7 +45,7 @@ function About() {
         <Typography variant="h2">
           {'About '}
           <font style={{ color: '#26B020', fontWeight: 'bold' }}>
-            Pan-Lang:
+            Pan-Lang
           </font>
         </Typography>
         <Typography component="p" className={classes.p}>
