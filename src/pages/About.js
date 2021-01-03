@@ -6,31 +6,6 @@ import kgs5 from '../images/kgs5.png';
 import renzol2 from '../images/renzol2.png';
 import evanmm3 from '../images/evanmm3.png';
 
-const useStyles = makeStyles((theme) => ({
-  page: {
-    backgroundColor: 'white',
-  },
-  p: {
-    marginTop: 8,
-    marginBottom: 8,
-  },
-  team: {
-    textAlign: 'center',
-    width: '100%',
-    paddingBottom: 50,
-  },
-  avatarGroup: {
-    marginTop: 15,
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'stretch',
-    justifyContent: 'space-around',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 /**
  * About page for Pan-Lang
  * Provides background for our application and service
@@ -58,7 +33,7 @@ function About() {
   ];
 
   return (
-    <Container className={classes.page}>
+    <Container>
       <Container
         maxWidth="md"
         style={{
@@ -111,5 +86,27 @@ function About() {
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  p: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  team: {
+    textAlign: 'center',
+    width: '100%',
+    paddingBottom: 50,
+  },
+  avatarGroup: {
+    marginTop: 15,
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 export default About;

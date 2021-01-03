@@ -27,7 +27,7 @@ function OrderForm() {
   }, [history]);
 
   return (
-    <Container style={{ backgroundColor: 'white', paddingBottom: 120 }}>
+    <Container style={{ paddingBottom: 120 }}>
       <h1 style={{ textAlign: 'center' }}>Order</h1>
       <Formik
         validationSchema={orderSchema}

@@ -11,6 +11,9 @@ import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { LANDING } from '../constants/Routes';
 
+/**
+ * Sign in page for Pan-Lang
+ */
 function SignIn() {
   const history = useHistory();
   const [user, loading, error] = useAuthState(auth);
@@ -19,10 +22,6 @@ function SignIn() {
     // Redirect user to landing page if already signed in
     if (Boolean(user)) history.push(LANDING);
   }, [history, user])
-
-  function handleSignIn() {
-    signInWithGoogle();
-  }
 
   const classes = useStyles();
   return (
@@ -33,7 +32,7 @@ function SignIn() {
       <Paper className={classes.paper}>
         {/* Sign in button when not signed in */}
         {!Boolean(user) && (
-          <Button className={classes.button} onClick={handleSignIn}>
+          <Button className={classes.button} onClick={signInWithGoogle}>
             Sign in with Google
           </Button>
         )}
@@ -50,7 +49,6 @@ function SignIn() {
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

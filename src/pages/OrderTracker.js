@@ -11,22 +11,23 @@ import Dialog from '../components/Dialog'
 function OrderTracker() {
   const [ordersList, setOrdersList] = useState([]);
 
-  useEffect(() => {
-    const socket = socketIOClient(BASE_API_URL);
-    socket.on('person', (data) => {
-      eventHandler(data);
-    });
+  // TODO: Implement order tracker using Firebase
+  // useEffect(() => {
+  //   const socket = socketIOClient(BASE_API_URL);
+  //   socket.on('person', (data) => {
+  //     eventHandler(data);
+  //   });
 
-    const eventHandler = (personData) => {
-      setOrdersList((currentOrders) => [...currentOrders, personData]);
-    };
+  //   const eventHandler = (personData) => {
+  //     setOrdersList((currentOrders) => [...currentOrders, personData]);
+  //   };
 
-    return () => {
-      console.log('effect done');
-      socket.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   return () => {
+  //     console.log('effect done');
+  //     socket.disconnect();
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   function personFulfilled(id) {
     const socket = socketIOClient(BASE_API_URL);
