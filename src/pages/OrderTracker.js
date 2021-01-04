@@ -11,8 +11,8 @@ import { db } from '../firebase';
  */
 
 function OrderTracker() {
-
-  const[snapshot, loading, error] = useCollection(db.collection("people"))
+        //TODO: eventually change the doc("test") to the actual user's pantry in the database
+  const[snapshot, loading, error] = useCollection(db.collection("pantries").doc("test").collection("people"))
   
   useEffect(() => { 
 
@@ -23,6 +23,7 @@ function OrderTracker() {
     console.log("trying to fulfill", id);
     const requestBody = {
       //needs name of the person or the ID
+      pantry: "test",
       _id: id,
       fulfilled: true
     };
