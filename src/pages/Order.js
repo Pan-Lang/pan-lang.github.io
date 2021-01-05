@@ -16,6 +16,9 @@ const orderSchema = Yup.object({
   orderNotes: Yup.string().required(),
 });
 
+/**
+ * Page to fill out form for patron's order
+ */
 function OrderForm() {
   const history = useHistory();
 

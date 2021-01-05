@@ -6,6 +6,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { ORDER_FORM, STOCK } from '../constants/Routes';
 
+/**
+ * Landing page
+ */
 function Home() {
   const [user] = useAuthState(auth);
 
