@@ -21,7 +21,7 @@ function Navbar() {
           <Link to="/">
             <img
               src={require('../../images/logo_nobg.png')}
-              alt="Pan-Lang"
+              alt="Pan-Lang logo"
               style={{ width: 75, height: 75 }}
             />
           </Link>
@@ -35,12 +35,6 @@ function Navbar() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
@@ -48,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
   navigation: {
     backgroundColor: 'white',
   },
-  toggleDrawer: {},
-  appTitle: {},
 }));
 
 export default Navbar;

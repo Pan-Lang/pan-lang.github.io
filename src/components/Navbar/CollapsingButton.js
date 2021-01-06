@@ -8,8 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu'
  * Responsive button for use in navbar
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
-function CollapsingButton({ children }) {
-  const [isOpen, setOpen] = useState(false);
+function CollapsingButton({ children, isOpen, setOpen }) {
   const classes = useStyles();
 
   return (

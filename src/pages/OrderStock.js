@@ -9,6 +9,8 @@ import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
 import ConfirmationModal from '../components/ConfirmationModal';
 import ErrorAlert from '../components/ErrorAlert';
+import { auth } from '../firebase';
+import { LANDING, ORDER_FORM } from '../constants/Routes';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -32,9 +34,12 @@ function OrderStock() {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
-    // Send user back to form if they didn't fill it out
-    if (!personInfo) {
-      history.push('/order');
+    if (!Boolean(auth.currentUser)) {
+      // Send user back to homepage if not signed in
+      history.push(LANDING)
+    } else if (!personInfo) {
+      // Send user back to form if they didn't fill it out
+      history.push(ORDER_FORM);
     } else {
       localStorage.setItem('personInfo', JSON.stringify(personInfo));
       getStock();
