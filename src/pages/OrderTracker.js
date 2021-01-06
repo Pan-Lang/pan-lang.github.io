@@ -2,22 +2,29 @@ import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Button } from 'react-bootstrap';
 import { updatePerson } from '../api/People';
-
+import { useHistory } from 'react-router-dom';
 import { useCollection } from 'react-firebase-hooks/firestore'
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
+
 
 /**
  * Page with list of people with unfulfilled orders
  */
 
 function OrderTracker() {
-        //TODO: eventually change the doc("test") to the actual user's pantry in the database
-  const[snapshot, loading, error] = useCollection(db.collection("pantries").doc("test").collection("people"))
+
+  //TODO: eventually change the doc("test") to the actual user's pantry in the database
+  const history = useHistory();
+  //const[user, loading_user, error_user] = useAuthState(auth);
+  //gotta check if this works
+  const[snapshot, loading_snap, error_snap] = useCollection(db.collection("pantries").doc("test").collection("people"))
   
   useEffect(() => { 
-
-  })
-
+    // if (!Boolean(user)) {
+    //   history.pushState(LANDING);
+    // } 
+  })//, [history, user])
+  //TODO: make it so that it only shows the ones with fulfilled:false
   function personFulfilled(id) {
     console.log(snapshot.size);
     console.log("trying to fulfill", id);
@@ -33,8 +40,8 @@ function OrderTracker() {
   return (
     <Container>
       <p>
-        {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Collection: Loading...</span>}
+        {error_snap && <strong>Error: {JSON.stringify(error_snap)}</strong>}
+        {loading_snap && <span>Collection: Loading...</span>}
         {snapshot && (
           <span>
             Collection:{' '}
