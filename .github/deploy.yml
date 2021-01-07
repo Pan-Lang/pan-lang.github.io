@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - firebase-auth
 
 jobs:
   build:
