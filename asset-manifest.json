@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/panlang-ui/static/css/main.dc5dc0fc.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.d9ff0c5a.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.d9ff0c5a.chunk.js.map",
+    "main.css": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css",
+    "main.js": "/panlang-ui/static/js/main.4dc5396b.chunk.js",
+    "main.js.map": "/panlang-ui/static/js/main.4dc5396b.chunk.js.map",
     "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
     "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.f96e66c4.chunk.js": "/panlang-ui/static/js/2.f96e66c4.chunk.js",
-    "static/js/2.f96e66c4.chunk.js.map": "/panlang-ui/static/js/2.f96e66c4.chunk.js.map",
+    "static/js/2.4db242fa.chunk.js": "/panlang-ui/static/js/2.4db242fa.chunk.js",
+    "static/js/2.4db242fa.chunk.js.map": "/panlang-ui/static/js/2.4db242fa.chunk.js.map",
     "index.html": "/panlang-ui/index.html",
-    "precache-manifest.8b03a133925e9e0f2ab54598add6a0ec.js": "/panlang-ui/precache-manifest.8b03a133925e9e0f2ab54598add6a0ec.js",
+    "precache-manifest.135b401ec1a021905207b1094a508132.js": "/panlang-ui/precache-manifest.135b401ec1a021905207b1094a508132.js",
     "service-worker.js": "/panlang-ui/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
-    "static/css/main.dc5dc0fc.chunk.css.map": "/panlang-ui/static/css/main.dc5dc0fc.chunk.css.map",
-    "static/js/2.f96e66c4.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.f96e66c4.chunk.js.LICENSE.txt",
+    "static/css/main.1cf0e8d5.chunk.css.map": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css.map",
+    "static/js/2.4db242fa.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.4db242fa.chunk.js.LICENSE.txt",
     "static/media/QwertycowMoo.png": "/panlang-ui/static/media/QwertycowMoo.c4707b2e.png",
     "static/media/empty-cart.svg": "/panlang-ui/static/media/empty-cart.302b7b48.svg",
     "static/media/evanmm3.png": "/panlang-ui/static/media/evanmm3.c4869c53.png",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.8fc7666c.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.f96e66c4.chunk.js",
-    "static/css/main.dc5dc0fc.chunk.css",
-    "static/js/main.d9ff0c5a.chunk.js"
+    "static/js/2.4db242fa.chunk.js",
+    "static/css/main.1cf0e8d5.chunk.css",
+    "static/js/main.4dc5396b.chunk.js"
   ]
 }
