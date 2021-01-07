@@ -23,7 +23,7 @@ function OrderStock() {
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [personInfo, setPersonInfo] = useState(
+  const [personInfo] = useState(
     fromForm
       ? location.state.personInfo
       : retrieveFromStorage('personInfo', undefined)
