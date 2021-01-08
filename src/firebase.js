@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 // Initialize Firebase
 const env = process.env;
@@ -20,3 +21,5 @@ const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider);
 };
+
+export const db = firebase.firestore();
