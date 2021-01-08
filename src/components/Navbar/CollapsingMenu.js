@@ -1,35 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, Button } from '@material-ui/core';
 import CollapsingButton from './CollapsingButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-
-// Pages to navigate to
-const navigation = [
-  { page: 'About', to: '/about' },
-  { page: 'Order Form', to: '/order' },
-  { page: 'Order Tracker', to: '/order-tracker' },
-  { page: 'Stock', to: '/stock' },
-];
+import {
+  ABOUT,
+  LANDING,
+  ORDER_FORM,
+  ORDER_TRACKER,
+  SIGN_IN,
+  STOCK,
+} from '../../constants/Routes';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase';
 
 /**
  * Responsive navigation menu
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
 function CollapsingMenu() {
-  const classes = useStyles();
+  const [isOpen, setOpen] = useState(false);
+  const [user] = useAuthState(auth);
 
+  // Pages to navigate to
+  const fullNavigation = [
+    { page: 'About', to: ABOUT },
+    { page: 'Order Form', to: ORDER_FORM },
+    { page: 'Order Tracker', to: ORDER_TRACKER },
+    { page: 'Stock', to: STOCK },
+  ];
+
+  // Only show About page when user is not logged in
+  const navigation = Boolean(user) ? fullNavigation : [fullNavigation[0]];
+
+  // Auth button text depends on whether user is logged in
+  function getAuthButtonText() {
+    return Boolean(user) ? user.displayName.split(' ')[0] : 'Sign In';
+  }
+
+  // Profile button redirects to landing page
+  function getAuthButtonLink() {
+    return Boolean(user) ? LANDING : SIGN_IN;
+  }
+
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       {/* Mobile */}
-      <CollapsingButton>
+      <CollapsingButton isOpen={isOpen} setOpen={setOpen}>
         {navigation.map((nav) => (
-          <MenuItem key={nav.to} component={Link} to={nav.to}>
+          <MenuItem
+            key={nav.to}
+            component={Link}
+            to={nav.to}
+            // FIXME: sometimes causes menu to pop up in weird places
+            // try: open menu -> About -> open menu again
+            onClick={() => setOpen(false)}
+          >
             {nav.page}
           </MenuItem>
         ))}
-        <MenuItem component={Link} to="/login">
-          Login
+        <MenuItem
+          component={Link}
+          to={getAuthButtonLink()}
+          onClick={() => setOpen(false)}
+        >
+          {getAuthButtonText()}
+          {Boolean(user) && (
+            <AccountCircleIcon className={classes.profileIcon} />
+          )}
         </MenuItem>
       </CollapsingButton>
 
@@ -47,11 +87,14 @@ function CollapsingMenu() {
         ))}
         <Button
           component={Link}
-          to="/login"
+          to={getAuthButtonLink()}
           variant="contained"
           className={classes.login}
         >
-          Login
+          {getAuthButtonText()}
+          {Boolean(user) && (
+            <AccountCircleIcon className={classes.profileIcon} />
+          )}
         </Button>
       </nav>
     </div>
@@ -80,6 +123,9 @@ const useStyles = makeStyles((theme) => ({
   },
   login: {
     margin: '10px',
+  },
+  profileIcon: {
+    marginLeft: '4px',
   },
 }));
 
