@@ -1,6 +1,6 @@
 {
-  "homepage": "http://pan-lang.github.io/panlang-ui",
-  "name": "panlang-ui",
+  "homepage": "http://pan-lang.github.io",
+  "name": "pan-lang.github.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
