@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Button } from 'react-bootstrap';
 import { updatePerson } from '../api/People';
@@ -15,23 +15,28 @@ import { LANDING } from '../constants/Routes';
 function OrderTracker() {
 
   const history = useHistory();
-  const[user, loading_user, error_user] = useAuthState(auth);                      //this will eventually be user.email
-  const[snapshot, loading_snap, error_snap] = useCollection(db.collection("pantries").doc("test").collection("people").where("fulfilled", "==", false))
-  
+  const[user, loading_user, error_user] = useAuthState(auth);
+  const[query, setQuery] = useState();
+
   useEffect(() => { 
     if (!Boolean(user)) {
       history.push(LANDING);
     } else {
+      setQuery(db.collection("pantries").doc(user.uid).collection("people").where("fulfilled", "==", false));
+      console.log(user.uid)
       //I want to update the react hook in here so that we can actually use user.email and the refresh works
     }
   }, [history, user])
+
+  const[snapshot, loading_snap, error_snap] = useCollection(query)
+               
   //TODO: make it so that it only shows the ones with fulfilled:false
   function personFulfilled(id) {
     console.log(snapshot.size);
     console.log("trying to fulfill", id);
     const requestBody = {
       //needs name of the person or the ID
-      pantry: user.email,
+      pantry: "test", //this will eventually be user.email
       _id: id,
       fulfilled: true
     };
