@@ -18,6 +18,9 @@ import {
   ORDER_STOCK,
 } from './constants/Routes';
 
+/**
+ * Highest level App component for routing
+ */
 function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
