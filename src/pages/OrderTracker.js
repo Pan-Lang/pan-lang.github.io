@@ -36,7 +36,7 @@ function OrderTracker() {
     console.log("trying to fulfill", id);
     const requestBody = {
       //needs name of the person or the ID
-      pantry: "test", //this will eventually be user.email
+      pantry: user.uid, //this will eventually be user.email
       _id: id,
       fulfilled: true
     };
