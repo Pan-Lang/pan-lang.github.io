@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.6f2ea220.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.6f2ea220.chunk.js.map",
-    "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
-    "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
-    "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.fa584e88.chunk.js": "/panlang-ui/static/js/2.fa584e88.chunk.js",
-    "static/js/2.fa584e88.chunk.js.map": "/panlang-ui/static/js/2.fa584e88.chunk.js.map",
-    "index.html": "/panlang-ui/index.html",
-    "precache-manifest.84ac86af7bba6e17104b1ae04cf422ce.js": "/panlang-ui/precache-manifest.84ac86af7bba6e17104b1ae04cf422ce.js",
-    "service-worker.js": "/panlang-ui/service-worker.js",
-    "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
-    "static/css/main.1cf0e8d5.chunk.css.map": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css.map",
-    "static/js/2.fa584e88.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.fa584e88.chunk.js.LICENSE.txt",
-    "static/media/QwertycowMoo.png": "/panlang-ui/static/media/QwertycowMoo.c4707b2e.png",
-    "static/media/evanmm3.png": "/panlang-ui/static/media/evanmm3.c4869c53.png",
-    "static/media/kgs5.png": "/panlang-ui/static/media/kgs5.ed891ef2.png",
-    "static/media/logo_nobg.png": "/panlang-ui/static/media/logo_nobg.484389dc.png",
-    "static/media/renzol2.png": "/panlang-ui/static/media/renzol2.726b433f.png"
+    "main.css": "/static/css/main.1cf0e8d5.chunk.css",
+    "main.js": "/static/js/main.5f630737.chunk.js",
+    "main.js.map": "/static/js/main.5f630737.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4d4f4e45.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4d4f4e45.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.285222f0.chunk.js": "/static/js/2.285222f0.chunk.js",
+    "static/js/2.285222f0.chunk.js.map": "/static/js/2.285222f0.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.18e830cc1ea1637b0f6ea818caaec203.js": "/precache-manifest.18e830cc1ea1637b0f6ea818caaec203.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/static/css/2.d9ad5f5c.chunk.css.map",
+    "static/css/main.1cf0e8d5.chunk.css.map": "/static/css/main.1cf0e8d5.chunk.css.map",
+    "static/js/2.285222f0.chunk.js.LICENSE.txt": "/static/js/2.285222f0.chunk.js.LICENSE.txt",
+    "static/media/QwertycowMoo.png": "/static/media/QwertycowMoo.c4707b2e.png",
+    "static/media/evanmm3.png": "/static/media/evanmm3.c4869c53.png",
+    "static/media/kgs5.png": "/static/media/kgs5.ed891ef2.png",
+    "static/media/logo_nobg.png": "/static/media/logo_nobg.484389dc.png",
+    "static/media/renzol2.png": "/static/media/renzol2.726b433f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.8fc7666c.js",
+    "static/js/runtime-main.4d4f4e45.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.fa584e88.chunk.js",
+    "static/js/2.285222f0.chunk.js",
     "static/css/main.1cf0e8d5.chunk.css",
-    "static/js/main.6f2ea220.chunk.js"
+    "static/js/main.5f630737.chunk.js"
   ]
 }
