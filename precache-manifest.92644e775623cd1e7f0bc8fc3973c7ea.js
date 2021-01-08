@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "22c9341ee220e03cd4371dbf8ca5f44e",
+    "revision": "a887ee0fbe6a615e793935a10c77d1e3",
     "url": "/panlang-ui/index.html"
   },
   {
-    "revision": "39ec884980256d47a94a",
+    "revision": "0e4a4611599e3f8ffe0f",
     "url": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css"
   },
   {
-    "revision": "1b66960843582eebff83",
+    "revision": "3966dc1674de720ee867",
     "url": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css"
   },
   {
-    "revision": "39ec884980256d47a94a",
-    "url": "/panlang-ui/static/js/2.d0a12619.chunk.js"
+    "revision": "0e4a4611599e3f8ffe0f",
+    "url": "/panlang-ui/static/js/2.ed7dac73.chunk.js"
   },
   {
     "revision": "ae20fa74c956c96f153c1f863302415f",
-    "url": "/panlang-ui/static/js/2.d0a12619.chunk.js.LICENSE.txt"
+    "url": "/panlang-ui/static/js/2.ed7dac73.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1b66960843582eebff83",
-    "url": "/panlang-ui/static/js/main.a0a39d6f.chunk.js"
+    "revision": "3966dc1674de720ee867",
+    "url": "/panlang-ui/static/js/main.dc45d051.chunk.js"
   },
   {
     "revision": "d56e5ec954dd59879a0a",
