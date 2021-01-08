@@ -24,19 +24,17 @@ function OrderTracker() {
     } else {
       setQuery(db.collection("pantries").doc(user.uid).collection("people").where("fulfilled", "==", false));
       console.log(user.uid)
-      //I want to update the react hook in here so that we can actually use user.email and the refresh works
+
     }
   }, [history, user])
 
   const[snapshot, loading_snap, error_snap] = useCollection(query)
-               
-  //TODO: make it so that it only shows the ones with fulfilled:false
+
   function personFulfilled(id) {
     console.log(snapshot.size);
     console.log("trying to fulfill", id);
     const requestBody = {
-      //needs name of the person or the ID
-      pantry: user.uid, //this will eventually be user.email
+      pantry: user.uid, 
       _id: id,
       fulfilled: true
     };
