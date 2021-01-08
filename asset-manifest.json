@@ -1,21 +1,20 @@
 {
   "files": {
     "main.css": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css",
-    "main.js": "/panlang-ui/static/js/main.dc45d051.chunk.js",
-    "main.js.map": "/panlang-ui/static/js/main.dc45d051.chunk.js.map",
+    "main.js": "/panlang-ui/static/js/main.733b3f48.chunk.js",
+    "main.js.map": "/panlang-ui/static/js/main.733b3f48.chunk.js.map",
     "runtime-main.js": "/panlang-ui/static/js/runtime-main.8fc7666c.js",
     "runtime-main.js.map": "/panlang-ui/static/js/runtime-main.8fc7666c.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.ed7dac73.chunk.js": "/panlang-ui/static/js/2.ed7dac73.chunk.js",
-    "static/js/2.ed7dac73.chunk.js.map": "/panlang-ui/static/js/2.ed7dac73.chunk.js.map",
+    "static/js/2.fa584e88.chunk.js": "/panlang-ui/static/js/2.fa584e88.chunk.js",
+    "static/js/2.fa584e88.chunk.js.map": "/panlang-ui/static/js/2.fa584e88.chunk.js.map",
     "index.html": "/panlang-ui/index.html",
-    "precache-manifest.92644e775623cd1e7f0bc8fc3973c7ea.js": "/panlang-ui/precache-manifest.92644e775623cd1e7f0bc8fc3973c7ea.js",
+    "precache-manifest.9caadb41c0fea94faa14cd7b2d876425.js": "/panlang-ui/precache-manifest.9caadb41c0fea94faa14cd7b2d876425.js",
     "service-worker.js": "/panlang-ui/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/panlang-ui/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.1cf0e8d5.chunk.css.map": "/panlang-ui/static/css/main.1cf0e8d5.chunk.css.map",
-    "static/js/2.ed7dac73.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.ed7dac73.chunk.js.LICENSE.txt",
+    "static/js/2.fa584e88.chunk.js.LICENSE.txt": "/panlang-ui/static/js/2.fa584e88.chunk.js.LICENSE.txt",
     "static/media/QwertycowMoo.png": "/panlang-ui/static/media/QwertycowMoo.c4707b2e.png",
-    "static/media/empty-cart.svg": "/panlang-ui/static/media/empty-cart.302b7b48.svg",
     "static/media/evanmm3.png": "/panlang-ui/static/media/evanmm3.c4869c53.png",
     "static/media/kgs5.png": "/panlang-ui/static/media/kgs5.ed891ef2.png",
     "static/media/logo_nobg.png": "/panlang-ui/static/media/logo_nobg.484389dc.png",
@@ -24,8 +23,8 @@
   "entrypoints": [
     "static/js/runtime-main.8fc7666c.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.ed7dac73.chunk.js",
+    "static/js/2.fa584e88.chunk.js",
     "static/css/main.1cf0e8d5.chunk.css",
-    "static/js/main.dc45d051.chunk.js"
+    "static/js/main.733b3f48.chunk.js"
   ]
 }
