@@ -22,4 +22,5 @@ export const signInWithGoogle = () => {
   auth.signInWithPopup(provider);
 };
 
+// Database
 export const db = firebase.firestore();

@@ -18,8 +18,10 @@ function OrderTracker() {
 
   useEffect(() => {
     if (!Boolean(user)) {
+      // If user is not logged in, redirect to home screen
       history.push(LANDING);
     } else {
+      // If user is logged in, fetch their orders
       setQuery(
         db
           .collection('pantries')
@@ -33,7 +35,7 @@ function OrderTracker() {
 
   const [snapshot, snapLoading, snapError] = useCollection(query);
 
-  function personFulfilled(id) {
+  function fulfillOrder(id) {
     console.log(snapshot.size);
     console.log('trying to fulfill', id);
     const requestBody = {
@@ -59,7 +61,7 @@ function OrderTracker() {
                 {JSON.stringify(doc.data())},{' '}
                 <Button
                   onClick={() => {
-                    personFulfilled(doc.id);
+                    fulfillOrder(doc.id);
                   }}
                 >
                   Fulfill Person

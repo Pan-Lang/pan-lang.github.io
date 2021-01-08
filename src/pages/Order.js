@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { ORDER_STOCK, LANDING } from '../constants/Routes';
 import { auth } from '../firebase';
 
+// Validation schema for order form
 const orderSchema = Yup.object({
   firstName: Yup.string().required(),
   lastName: Yup.string().required(),
