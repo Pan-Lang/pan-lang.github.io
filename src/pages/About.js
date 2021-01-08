@@ -11,7 +11,6 @@ import evanmm3 from '../images/evanmm3.png';
  * Provides background for our application and service
  */
 function About() {
-  const classes = useStyles();
   const team = [
     {
       name: 'Kevin Zhou',
@@ -32,6 +31,7 @@ function About() {
     },
   ];
 
+  const classes = useStyles();
   return (
     <Container>
       <Container

@@ -2,18 +2,15 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase';
-import { ORDER_FORM, STOCK } from '../constants/Routes';
+import { auth } from '../../firebase';
+import { ORDER_FORM, STOCK } from '../../constants/Routes';
 
-function Home() {
-  const [user] = useAuthState(auth);
-
-  if (!Boolean(user)) {
-    return <Container>We'll make this pretty later, just sign in.</Container>;
-  }
-
-  else return (
+/**
+ * User's home page for Pan-Lang.
+ * The default screen for users logged in to Pan-Lang.
+ */
+function User() {
+  return (
     <Container style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 20 }}>
         <br></br>
@@ -76,4 +73,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default User;
