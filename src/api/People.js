@@ -18,7 +18,6 @@ export async function fetchPeople() {
 }
 
 export async function updatePerson(update) {
-  // not finished yet, but we're getting there
   Client.put(PEOPLE_ENDPOINT, update)
     .then((res) => {
       console.log(res);
