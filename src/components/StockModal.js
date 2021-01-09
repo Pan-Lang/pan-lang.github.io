@@ -39,7 +39,7 @@ function StockModal({
     const updatedItem = {
       pantry: auth.currentUser.uid,
       _id: stockId,
-      newCount
+      newCount //this needs to be fixed so that its "newCount: newCount but I don't want to break anything"
     };
 
     const updateIsSuccessful = await updateStockCount(updatedItem);
