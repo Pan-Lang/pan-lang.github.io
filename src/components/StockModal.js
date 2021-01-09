@@ -12,7 +12,8 @@ import ErrorAlert from './ErrorAlert';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 // TODO: use to send PUT request to API
-// import { updateStockCount } from '../api/Stock';
+import { updateStockCount } from '../api/Stock';
+import { auth } from '../firebase';
 
 /**
  * Popup modal for editing the stock count of an item
@@ -30,28 +31,27 @@ function StockModal({
 
   /**
    * Sends PUT request with updated stock count from input
-   * @param {Number} updatedCount updated count
+   * @param {Number} newCount updated count
    */
-  async function onSubmit(updatedCount) {
+  async function onSubmit(newCount) {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    const updatedItem = {
+      pantry: auth.currentUser.uid,
+      _id: stockId,
+      newCount
+    };
+
+    const updateIsSuccessful = await updateStockCount(updatedItem);
+
+    setLoading(false);
+
+    if (!updateIsSuccessful) {
+      setError(true);
+    } else {
       handleClose();
       getStock(500);
-      alert('Not connected to API');
-    }, 500);
-
-    // TODO: send PUT request to API
-    // const updateIsSuccessful = await updateStockCount(stockId, updatedCount);
-
-    // setLoading(false);
-
-    // if (!updateIsSuccessful) {
-    //   setError(true);
-    // } else {
-    //   handleClose();
-    //   getStock(500);
-    // }
+    }
   }
 
   const classes = useStyles();

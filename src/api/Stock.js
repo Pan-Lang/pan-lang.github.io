@@ -16,8 +16,8 @@ export async function createStockItem(item) {
     });
 }
 
-export async function updateStockCount(id, updated) {
-  return await Client.put(`${STOCK_ENDPOINT}/${id}`, updated)
+export async function updateStockCount(updatedItem) {
+  return await Client.put(STOCK_ENDPOINT, updatedItem)
     .then((res) => {
       console.log(res);
       return true;

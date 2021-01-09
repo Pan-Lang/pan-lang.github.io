@@ -104,8 +104,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
         handleClose={handleClose}
         getStock={getStock}
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
-        // FIXME: Figure out what the schema for sending PUT requests is
-        stockId={stockItem._id !== undefined ? stockItem._id : 'no id lol'}
+        stockId={stockItem._id}
         stockCount={stockItem.count}
       />
     </>
