@@ -151,6 +151,13 @@ function Stock() {
                 setNameQuery(event.target.value.toLowerCase())
               }
             />
+
+            {/* Basic stock info */}
+            {!loading && !error && (
+              <Typography className={classes.info}>
+                Showing {getFilteredStockItems().length} of {stock.length} total items
+              </Typography>
+            )}
           </Paper>
 
           {/* Stock items */}
@@ -221,6 +228,12 @@ const useStyles = makeStyles((theme) => ({
   details: {
     display: 'block',
   },
+  info: {
+    marginTop: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      fontSize: '10px',
+    },
+  }
 }));
 
 export default Stock;
