@@ -165,6 +165,14 @@ function Stock() {
               />
             ))}
 
+          {/* Alert when no stock is found */}
+          {!loading && !error && (
+            <ErrorAlert
+              severity="info"
+              body="No stock items found. Insert one in the Options menu!"
+            />
+          )}
+
           {/* Loading spinner */}
           {loading && <Loading />}
 
