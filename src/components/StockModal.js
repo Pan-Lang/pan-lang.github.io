@@ -33,13 +33,13 @@ function StockModal({
    * Sends PUT request with updated stock count from input
    * @param {Number} newCount updated count
    */
-  async function onSubmit(newCount) {
+  async function onSubmit(newItemCount) {
     setLoading(true);
 
     const updatedItem = {
       pantry: auth.currentUser.uid,
       _id: stockId,
-      newCount //this needs to be fixed so that its "newCount: newCount but I don't want to break anything"
+      newCount: parseInt(newItemCount.newCount)//Check this out idk if you want to format it like this but this way the request works
     };
 
     const updateIsSuccessful = await updateStockCount(updatedItem);
