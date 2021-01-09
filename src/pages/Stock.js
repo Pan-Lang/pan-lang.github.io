@@ -166,7 +166,7 @@ function Stock() {
             ))}
 
           {/* Alert when no stock is found */}
-          {!loading && !error && (
+          {!loading && !error && stock.length === 0 && (
             <ErrorAlert
               severity="info"
               body="No stock items found. Insert one in the Options menu!"

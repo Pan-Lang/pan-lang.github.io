@@ -3,13 +3,11 @@ import Client from './Client';
 const STOCK_ENDPOINT = '/stock';
 
 export async function fetchStock(uid) {
-  const stock = await Client.get(`${STOCK_ENDPOINT}?pantry=${uid}`);
-  console.log(stock);
-  return stock;
+  return await Client.get(`${STOCK_ENDPOINT}?pantry=${uid}`);
 }
 
 export async function createStockItem(item) {
-  Client.post(STOCK_ENDPOINT, item)
+  return await Client.post(STOCK_ENDPOINT, item)
     .then((res) => {
       return true;
     })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -7,23 +7,37 @@ import Container from '@material-ui/core/Container';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { createStockItem } from '../api/Stock';
+import { auth } from '../firebase';
 import { makeStyles } from '@material-ui/core';
-import { withFormik } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 /**
  * Form component that handles creation of new stock items
  */
-function StockInputForm({
-  values,
-  touched,
-  errors,
-  isSubmitting,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  handleReset,
-}) {
+function StockInput({ getStock }) {
+  const [loading, setLoading] = useState(false);
+  /**
+   * Handles sending new stock item requests to API
+   * @param {Object} values { name, count } from form
+   */
+  async function onSubmit(values) {
+    setLoading(true);
+
+    // Create item with user's id
+    const item = {
+      ...values,
+      pantry: auth.currentUser.uid,
+    };
+
+    // Send request to API and stop loading once promise is resolved
+    await createStockItem(item);
+
+    setLoading(false);
+    getStock(500);
+  }
+
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -39,86 +53,91 @@ function StockInputForm({
 
         {/* Accordion expandable area */}
         <AccordionDetails className={classes.details}>
-          <form onSubmit={handleSubmit}>
-            {/* Item name text field */}
-            <TextField
-              id="itemName"
-              label="Enter new item name"
-              value={values.itemName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.itemName ? errors.itemName : ''}
-              error={touched.itemName && Boolean(errors.itemName)}
-              margin="dense"
-              variant="outlined"
-              fullWidth
-            />
+          <Formik
+            validationSchema={itemSchema}
+            onSubmit={onSubmit}
+            initialValues={{
+              name: '',
+              count: 1,
+            }}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              handleReset,
+              isSubmitting,
+              values,
+              touched,
+              isValid,
+              errors,
+            }) => (
+              <>
+                {/* Item name text field */}
+                <TextField
+                  id="name"
+                  label="Enter new item name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.name ? errors.name : ''}
+                  error={touched.name && Boolean(errors.name)}
+                  margin="dense"
+                  variant="outlined"
+                  fullWidth
+                />
 
-            {/* Item count text field */}
-            <TextField
-              id="itemCount"
-              label="Enter new item count"
-              value={values.itemCount}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.itemCount ? errors.itemCount : ''}
-              error={touched.itemCount && Boolean(errors.itemCount)}
-              margin="dense"
-              variant="outlined"
-              fullWidth
-            />
+                {/* Item count text field */}
+                <TextField
+                  id="count"
+                  label="Enter new item count"
+                  value={values.count}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.count ? errors.count : ''}
+                  error={touched.count && Boolean(errors.count)}
+                  margin="dense"
+                  variant="outlined"
+                  fullWidth
+                />
 
-            {/* Form buttons */}
-            <Container className={classes.actions}>
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={isSubmitting}
-                className={classes.button}
-              >
-                {isSubmitting ? 'Adding...' : 'Add item'}
-              </Button>
-              <Button
-                color="secondary"
-                variant="contained"
-                onClick={handleReset}
-              >
-                Clear
-              </Button>
-            </Container>
-          </form>
+                {/* Form buttons */}
+                <Container className={classes.actions}>
+                  {/* Submit button */}
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    disabled={loading || isSubmitting}
+                    className={classes.button}
+                    onClick={handleSubmit}
+                  >
+                    {isSubmitting ? 'Adding...' : 'Add item'}
+                  </Button>
+
+                  {/* Clear button */}
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={handleReset}
+                  >
+                    Clear
+                  </Button>
+                </Container>
+              </>
+            )}
+          </Formik>
         </AccordionDetails>
       </Accordion>
     </Container>
   );
 }
 
-// Formik wrapper for component
-const StockInput = withFormik({
-  // Assigns default values
-  mapPropsToValues: ({ itemName, itemCount }) => {
-    return {
-      itemName: itemName || '',
-      itemCount: itemCount || 1,
-    };
-  },
-
-  // Schema for validation
-  validationSchema: Yup.object({
-    itemName: Yup.string().required(),
-    itemCount: Yup.number().integer().moreThan(-1).required(),
-  }),
-
-  // Function upon submitting form
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      // TODO: send information to API
-      alert('API not connected');
-      setSubmitting(false);
-    }, 1000);
-  },
-})(StockInputForm);
+// Schema for new stock item
+const itemSchema = Yup.object({
+  name: Yup.string().required(),
+  count: Yup.number().integer().moreThan(-1).required(),
+});
 
 // Styling
 const useStyles = makeStyles((theme) => ({
@@ -133,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
   },
   details: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
   actions: {
