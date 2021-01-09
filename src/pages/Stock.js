@@ -23,6 +23,7 @@ import { LANDING } from '../constants/Routes';
  */
 function Stock() {
   const [stock, setStock] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
@@ -37,15 +38,18 @@ function Stock() {
     // Set stock empty to begin loading spinner
     setStock([]);
     setError(null);
+    setLoading(true);
 
     // Fetch stock after designated time
     setTimeout(() => {
-      fetchStock()
+      fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
+          setLoading(false);
         })
         .catch((e) => {
           setError(e);
+          setLoading(false);
         });
     }, timeout);
   }
@@ -162,7 +166,7 @@ function Stock() {
             ))}
 
           {/* Loading spinner */}
-          {stock.length === 0 && !error && <Loading />}
+          {loading && <Loading />}
 
           {/* Error alert */}
           {error && (

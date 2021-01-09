@@ -2,8 +2,10 @@ import Client from './Client';
 
 const STOCK_ENDPOINT = '/stock';
 
-export async function fetchStock() {
-  return await Client.get(STOCK_ENDPOINT);
+export async function fetchStock(uid) {
+  const stock = await Client.get(`${STOCK_ENDPOINT}?pantry=${uid}`);
+  console.log(stock);
+  return stock;
 }
 
 export async function createStockItem(item) {
