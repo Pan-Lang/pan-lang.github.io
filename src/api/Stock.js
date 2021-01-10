@@ -2,12 +2,12 @@ import Client from './Client';
 
 const STOCK_ENDPOINT = '/stock';
 
-export async function fetchStock() {
-  return await Client.get(STOCK_ENDPOINT);
+export async function fetchStock(uid) {
+  return await Client.get(`${STOCK_ENDPOINT}?pantry=${uid}`);
 }
 
 export async function createStockItem(item) {
-  Client.post(STOCK_ENDPOINT, item)
+  return await Client.post(STOCK_ENDPOINT, item)
     .then((res) => {
       return true;
     })
@@ -16,8 +16,8 @@ export async function createStockItem(item) {
     });
 }
 
-export async function updateStockCount(id, updated) {
-  return await Client.put(`${STOCK_ENDPOINT}/${id}`, updated)
+export async function updateStockCount(updatedItem) {
+  return await Client.put(STOCK_ENDPOINT, updatedItem)
     .then((res) => {
       console.log(res);
       return true;

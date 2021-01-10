@@ -23,6 +23,7 @@ import { LANDING } from '../constants/Routes';
  */
 function Stock() {
   const [stock, setStock] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
@@ -37,15 +38,18 @@ function Stock() {
     // Set stock empty to begin loading spinner
     setStock([]);
     setError(null);
+    setLoading(true);
 
     // Fetch stock after designated time
     setTimeout(() => {
-      fetchStock()
+      fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
+          setLoading(false);
         })
         .catch((e) => {
           setError(e);
+          setLoading(false);
         });
     }, timeout);
   }
@@ -147,6 +151,13 @@ function Stock() {
                 setNameQuery(event.target.value.toLowerCase())
               }
             />
+
+            {/* Basic stock info */}
+            {!loading && !error && (
+              <Typography className={classes.info}>
+                Showing {getFilteredStockItems().length} of {stock.length} total items
+              </Typography>
+            )}
           </Paper>
 
           {/* Stock items */}
@@ -161,8 +172,16 @@ function Stock() {
               />
             ))}
 
+          {/* Alert when no stock is found */}
+          {!loading && !error && stock.length === 0 && (
+            <ErrorAlert
+              severity="info"
+              body="No stock items found. Insert one in the Options menu!"
+            />
+          )}
+
           {/* Loading spinner */}
-          {stock.length === 0 && !error && <Loading />}
+          {loading && <Loading />}
 
           {/* Error alert */}
           {error && (
@@ -209,6 +228,12 @@ const useStyles = makeStyles((theme) => ({
   details: {
     display: 'block',
   },
+  info: {
+    marginTop: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      fontSize: '10px',
+    },
+  }
 }));
 
 export default Stock;

@@ -42,7 +42,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
       <Fade in={true}>
         <Card className={classes.card} onClick={handleShow}>
           {/* Action area makes entire component focusable */}
-          <CardActionArea className={classes.cardAction}>
+          <CardActionArea className={classes.cardAction} disableRipple>
             <CardContent>
               {/* Top content of card */}
               <Box className={classes.topContent}>
@@ -104,8 +104,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
         handleClose={handleClose}
         getStock={getStock}
         stockName={hasLanguage ? stockItem[lang] : stockItem.name}
-        // FIXME: Figure out what the schema for sending PUT requests is
-        stockId={stockItem._id !== undefined ? stockItem._id : 'no id lol'}
+        stockId={stockItem._id}
         stockCount={stockItem.count}
       />
     </>
@@ -119,13 +118,13 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100vw',
   },
   cardAction: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
     [theme.breakpoints.only('sm')]: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     [theme.breakpoints.only('xs')]: {
       paddingLeft: theme.spacing(0),
@@ -144,9 +143,9 @@ const useStyles = makeStyles((theme) => ({
   nameContainer: {},
   name: {
     fontWeight: 'bold',
-    fontSize: '30px',
+    fontSize: '25px',
     [theme.breakpoints.down('md')]: {
-      fontSize: '22px',
+      fontSize: '19px',
     },
   },
   noTranslation: {
