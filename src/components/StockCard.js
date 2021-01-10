@@ -42,7 +42,7 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
       <Fade in={true}>
         <Card className={classes.card} onClick={handleShow}>
           {/* Action area makes entire component focusable */}
-          <CardActionArea className={classes.cardAction}>
+          <CardActionArea className={classes.cardAction} disableRipple>
             <CardContent>
               {/* Top content of card */}
               <Box className={classes.topContent}>

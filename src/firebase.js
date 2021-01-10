@@ -21,15 +21,13 @@ export const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider).then(() => {
-    console.log(auth);
     let body = {
       uid: auth.currentUser.uid,
       email: auth.currentUser.email,
-      name: auth.currentUser.displayName
-    }
+      name: auth.currentUser.displayName,
+    };
     addPantry(body);
-  })
-  
+  });
 };
 
 // Database
