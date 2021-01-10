@@ -18,17 +18,32 @@ firebase.initializeApp({
 
 // Auth providers
 export const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider=  new firebase.auth.FacebookAuthProvider();
+const yahooProvider = new firebase.auth.OAuthProvider('yahoo.com');
+
+// Sends request to create pantry for new users
+// Does nothing if user already exists in database
+export const sendPantryCreationRequest = () => {
+  let body = {
+    uid: auth.currentUser.uid,
+    email: auth.currentUser.email,
+    name: auth.currentUser.displayName,
+  };
+  addPantry(body);
+}
+
 export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider).then(() => {
-    let body = {
-      uid: auth.currentUser.uid,
-      email: auth.currentUser.email,
-      name: auth.currentUser.displayName,
-    };
-    addPantry(body);
-  });
+  auth.signInWithPopup(googleProvider).then(sendPantryCreationRequest);
 };
+
+export const signInWithFacebook = () => {
+  auth.signInWithRedirect(facebookProvider).then(sendPantryCreationRequest);
+}
+
+export const signInWithYahoo = () => {
+  auth.signInWithRedirect(yahooProvider).then(sendPantryCreationRequest);
+}
 
 // Database
 export const db = firebase.firestore();

@@ -36,7 +36,18 @@ function CollapsingMenu() {
 
   // Auth button text depends on whether user is logged in
   function getAuthButtonText() {
-    return Boolean(user) ? user.displayName.split(' ')[0] : 'Sign In';
+    // If the user is signed in
+    if (Boolean(user)) {
+      // In case the user doesn't have a display name
+      if (user.displayName === null) {
+        return user.email;
+      } else {
+        return user.displayName.split(' ')[0];
+      }
+    }
+
+    // If the user is not signed in
+    return 'Sign In';
   }
 
   // Profile button redirects to landing page
