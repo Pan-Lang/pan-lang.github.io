@@ -38,11 +38,11 @@ export const signInWithGoogle = () => {
 };
 
 export const signInWithFacebook = () => {
-  auth.signInWithRedirect(facebookProvider).then(sendPantryCreationRequest);
+  auth.signInWithPopup(facebookProvider).then(sendPantryCreationRequest);
 }
 
 export const signInWithYahoo = () => {
-  auth.signInWithRedirect(yahooProvider).then(sendPantryCreationRequest);
+  auth.signInWithPopup(yahooProvider).then(sendPantryCreationRequest);
 }
 
 // Database
