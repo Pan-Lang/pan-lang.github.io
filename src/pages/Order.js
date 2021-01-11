@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ORDER_STOCK, LANDING } from '../constants/Routes';
 import { auth } from '../firebase';
@@ -30,14 +34,24 @@ function OrderForm() {
     }
   }, [history]);
 
+  /**
+   * Called upon form submission
+   * @param {Object} personInfo info from submitted form
+   */
+  function onSubmit(personInfo) {
+    // Redirects user to order stock page with the form data
+    history.push(ORDER_STOCK, { fromForm: true, personInfo });
+  }
+
+  const classes = useStyles();
   return (
-    <Container style={{ paddingBottom: 120 }}>
-      <h1 style={{ textAlign: 'center' }}>Order</h1>
+    <Container maxWidth="md" className={classes.page}>
+      <Typography variant="h1" className={classes.title}>
+        Order Form
+      </Typography>
       <Formik
         validationSchema={orderSchema}
-        onSubmit={(personInfo) => {
-          history.push(ORDER_STOCK, { fromForm: true, personInfo });
-        }}
+        onSubmit={onSubmit}
         initialValues={{
           firstName: '',
           lastName: '',
@@ -56,7 +70,7 @@ function OrderForm() {
           isValid,
           errors,
         }) => (
-          <div>
+          <Paper className={classes.formPaper}>
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group md="4" controlId="orderForm1">
                 <Form.Label>First name</Form.Label>
@@ -119,25 +133,36 @@ function OrderForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button
-                  type="submit"
-                  style={{
-                    backgroundColor: '#16AB8D',
-                    borderColor: '#FFFFF5',
-                    color: '#FFFFFF',
-                    borderRadius: '200px',
-                  }}
-                  block
-                >
+                <Button onClick={handleSubmit} className={classes.submit}>
                   Select order
                 </Button>
               </div>
             </Form>
-          </div>
+          </Paper>
         )}
       </Formik>
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  page: {
+    paddingBottom: '120px',
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: theme.typography.h3.fontSize,
+  },
+  formPaper: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(3),
+  },
+  submit: {
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    borderRadius: '200px',
+  },
+}));
 
 export default OrderForm;
