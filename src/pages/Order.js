@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Form } from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ORDER_STOCK, LANDING } from '../constants/Routes';
@@ -55,9 +55,9 @@ function OrderForm() {
         initialValues={{
           firstName: '',
           lastName: '',
-          adults: -1,
-          children: -1,
-          zipcode: -1,
+          adults: '',
+          children: '',
+          zipcode: '',
           orderNotes: 'test',
         }}
       >
@@ -71,73 +71,80 @@ function OrderForm() {
           errors,
         }) => (
           <Paper className={classes.formPaper}>
-            <Form noValidate onSubmit={handleSubmit}>
-              <Form.Group md="4" controlId="orderForm1">
-                <Form.Label>First name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="firstName"
-                  placeholder={'Enter first name here'}
-                  onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
-                  isInvalid={!!errors.firstName}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group md="4" controlId="orderForm2">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  placeholder={'Enter last name here'}
-                  onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
-                  isInvalid={!!errors.lastName}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group md="4" controlId="orderForm3">
-                <Form.Label># of Adults</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="adults"
-                  placeholder={'Enter number of adults in household'}
-                  onChange={handleChange}
-                  isValid={touched.adults && !errors.adults}
-                  isInvalid={!!errors.adults}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group md="4" controlId="orderForm4">
-                <Form.Label># of Children</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="children"
-                  placeholder={'Enter number of children in household'}
-                  onChange={handleChange}
-                  isValid={touched.children && !errors.children}
-                  isInvalid={!!errors.children}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group md="4" controlId="orderForm4">
-                <Form.Label>ZIP Code</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="zipcode"
-                  placeholder={'Enter your ZIP Code'}
-                  onChange={handleChange}
-                  isValid={touched.zipcode && !errors.zipcode}
-                  isInvalid={!!errors.zipcode}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-                <Button onClick={handleSubmit} className={classes.submit}>
-                  Select order
-                </Button>
-              </div>
-            </Form>
+            <Typography variant="h3" className={classes.subtitle}>
+              Order information
+            </Typography>
+
+            <TextField
+              id="firstName"
+              label="First name"
+              value={values.firstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.firstName ? errors.firstName : ''}
+              error={touched.firstName && Boolean(errors.firstName)}
+              variant="outlined"
+              fullWidth
+              className={classes.formField}
+            />
+
+            <TextField
+              id="lastName"
+              label="Last name"
+              value={values.lastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.lastName ? errors.lastName : ''}
+              error={touched.lastName && Boolean(errors.lastName)}
+              variant="outlined"
+              fullWidth
+              className={classes.formField}
+            />
+
+            <TextField
+              id="adults"
+              label="# of Adults in Household"
+              value={values.adults}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.adults ? errors.adults : ''}
+              error={touched.adults && Boolean(errors.adults)}
+              variant="outlined"
+              fullWidth
+              className={classes.formField}
+            />
+
+            <TextField
+              id="children"
+              label="# of Children in Household"
+              value={values.children}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.children ? errors.children : ''}
+              error={touched.children && Boolean(errors.children)}
+              variant="outlined"
+              fullWidth
+              className={classes.formField}
+            />
+
+            <TextField
+              id="zipcode"
+              label="Zip/Postal code"
+              value={values.zipcode}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={touched.zipcode ? errors.zipcode : ''}
+              error={touched.zipcode && Boolean(errors.zipcode)}
+              variant="outlined"
+              fullWidth
+              className={classes.formField}
+            />
+
+            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <Button onClick={handleSubmit} className={classes.submit}>
+                Select order
+              </Button>
+            </div>
           </Paper>
         )}
       </Formik>
@@ -156,12 +163,24 @@ const useStyles = makeStyles((theme) => ({
   formPaper: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(2),
+    },
+  },
+  subtitle: {
+    fontSize: theme.typography.h5.fontSize,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   submit: {
     backgroundColor: '#16AB8D',
     borderColor: '#FFFFF5',
     color: '#FFFFFF',
     borderRadius: '200px',
+  },
+  formField: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }));
 
