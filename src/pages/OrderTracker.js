@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import { Button } from 'react-bootstrap';
 import { updatePerson } from '../api/People';
 import { useHistory } from 'react-router-dom';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth } from '../firebase';
 import { LANDING } from '../constants/Routes';
+import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
 
 /**
  * Page with list of people with unfulfilled orders
@@ -48,29 +48,19 @@ function OrderTracker() {
 
   return (
     <Container>
-      <p>
         {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
         {userLoading && <span>User: Loading...</span>}
         {snapError && <strong>Collection Error: {JSON.stringify(snapError)}</strong>}
         {snapLoading && <span>Collection: Loading...</span>}
         {snapshot && (
-          <span>
-            Collection:{' '}
-            {snapshot.docs.map((doc) => (
-              <React.Fragment key={doc.id}>
-                {JSON.stringify(doc.data())},{' '}
-                <Button
-                  onClick={() => {
-                    fulfillOrder(doc.id);
-                  }}
-                >
-                  Fulfill Person
-                </Button>
-              </React.Fragment>
-            ))}
-          </span>
+            snapshot.docs.map((doc) => (
+              <UnfulfilledOrderCard
+                person={doc}
+                fulfillPerson = {fulfillOrder}
+                key={doc._id}
+              />
+            ))
         )}
-      </p>
     </Container>
   );
 }

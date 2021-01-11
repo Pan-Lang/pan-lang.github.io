@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { CardActions } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import FulfillModal from './FulfillModal';
+
 
 /**
  * Displays:
@@ -16,23 +22,22 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
   const handleClose = () => setShowFulfillModal(false);
   const handleShow = () => setShowFulfillModal(true);
 
+  const classes = useStyles();
   return (
     <>
-      <Card
-        key={person._id}
-        size="lg"
-        style={{ margin: 5 }}
-      >
-        <Card.Body>
-          <Card.Header as="h2">
-            {person.firstname} {person.lastname}
-          </Card.Header>
-          <Card.Text>{person['order-notes']}</Card.Text>
-          <Button onClick={handleShow} block
-          style={{backgroundColor: '#16AB8D', borderColor: '#16AB8D', borderRadius: '200px', color: '#FFFFFF'}}>
-            Fulfill Order
-          </Button>
-        </Card.Body>
+      <Card>
+        <CardContent>
+          <Typography>
+            {person}
+          </Typography>
+          <Typography>
+            {person['order-notes']}
+          </Typography>
+          
+        </CardContent>
+        <CardActions>
+        <Button onClick={handleShow}>Fulfill Order</Button>
+        </CardActions>       
       </Card>
 
       <FulfillModal
@@ -44,5 +49,17 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
     </>
   );
 }
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  title: {
+    fontSize: 14,
+  },
+  order:{
+    fontsize: 8
+  }
+})
 
 export default UnfulfilledOrderCard;
