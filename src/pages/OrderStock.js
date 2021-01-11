@@ -66,6 +66,7 @@ function OrderStock() {
       fetchStock()
         .then((res) => {
           setStock(res.data);
+          
         })
         .catch((e) => setError(true));
     }, timeout);
