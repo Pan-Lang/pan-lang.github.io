@@ -63,7 +63,7 @@ function OrderStock() {
 
     // Fetch stock after designated time
     setTimeout(() => {
-      fetchStock()
+      fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
         })
@@ -122,6 +122,7 @@ function OrderStock() {
   function submitRequest() {
     // Send full person info to API
     const requestBody = {
+      pantry: auth.currentUser.uid,
       firstname: personInfo.firstName,
       lastname: personInfo.lastName,
       adults: personInfo.adults,
@@ -134,8 +135,15 @@ function OrderStock() {
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
-      console.log('making promise... ', item.countAfterRequest);
-      return updateStockCount(item.id, { newCount: item.countAfterRequest });
+
+      console.log('making promise... ', item.countAfterRequest, auth.currentUser.uid);
+      let body = {
+        pantry: auth.currentUser.uid,
+        _id: item.id,
+        newCount: item.countAfterRequest
+      }
+
+      return updateStockCount(body);
     });
 
     Promise.all(stockUpdatePromises).then((responses) =>
