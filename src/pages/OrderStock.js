@@ -63,10 +63,9 @@ function OrderStock() {
 
     // Fetch stock after designated time
     setTimeout(() => {
-      fetchStock()
+      fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
-          
         })
         .catch((e) => setError(true));
     }, timeout);
@@ -123,6 +122,7 @@ function OrderStock() {
   function submitRequest() {
     // Send full person info to API
     const requestBody = {
+      pantry: auth.currentUser.uid,
       firstname: personInfo.firstName,
       lastname: personInfo.lastName,
       adults: personInfo.adults,
