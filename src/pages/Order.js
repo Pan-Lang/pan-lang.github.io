@@ -45,11 +45,14 @@ function OrderForm() {
   }
 
   const classes = useStyles();
+  const requiredText = '*Required';
   return (
     <Container maxWidth="sm" className={classes.page}>
       <Typography variant="h1" className={classes.title}>
         Order Form
       </Typography>
+
+      {/* Form */}
       <Formik
         validationSchema={orderSchema}
         onSubmit={onSubmit}
@@ -59,13 +62,14 @@ function OrderForm() {
           adults: '',
           children: '',
           zipcode: '',
-          orderNotes: 'test',
+          orderNotes: '',
         }}
       >
         {({
           handleSubmit,
           handleChange,
           handleBlur,
+          handleReset,
           values,
           touched,
           isValid,
@@ -78,14 +82,17 @@ function OrderForm() {
 
             {/* First name, last name */}
             <Grid container spacing={1}>
+              {/* First name */}
               <Grid item xs={12} md={6}>
                 <TextField
                   id="firstName"
-                  label="First name"
+                  label="First name*"
                   value={values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={touched.firstName ? errors.firstName : ''}
+                  helperText={
+                    touched.firstName ? errors.firstName : requiredText
+                  }
                   error={touched.firstName && Boolean(errors.firstName)}
                   variant="outlined"
                   fullWidth
@@ -93,14 +100,15 @@ function OrderForm() {
                 />
               </Grid>
 
+              {/* Last name */}
               <Grid item xs={12} md={6}>
                 <TextField
                   id="lastName"
-                  label="Last name"
+                  label="Last name*"
                   value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={touched.lastName ? errors.lastName : ''}
+                  helperText={touched.lastName ? errors.lastName : requiredText}
                   error={touched.lastName && Boolean(errors.lastName)}
                   variant="outlined"
                   fullWidth
@@ -109,29 +117,33 @@ function OrderForm() {
               </Grid>
             </Grid>
 
+            {/* # of adults, # of children */}
             <Grid container spacing={1}>
+              {/* # of adults */}
               <Grid item xs={12} md={6}>
                 <TextField
                   id="adults"
-                  label="# of Adults in Household"
+                  label="# of Adults in Household*"
                   value={values.adults}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={touched.adults ? errors.adults : ''}
+                  helperText={touched.adults ? errors.adults : requiredText}
                   error={touched.adults && Boolean(errors.adults)}
                   variant="outlined"
                   fullWidth
                   className={classes.formField}
                 />
               </Grid>
+
+              {/* # of children */}
               <Grid item xs={12} md={6}>
                 <TextField
                   id="children"
-                  label="# of Children in Household"
+                  label="# of Children in Household*"
                   value={values.children}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={touched.children ? errors.children : ''}
+                  helperText={touched.children ? errors.children : requiredText}
                   error={touched.children && Boolean(errors.children)}
                   variant="outlined"
                   fullWidth
@@ -140,19 +152,21 @@ function OrderForm() {
               </Grid>
             </Grid>
 
+            {/* Zip code */}
             <TextField
               id="zipcode"
-              label="Zip/Postal code"
+              label="Zip/Postal code*"
               value={values.zipcode}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={touched.zipcode ? errors.zipcode : ''}
+              helperText={touched.zipcode ? errors.zipcode : requiredText}
               error={touched.zipcode && Boolean(errors.zipcode)}
               variant="outlined"
               fullWidth
               className={classes.formField}
             />
 
+            {/* Submit and clear buttons */}
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <Button
                 onClick={handleSubmit}
@@ -160,6 +174,13 @@ function OrderForm() {
                 disabled={!isValid}
               >
                 Select order
+              </Button>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={handleReset}
+              >
+                Clear
               </Button>
             </div>
           </Paper>
@@ -195,6 +216,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#119178',
     },
     color: '#FFFFFF',
+    marginLeft: theme.spacing(2),
   },
   formField: {
     marginTop: theme.spacing(2),
