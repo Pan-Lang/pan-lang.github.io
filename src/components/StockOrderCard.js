@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Fade from '@material-ui/core/Fade';
-import StockModal from './StockModal';
+import OrderModal from './OrderModal';
 import StockInfo from './StockInfo';
 
 /**
- * Card component that displays a stock item and allows
- * for editing its amount through a modal popup
+ * Stock item card on order screen
  */
-function StockCard({ stockItem, getStock, lang = 'name' }) {
-  const [showAmountModal, setShowAmountModal] = useState(false);
+function StockOrderCard({
+  stockItem,
+  getStock,
+  lang = 'name',
+  onRequest,
+  isRequested = false,
+}) {
+  const [showOrderModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
-  // Handlers for showing/closing modal when editing item amount
+  // Handlers for showing/closing modal when ordering item
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
 
@@ -22,26 +27,27 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
 
   return (
     <>
-      <Fade in={true} exit={true} enter={true}>
+      <Fade in exit>
         <StockInfo
           stockItem={stockItem}
           lang={lang}
           hasLanguage={hasLanguage}
           handleShow={handleShow}
+          disableClick={stockItem.count <= 0}
         />
       </Fade>
 
-      {/* Popup modal for editing stock count */}
-      <StockModal
-        show={showAmountModal}
+      <OrderModal
+        show={showOrderModal}
         handleClose={handleClose}
         getStock={getStock}
-        stockName={hasLanguage ? stockItem[lang] : stockItem.name}
+        stockName={stockItem.name}
         stockId={stockItem._id}
         stockCount={stockItem.count}
+        onRequest={onRequest}
       />
     </>
   );
 }
 
-export default StockCard;
+export default StockOrderCard;

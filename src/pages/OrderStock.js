@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import OrderCard from '../components/OrderCard';
+import StockOrderCard from '../components/StockOrderCard';
 import Loading from '../components/Loading';
 import { fetchStock } from '../api/Stock';
 import LANGUAGES from '../constants/Languages';
@@ -22,6 +22,7 @@ function OrderStock() {
 
   const [stock, setStock] = useState([]);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [personInfo] = useState(
     fromForm
@@ -60,14 +61,18 @@ function OrderStock() {
     // Set stock empty to begin loading spinner
     setStock([]);
     setError(false);
+    setLoading(true);
 
     // Fetch stock after designated time
     setTimeout(() => {
       fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
+          setLoading(false);
         })
-        .catch((e) => setError(true));
+        .catch((e) => {
+          setLoading(false);
+          setError(true)});
     }, timeout);
   }
 
@@ -233,11 +238,11 @@ function OrderStock() {
       </Container>
 
       {/* List of stock */}
-      {stock.length === 0 && !error && <Loading />}
+      {loading && <Loading />}
       {stock &&
         personInfo &&
         stock.map((item) => (
-          <OrderCard
+          <StockOrderCard
             stockItem={item}
             getStock={getStock}
             lang={language === 'english' ? 'name' : language}

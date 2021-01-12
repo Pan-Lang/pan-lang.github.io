@@ -8,10 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 
 /**
- * Card component for displaying basic stock informatino
+ * Card component for displaying basic stock information
  */
-function StockInfo({ stockItem, lang, hasLanguage, handleShow }) {
-
+function StockInfo({
+  stockItem,
+  lang,
+  hasLanguage,
+  handleShow,
+  disableClick = false,
+  style,
+}) {
   /**
    * Gets a String representing an item's timestamp
    * @param {Object} stockItem
@@ -24,9 +30,13 @@ function StockInfo({ stockItem, lang, hasLanguage, handleShow }) {
 
   const classes = useStyles();
   return (
-    <Card className={classes.card} onClick={handleShow}>
+    <Card className={classes.card} onClick={disableClick ? null : handleShow} style={style}>
       {/* Action area makes entire component focusable */}
-      <CardActionArea className={classes.cardAction} disableRipple>
+      <CardActionArea
+        className={classes.cardAction}
+        disabled={disableClick}
+        disableRipple
+      >
         <CardContent>
           {/* Top content of card */}
           <Box className={classes.topContent}>
