@@ -55,10 +55,10 @@ function OrderTracker() {
         {snapshot && (
             snapshot.docs.map((doc) => (
               <UnfulfilledOrderCard
-                person={doc}
+                person={doc.data()}
                 fulfillPerson = {fulfillOrder}
                 key={doc._id}
-              />
+              /> 
             ))
         )}
     </Container>

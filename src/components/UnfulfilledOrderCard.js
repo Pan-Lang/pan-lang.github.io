@@ -28,7 +28,7 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
       <Card>
         <CardContent>
           <Typography>
-            {person}
+            {person['firstName']} {person['lastName']}
           </Typography>
           <Typography>
             {person['order-notes']}
