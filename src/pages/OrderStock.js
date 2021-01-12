@@ -123,10 +123,10 @@ function OrderStock() {
     // Send full person info to API
     const requestBody = {
       pantry: auth.currentUser.uid,
-      firstname: personInfo.firstName,
-      lastname: personInfo.lastName,
-      adults: personInfo.adults,
-      children: personInfo.adults,
+      firstName: personInfo.firstName,
+      lastName: personInfo.lastName,
+      adults: parseInt(personInfo.adults),
+      children: parseInt(personInfo.adults),
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
       fulfilled: false,

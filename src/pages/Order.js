@@ -84,7 +84,7 @@ function OrderForm() {
           adults: '',
           children: '',
           zipcode: '',
-          orderNotes: '',
+          orderNotes: 'order notes',
         }}
       >
         {({
