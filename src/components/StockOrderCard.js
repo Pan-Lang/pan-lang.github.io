@@ -11,7 +11,7 @@ function StockOrderCard({
   getStock,
   lang = 'name',
   onRequest,
-  isRequested = false,
+  requestedCount = 0,
 }) {
   const [showOrderModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
@@ -34,6 +34,11 @@ function StockOrderCard({
           hasLanguage={hasLanguage}
           handleShow={handleShow}
           disableClick={stockItem.count <= 0}
+          visibleStockCount={
+            requestedCount
+              ? `${stockItem.count} → ${stockItem.count - requestedCount}`
+              : stockItem.count
+          }
         />
       </Fade>
 

@@ -16,6 +16,7 @@ function StockInfo({
   hasLanguage,
   handleShow,
   disableClick = false,
+  visibleStockCount = stockItem.count,
   style,
 }) {
   /**
@@ -67,7 +68,7 @@ function StockInfo({
             <Box className={classes.countContainer}>
               <Typography className={classes.countHeader}>Count</Typography>
               <Typography className={classes.count}>
-                {stockItem.count}
+                {visibleStockCount}
               </Typography>
             </Box>
           </Box>

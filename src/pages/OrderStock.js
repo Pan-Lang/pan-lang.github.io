@@ -163,6 +163,19 @@ function OrderStock() {
     setShowConfirmation(true);
   }
 
+  /**
+   * Gets the requested count of a stock item, or 0 if not requested
+   * @param {String} itemId id of requested stock item 
+   */
+  function getRequestedCount(itemId) {
+    let requestedItem = requestedStockItems.find((item) => item.id === itemId);
+    if (Boolean(requestedItem)) {
+      return requestedItem.requestedCount;
+    } else {
+      return 0; 
+    }
+  }
+
   return (
     <Container>
       <h1 style={{ textAlign: 'center' }}>Select stock here</h1>
@@ -248,9 +261,7 @@ function OrderStock() {
             lang={language === 'english' ? 'name' : language}
             key={item._id}
             onRequest={onRequest}
-            isRequested={requestedStockItems.some(
-              (requested) => item._id === requested.id
-            )}
+            requestedCount={getRequestedCount(item._id)}
           />
         ))}
       {error && (
