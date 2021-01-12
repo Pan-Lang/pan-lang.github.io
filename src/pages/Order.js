@@ -16,6 +16,26 @@ import { ORDER_STOCK, LANDING } from '../constants/Routes';
 import { ORDER_STEPS } from '../constants/Order';
 import { auth } from '../firebase';
 
+// Validation schema for order form
+const orderSchema = Yup.object({
+  firstName: Yup.string().required('First name is required'),
+  lastName: Yup.string().required('Last name is required'),
+  adults: Yup.number().integer().positive().required('# of adults is required'),
+  children: Yup.number()
+    .integer()
+    .positive()
+    .required('# of children is required'),
+  zipcode: Yup.string()
+    .length(5)
+    .test(
+      'Valid ZIP code',
+      'Must be a valid US ZIP code',
+      (value) => /^\d+$/.test(value) // test for digits only
+    )
+    .required('ZIP code is required'),
+  orderNotes: Yup.string().required(),
+});
+
 /**
  * Page to fill out form for patron's order
  */
@@ -173,7 +193,6 @@ function OrderForm() {
               <Button
                 onClick={handleSubmit}
                 className={classes.submit}
-                disabled={!isValid}
               >
                 Select order
               </Button>
@@ -191,26 +210,6 @@ function OrderForm() {
     </Container>
   );
 }
-
-// Validation schema for order form
-const orderSchema = Yup.object({
-  firstName: Yup.string().required('First name is required'),
-  lastName: Yup.string().required('Last name is required'),
-  adults: Yup.number().integer().positive().required('# of adults is required'),
-  children: Yup.number()
-    .integer()
-    .positive()
-    .required('# of children is required'),
-  zipcode: Yup.string()
-    .length(5)
-    .test(
-      'Valid ZIP code',
-      'Must be a valid US ZIP code',
-      (value) => /^\d+$/.test(value) // test for digits only
-    )
-    .required('ZIP code is required'),
-  orderNotes: Yup.string().required(),
-});
 
 const useStyles = makeStyles((theme) => ({
   page: {
