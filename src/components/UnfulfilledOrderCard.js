@@ -33,10 +33,9 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
           <Typography>
             {person['order-notes']}
           </Typography>
-          
         </CardContent>
         <CardActions>
-        <Button onClick={handleShow}>Fulfill Order</Button>
+          <Button onClick={handleShow}>Fulfill Order</Button>
         </CardActions>       
       </Card>
 
