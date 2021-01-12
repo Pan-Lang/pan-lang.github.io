@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -45,7 +46,7 @@ function OrderForm() {
 
   const classes = useStyles();
   return (
-    <Container maxWidth="md" className={classes.page}>
+    <Container maxWidth="sm" className={classes.page}>
       <Typography variant="h1" className={classes.title}>
         Order Form
       </Typography>
@@ -72,60 +73,72 @@ function OrderForm() {
         }) => (
           <Paper className={classes.formPaper}>
             <Typography variant="h3" className={classes.subtitle}>
-              Order information
+              Enter patron information
             </Typography>
 
-            <TextField
-              id="firstName"
-              label="First name"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.firstName ? errors.firstName : ''}
-              error={touched.firstName && Boolean(errors.firstName)}
-              variant="outlined"
-              fullWidth
-              className={classes.formField}
-            />
+            {/* First name, last name */}
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="firstName"
+                  label="First name"
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.firstName ? errors.firstName : ''}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formField}
+                />
+              </Grid>
 
-            <TextField
-              id="lastName"
-              label="Last name"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.lastName ? errors.lastName : ''}
-              error={touched.lastName && Boolean(errors.lastName)}
-              variant="outlined"
-              fullWidth
-              className={classes.formField}
-            />
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="lastName"
+                  label="Last name"
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.lastName ? errors.lastName : ''}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formField}
+                />
+              </Grid>
+            </Grid>
 
-            <TextField
-              id="adults"
-              label="# of Adults in Household"
-              value={values.adults}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.adults ? errors.adults : ''}
-              error={touched.adults && Boolean(errors.adults)}
-              variant="outlined"
-              fullWidth
-              className={classes.formField}
-            />
-
-            <TextField
-              id="children"
-              label="# of Children in Household"
-              value={values.children}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              helperText={touched.children ? errors.children : ''}
-              error={touched.children && Boolean(errors.children)}
-              variant="outlined"
-              fullWidth
-              className={classes.formField}
-            />
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="adults"
+                  label="# of Adults in Household"
+                  value={values.adults}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.adults ? errors.adults : ''}
+                  error={touched.adults && Boolean(errors.adults)}
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formField}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="children"
+                  label="# of Children in Household"
+                  value={values.children}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  helperText={touched.children ? errors.children : ''}
+                  error={touched.children && Boolean(errors.children)}
+                  variant="outlined"
+                  fullWidth
+                  className={classes.formField}
+                />
+              </Grid>
+            </Grid>
 
             <TextField
               id="zipcode"
@@ -141,7 +154,11 @@ function OrderForm() {
             />
 
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <Button onClick={handleSubmit} className={classes.submit}>
+              <Button
+                onClick={handleSubmit}
+                className={classes.submit}
+                disabled={!isValid}
+              >
                 Select order
               </Button>
             </div>
@@ -174,13 +191,14 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
     color: '#FFFFFF',
-    borderRadius: '200px',
   },
   formField: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
