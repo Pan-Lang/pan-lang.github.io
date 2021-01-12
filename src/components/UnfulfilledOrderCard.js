@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import FulfillModal from './FulfillModal';
 
 
+
 /**
  * Displays:
  * - person's name
@@ -25,17 +26,17 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
   const classes = useStyles();
   return (
     <>
-      <Card>
+      <Card variant="outlined">
         <CardContent>
-          <Typography>
+          <Typography variant="h4">
             {person['firstName']} {person['lastName']}
           </Typography>
-          <Typography>
+          <Typography variant="h5">
             {person['order-notes']}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={handleShow}>Fulfill Order</Button>
+          <Button onClick={handleShow} class={classes.button} variant="contained">Fulfill Order</Button>
         </CardActions>       
       </Card>
 
@@ -58,7 +59,19 @@ const useStyles = makeStyles({
   },
   order:{
     fontsize: 8
-  }
+  },
+  button: {
+    borderRadius: 10,
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
+    marginTop: 5,
+    marginBottom: 5
+  },
 })
 
 export default UnfulfilledOrderCard;

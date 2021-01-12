@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth } from '../firebase';
 import { LANDING } from '../constants/Routes';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
+import Loading from '../components/Loading';
 
 /**
  * Page with list of people with unfulfilled orders
@@ -51,7 +52,7 @@ function OrderTracker() {
         {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
         {userLoading && <span>User: Loading...</span>}
         {snapError && <strong>Collection Error: {JSON.stringify(snapError)}</strong>}
-        {snapLoading && <span>Collection: Loading...</span>}
+        {snapLoading && <Loading/>}
         {snapshot && (
             snapshot.docs.map((doc) => (
               <UnfulfilledOrderCard
