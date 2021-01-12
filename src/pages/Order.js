@@ -5,11 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ORDER_STOCK, LANDING } from '../constants/Routes';
+import { ORDER_STEPS } from '../constants/Order';
 import { auth } from '../firebase';
 
 /**
@@ -41,6 +45,14 @@ function OrderForm() {
       <Typography variant="h1" className={classes.title}>
         Order Form
       </Typography>
+
+      <Stepper activeStep={0} className={classes.stepper}>
+        {ORDER_STEPS.map((step) => (
+          <Step key={step}>
+            <StepLabel>{step}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
 
       {/* Form */}
       <Formik
@@ -207,6 +219,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: 'center',
     fontSize: theme.typography.h3.fontSize,
+  },
+  stepper: {
+    marginTop: theme.spacing(1),
   },
   formPaper: {
     marginTop: theme.spacing(2),
