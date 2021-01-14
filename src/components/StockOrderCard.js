@@ -40,6 +40,7 @@ function StockOrderCard({
           handleShow={handleShow}
           showEnglishOnly={languageTag === 'en'}
           visibleStockCount={getVisibleStockCount()}
+          disableClick={stockItem.count <= 0}
         />
       </Fade>
 

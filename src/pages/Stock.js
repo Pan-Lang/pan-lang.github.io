@@ -147,8 +147,8 @@ function Stock() {
         <Grid item xs={12} md={8}>
           {/* Search bar */}
           <Paper elevation={1} className={classes.searchPaper}>
-            
             <Box display="flex" alignItems="stretch">
+              {/* Search bar */}
               <TextField
                 className={classes.search}
                 type="search"
@@ -166,6 +166,7 @@ function Stock() {
                 }
               />
 
+              {/* Refresh button */}
               <IconButton size="medium" color="primary" onClick={getStock}>
                 <RefreshIcon />
               </IconButton>
