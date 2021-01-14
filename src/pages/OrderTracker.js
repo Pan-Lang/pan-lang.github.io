@@ -8,7 +8,7 @@ import { db, auth } from '../firebase';
 import { LANDING } from '../constants/Routes';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
 import Loading from '../components/Loading';
-import Dialog from '../components/Dialog';
+import Dialog from '../components/EmptyDialog';
 
 /**
  * Page with list of people with unfulfilled orders
