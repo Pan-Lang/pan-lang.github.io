@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Fade from '@material-ui/core/Fade';
 import StockModal from './StockModal';
 import StockInfo from './StockInfo';
+import useLanguage from '../hooks/useLanguage';
 
 /**
  * Card component that displays a stock item and allows
@@ -9,19 +10,11 @@ import StockInfo from './StockInfo';
  */
 function StockCard({ stockItem, getStock, languageTag = 'en' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
-  const [hasLanguage, setHasLanguage] = useState(false);
+  const hasLanguage = useLanguage(languageTag, stockItem);
 
   // Handlers for showing/closing modal when editing item amount
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
-
-  // Determine whether this stock item has a name in the specified language
-  useEffect(() => {
-    setHasLanguage(
-      Boolean(stockItem.translations) &&
-        stockItem.translations[languageTag] !== undefined
-    );
-  }, [languageTag, stockItem]);
 
   return (
     <>

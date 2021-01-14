@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Fade from '@material-ui/core/Fade';
 import OrderModal from './OrderModal';
 import StockInfo from './StockInfo';
+import useLanguage from '../hooks/useLanguage';
 
 /**
  * Stock item card on order screen
@@ -9,31 +10,26 @@ import StockInfo from './StockInfo';
 function StockOrderCard({
   stockItem,
   getStock,
-  lang = 'name',
+  languageTag = 'en',
   onRequest,
   requestedCount = 0,
 }) {
   const [showOrderModal, setShowAmountModal] = useState(false);
-  const [hasLanguage, setHasLanguage] = useState(false);
+  const hasLanguage = useLanguage(languageTag, stockItem);
 
   // Handlers for showing/closing modal when ordering item
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
-
-  // Determine whether this stock item has a name in the specified language
-  useEffect(() => {
-    setHasLanguage(stockItem[lang] !== undefined);
-  }, [lang, stockItem]);
 
   return (
     <>
       <Fade in exit>
         <StockInfo
           stockItem={stockItem}
-          lang={lang}
+          languageTag={languageTag}
           hasLanguage={hasLanguage}
           handleShow={handleShow}
-          disableClick={stockItem.count <= 0}
+          showEnglishOnly={languageTag === 'en'}
           visibleStockCount={
             requestedCount
               ? `${stockItem.count} → ${stockItem.count - requestedCount}`

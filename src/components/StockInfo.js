@@ -9,6 +9,15 @@ import { makeStyles } from '@material-ui/core';
 
 /**
  * Card component for displaying basic stock information
+ * @param {{ 
+ *   stockItem: Object, 
+ *   languageTag: String, 
+ *   hasLanguage: Boolean, 
+ *   handleShow: Function, 
+ *   disableClick: Boolean, 
+ *   visibleStockCount: Number, 
+ *   showEnglishOnly: Boolean 
+ * }}
  */
 function StockInfo({
   stockItem,
@@ -61,6 +70,7 @@ function StockInfo({
               </Typography>
 
               {/* No translation alert */}
+              {/* If translated name is required but not present */}
               {!showEnglishOnly && !hasLanguage && (
                 <Chip
                   className={classes.noTranslation}

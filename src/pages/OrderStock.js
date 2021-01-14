@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import StockOrderCard from '../components/StockOrderCard';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Container, Button } from 'react-bootstrap';
+import ConfirmationModal from '../components/ConfirmationModal';
+import LanguageMenu from '../components/LanguageMenu';
 import Loading from '../components/Loading';
+import StockOrderCard from '../components/StockOrderCard';
 import { fetchStock } from '../api/Stock';
 import LANGUAGES from '../constants/Languages';
-import { Container, Dropdown, Button } from 'react-bootstrap';
-import { useHistory, useLocation } from 'react-router-dom';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
-import ConfirmationModal from '../components/ConfirmationModal';
 import ErrorAlert from '../components/ErrorAlert';
 import { auth } from '../firebase';
 import { LANDING, ORDER_FORM } from '../constants/Routes';
@@ -37,7 +38,7 @@ function OrderStock() {
   useEffect(() => {
     if (!Boolean(auth.currentUser)) {
       // Send user back to homepage if not signed in
-      history.push(LANDING)
+      history.push(LANDING);
     } else if (!personInfo) {
       // Send user back to form if they didn't fill it out
       history.push(ORDER_FORM);
@@ -72,17 +73,18 @@ function OrderStock() {
         })
         .catch((e) => {
           setLoading(false);
-          setError(true)});
+          setError(true);
+        });
     }, timeout);
-  }
-
-  function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
   /**
    * Callback for OrderModal to add item to items list
-   * @param {Object} requestedItem { id, name, requestedCount, countAfterRequest }
+   * @param {{
+   *  id: String,
+   *  name: String,
+   *  requestedCount: Number,
+   *  countAfterRequest: Number }} requestedItem
    */
   function onRequest(requestedItem) {
     // Check if item is already in list
@@ -140,13 +142,16 @@ function OrderStock() {
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
-
-      console.log('making promise... ', item.countAfterRequest, auth.currentUser.uid);
+      console.log(
+        'making promise... ',
+        item.countAfterRequest,
+        auth.currentUser.uid
+      );
       let body = {
         pantry: auth.currentUser.uid,
         _id: item.id,
-        newCount: item.countAfterRequest
-      }
+        newCount: item.countAfterRequest,
+      };
 
       return updateStockCount(body);
     });
@@ -165,14 +170,14 @@ function OrderStock() {
 
   /**
    * Gets the requested count of a stock item, or 0 if not requested
-   * @param {String} itemId id of requested stock item 
+   * @param {String} itemId id of requested stock item
    */
   function getRequestedCount(itemId) {
     let requestedItem = requestedStockItems.find((item) => item.id === itemId);
     if (Boolean(requestedItem)) {
       return requestedItem.requestedCount;
     } else {
-      return 0; 
+      return 0;
     }
   }
 
@@ -207,33 +212,24 @@ function OrderStock() {
       )}
 
       <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-        <Dropdown variant="type" onChange={(e) => console.log(e)}>
-          <Dropdown.Toggle
-            variant="type"
-            id="dropdown-basic"
-            size="md"
-            className="mb-3"
-            style={{
-              backgroundColor: '#16AB8D',
-              borderColor: '#FFFFF5',
-              color: '#FFFFFF',
-              borderRadius: '200px',
-            }}
-          >
-            Language: <b>{capitalize(language)}</b>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {LANGUAGES.map((lang) => (
-              <Dropdown.Item
-                onSelect={(key) => setLanguage(key)}
-                eventKey={lang}
-                key={lang}
-              >
-                {capitalize(lang)}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
+        <LanguageMenu
+          languages={LANGUAGES}
+          currentLanguage={language}
+          setLanguage={setLanguage}
+          isError={error}
+          buttonClass={{
+            backgroundColor: '#16AB8D',
+            borderColor: '#FFFFF5',
+            color: '#FFFFFF',
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: '#119178',
+            },
+            width: '100%',
+            marginTop: 5,
+            marginBottom: 5,
+          }}
+        />
         <div style={{ margin: 'auto' }} />
         <Button
           variant="type"
@@ -258,7 +254,7 @@ function OrderStock() {
           <StockOrderCard
             stockItem={item}
             getStock={getStock}
-            lang={language === 'english' ? 'name' : language}
+            languageTag={language.tag}
             key={item._id}
             onRequest={onRequest}
             requestedCount={getRequestedCount(item._id)}
