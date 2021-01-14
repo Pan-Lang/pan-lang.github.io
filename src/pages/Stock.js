@@ -146,6 +146,7 @@ function Stock() {
           <Paper elevation={1} className={classes.searchPaper}>
             <TextField
               className={classes.search}
+              type="search"
               id="searchbar"
               label="Search items"
               InputProps={{

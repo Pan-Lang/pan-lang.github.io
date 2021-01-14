@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import ErrorAlert from './ErrorAlert';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-// TODO: use to send PUT request to API
 import { updateStockCount } from '../api/Stock';
 import { auth } from '../firebase';
 
