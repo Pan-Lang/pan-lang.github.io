@@ -8,6 +8,7 @@ import Stock from './pages/Stock';
 import OrderStock from './pages/OrderStock';
 import OrderTracker from './pages/OrderTracker';
 import SignIn from './pages/SignIn';
+import Splash from './components/Splash';
 import {
   ABOUT,
   ORDER_FORM,
@@ -17,11 +18,21 @@ import {
   STOCK,
   ORDER_STOCK,
 } from './constants/Routes';
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 /**
  * Highest level App component for routing
  */
 function App() {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return (
+      <Splash loading={loading} key={user} />
+    );
+  }
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Navbar />
