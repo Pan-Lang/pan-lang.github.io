@@ -5,6 +5,7 @@ import CollapsingMenu from './CollapsingMenu';
 import { makeStyles } from '@material-ui/core/styles';
 import Slide from '@material-ui/core/Slide';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import logo from '../../images/logo_nobg.png'
 
 /**
  * Navigation bar at the top of window
@@ -20,7 +21,7 @@ function Navbar() {
           {/* Logo */}
           <Link to="/">
             <img
-              src={require('../../images/logo_nobg.png')}
+              src={logo}
               alt="Pan-Lang logo"
               style={{ width: 75, height: 75 }}
             />

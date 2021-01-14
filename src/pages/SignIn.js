@@ -15,6 +15,7 @@ import {
 import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { LANDING } from '../constants/Routes';
+import logo from '../images/logo_nobg.png'
 
 /**
  * Sign in page for Pan-Lang
@@ -33,7 +34,7 @@ function SignIn() {
     <Container maxWidth="md" className={classes.page}>
       {/* Logo */}
       <img
-        src={require('../images/logo_nobg.png')}
+        src={logo}
         alt="Pan-Lang logo"
         style={{ width: 120, height: 120 }}
       />
