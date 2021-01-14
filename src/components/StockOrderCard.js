@@ -21,6 +21,15 @@ function StockOrderCard({
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
 
+  /**
+   * If requested, shows stock count before and after order request
+   */
+  function getVisibleStockCount() {
+    return requestedCount
+      ? `${stockItem.count} → ${stockItem.count - requestedCount}`
+      : stockItem.count;
+  }
+
   return (
     <>
       <Fade in exit>
@@ -30,11 +39,7 @@ function StockOrderCard({
           hasLanguage={hasLanguage}
           handleShow={handleShow}
           showEnglishOnly={languageTag === 'en'}
-          visibleStockCount={
-            requestedCount
-              ? `${stockItem.count} → ${stockItem.count - requestedCount}`
-              : stockItem.count
-          }
+          visibleStockCount={getVisibleStockCount()}
         />
       </Fade>
 

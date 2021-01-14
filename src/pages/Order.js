@@ -108,7 +108,8 @@ function OrderForm() {
               <Grid item xs={12} md={6}>
                 <TextField
                   id="firstName"
-                  label="First name*"
+                  label="First name"
+                  required
                   value={values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -126,7 +127,8 @@ function OrderForm() {
               <Grid item xs={12} md={6}>
                 <TextField
                   id="lastName"
-                  label="Last name*"
+                  label="Last name"
+                  required
                   value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -145,7 +147,9 @@ function OrderForm() {
               <Grid item xs={12} md={6}>
                 <TextField
                   id="adults"
-                  label="# of Adults in Household*"
+                  type="number"
+                  required
+                  label="# of Adults in Household"
                   value={values.adults}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -161,7 +165,9 @@ function OrderForm() {
               <Grid item xs={12} md={6}>
                 <TextField
                   id="children"
-                  label="# of Children in Household*"
+                  type="number"
+                  required
+                  label="# of Children in Household"
                   value={values.children}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -177,7 +183,9 @@ function OrderForm() {
             {/* Zip code */}
             <TextField
               id="zipcode"
-              label="Zip/Postal code*"
+              type="number"
+              required
+              label="Zip/Postal code"
               value={values.zipcode}
               onChange={handleChange}
               onBlur={handleBlur}

@@ -99,6 +99,7 @@ function StockModal({
                     <form onSubmit={handleSubmit}>
                       <TextField
                         id="newCount"
+                        type="number"
                         label="Enter new item count"
                         value={values.newCount}
                         onChange={handleChange}
