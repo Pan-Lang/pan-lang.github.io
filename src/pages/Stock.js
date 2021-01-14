@@ -71,14 +71,6 @@ function Stock() {
   }, [history]);
 
   /**
-   * Capitalizes the first letter of a string
-   * @param {String} s string to capitalize
-   */
-  function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  /**
    * Returns filtered stock array based on search queries
    * Name query: allows if EITHER English or translated name includes query
    */
@@ -119,7 +111,6 @@ function Stock() {
                 languages={LANGUAGES}
                 currentLanguage={language}
                 setLanguage={setLanguage}
-                capitalize={capitalize}
                 getStock={getStock}
                 isError={error}
               />

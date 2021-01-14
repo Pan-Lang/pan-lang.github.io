@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Container, Button } from 'react-bootstrap';
+
+/** Material UI Imports */
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Paper from '@material-ui/core/Paper';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import Search from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+
+/** Component imports */
+import AccordionWrapper from '../components/AccordionWrapper';
 import ConfirmationModal from '../components/ConfirmationModal';
-import LanguageMenu from '../components/LanguageMenu';
+import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockOrderCard from '../components/StockOrderCard';
-import { fetchStock } from '../api/Stock';
+import StockOptions from '../components/StockOptions';
+
+/** Constants, API, Firebase */
 import LANGUAGES from '../constants/Languages';
+import { LANDING, ORDER_FORM } from '../constants/Routes';
+import { fetchStock } from '../api/Stock';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
-import ErrorAlert from '../components/ErrorAlert';
 import { auth } from '../firebase';
-import { LANDING, ORDER_FORM } from '../constants/Routes';
 
 /**
  * Allows user to order stock items only after they've filled out form
  */
 function OrderStock() {
   const history = useHistory();
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const location = useLocation();
   const fromForm = location.state !== undefined;
 
@@ -25,6 +44,7 @@ function OrderStock() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState(LANGUAGES[0]);
+  const [nameQuery, setNameQuery] = useState('');
   const [personInfo] = useState(
     fromForm
       ? location.state.personInfo
@@ -181,92 +201,159 @@ function OrderStock() {
     }
   }
 
+  /**
+   * Returns filtered stock array based on search queries
+   * Name query: allows if EITHER English or translated name includes query
+   */
+  function getFilteredStockItems() {
+    return stock.filter((item) => {
+      // Check if query is included in English name
+      const inEnglishName = item.name.toLowerCase().includes(nameQuery);
+
+      let inTranslatedName = false;
+
+      // Check first if translations have loaded
+      let translations = item.translations;
+      if (Boolean(translations) && translations[language.tag] !== undefined) {
+        // Check if query is included in translated name
+        inTranslatedName = item.translations[language.tag]
+          .toLowerCase()
+          .includes(nameQuery);
+      }
+      return inEnglishName || inTranslatedName;
+    });
+  }
+
+  const classes = useStyles();
   return (
-    <Container>
-      <h1 style={{ textAlign: 'center' }}>Select stock here</h1>
+    <Container className={classes.root}>
+      <Typography variant="h1" className={classes.title}>
+        Select order for {personInfo.firstName} {personInfo.lastName}
+      </Typography>
 
       {requestedStockItems.map((r) => (
-        <p key={r.name}>
+        <Typography key={r.name}>
           {r.name}: {r.requestedCount}
-        </p>
+        </Typography>
       ))}
 
-      {!error && (
-        <Button
-          variant="type"
-          className="mb-3"
-          onClick={submitRequest}
-          block
-          style={{
-            backgroundColor: '#16AB8D',
-            borderColor: '#FFFFF5',
-            color: '#FFFFFF',
-            borderRadius: '200px',
-          }}
-          disabled={requestedStockItems.length === 0}
-        >
-          {requestedStockItems.length > 0
-            ? 'Submit request'
-            : 'Select items below'}
-        </Button>
-      )}
+      <Button
+        fullWidth
+        onClick={submitRequest}
+        disabled={requestedStockItems.length === 0}
+        variant="contained"
+      >
+        {requestedStockItems.length > 0
+          ? 'Submit request'
+          : 'Select items below'}
+      </Button>
 
-      <Container style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-        <LanguageMenu
-          languages={LANGUAGES}
-          currentLanguage={language}
-          setLanguage={setLanguage}
-          isError={error}
-          buttonClass={{
-            backgroundColor: '#16AB8D',
-            borderColor: '#FFFFF5',
-            color: '#FFFFFF',
-            textTransform: 'none',
-            '&:hover': {
-              backgroundColor: '#119178',
-            },
-            width: '100%',
-            marginTop: 5,
-            marginBottom: 5,
-          }}
-        />
-        <div style={{ margin: 'auto' }} />
-        <Button
-          variant="type"
-          size="md"
-          onClick={getStock}
-          style={{
-            backgroundColor: '#16AB8D',
-            borderColor: '#FFFFF5',
-            color: '#FFFFFF',
-            borderRadius: '200px',
-          }}
-        >
-          Refresh
-        </Button>
-      </Container>
+      {/* Two column desktop layout, one column mobile layout */}
+      <Grid container spacing={isMobile ? 0 : 2}>
+        {/* Left column */}
+        <Grid item xs={12} md={4}>
+          {/* On mobile: hide options in accordion */}
+          {isMobile && (
+            <AccordionWrapper summary="Options">
+              <StockOptions
+                languages={LANGUAGES}
+                currentLanguage={language}
+                setLanguage={setLanguage}
+                getStock={getStock}
+                isError={error}
+              />
+            </AccordionWrapper>
+          )}
 
-      {/* List of stock */}
-      {loading && <Loading />}
-      {stock &&
-        personInfo &&
-        stock.map((item) => (
-          <StockOrderCard
-            stockItem={item}
-            getStock={getStock}
-            languageTag={language.tag}
-            key={item._id}
-            onRequest={onRequest}
-            requestedCount={getRequestedCount(item._id)}
-          />
-        ))}
-      {error && (
-        <ErrorAlert
-          heading="Error"
-          body="An error occurred while trying to get the stock."
-          dismissible={false}
-        />
-      )}
+          {/* On desktop: keep options bar open */}
+          {!isMobile && (
+            <Paper elevation={2} className={classes.column}>
+              <Typography variant="h5" className={classes.subheading}>
+                Options
+              </Typography>
+              <StockOptions
+                languages={LANGUAGES}
+                currentLanguage={language}
+                setLanguage={setLanguage}
+                getStock={getStock}
+                isError={error}
+              />
+            </Paper>
+          )}
+        </Grid>
+
+        {/* Right column */}
+        <Grid item xs={12} md={8}>
+          {/* Search bar */}
+          <Paper elevation={1} className={classes.searchPaper}>
+            <Box display="flex" alignItems="stretch">
+              {/* Search bar */}
+              <TextField
+                className={classes.search}
+                type="search"
+                id="searchbar"
+                label="Search items"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={(event) =>
+                  setNameQuery(event.target.value.toLowerCase())
+                }
+              />
+
+              {/* Refresh button */}
+              <IconButton size="medium" color="primary" onClick={getStock}>
+                <RefreshIcon />
+              </IconButton>
+            </Box>
+
+            {/* Basic stock info */}
+            {!loading && !error && (
+              <Typography className={classes.info}>
+                Showing {getFilteredStockItems().length} of {stock.length} total
+                items
+              </Typography>
+            )}
+          </Paper>
+
+          {/* Stock items */}
+          {stock &&
+            personInfo &&
+            getFilteredStockItems().map((item) => (
+              <StockOrderCard
+                stockItem={item}
+                getStock={getStock}
+                languageTag={language.tag}
+                key={item._id}
+                onRequest={onRequest}
+                requestedCount={getRequestedCount(item._id)}
+              />
+            ))}
+
+          {/* Alert when no stock is found */}
+          {!loading && !error && stock.length === 0 && (
+            <ErrorAlert
+              severity="info"
+              body="No stock items found. Insert one in the Options menu!"
+            />
+          )}
+
+          {/* Loading spinner */}
+          {loading && <Loading />}
+
+          {/* Error alert */}
+          {error && (
+            <ErrorAlert
+              heading="Error"
+              body={`An error occurred while trying to get the stock. ${error}`}
+            />
+          )}
+        </Grid>
+      </Grid>
 
       {/* Confirmation popup */}
       <ConfirmationModal
@@ -287,5 +374,45 @@ function OrderStock() {
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.only('xs')]: {
+      paddingLeft: 2,
+      paddingRight: 2,
+    },
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: theme.typography.h3.fontSize,
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.typography.h4.fontSize,
+    },
+    marginBottom: theme.spacing(2),
+  },
+  subheading: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
+  },
+  column: {
+    padding: theme.spacing(2),
+  },
+  searchPaper: {
+    margin: 5,
+    padding: theme.spacing(2),
+  },
+  search: {
+    width: '95%',
+  },
+  details: {
+    display: 'block',
+  },
+  info: {
+    marginTop: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      fontSize: '10px',
+    },
+  },
+}));
 
 export default OrderStock;
