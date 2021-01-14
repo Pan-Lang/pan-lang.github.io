@@ -2,24 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 /** Material UI imports */
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Paper from '@material-ui/core/Paper';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import Search from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 /** Component imports */
-import AccordionWrapper from '../components/AccordionWrapper';
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockCard from '../components/StockCard';
-import StockOptions from '../components/StockOptions';
+import SearchBar from '../components/SearchBar';
 
 /** Constants, Firebase, API */
 import LANGUAGES from '../constants/Languages';
@@ -29,6 +22,7 @@ import { auth } from '../firebase';
 /** Custom hooks */
 import useStock from '../hooks/useStock';
 import useNameSearch from '../hooks/useNameSearch';
+import StockInput from '../components/StockInput';
 
 /**
  * Page displaying the stock of food pantry with options for language
@@ -36,7 +30,10 @@ import useNameSearch from '../hooks/useNameSearch';
 function Stock() {
   const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [setNameQuery, getFilteredStockItems] = useNameSearch(stock, language.tag);
+  const [setNameQuery, getFilteredStockItems] = useNameSearch(
+    stock,
+    language.tag
+  );
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const history = useHistory();
 
@@ -61,17 +58,7 @@ function Stock() {
         {/* Left column */}
         <Grid item xs={12} md={4}>
           {/* On mobile: hide options in accordion */}
-          {isMobile && (
-            <AccordionWrapper summary="Options">
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                getStock={getStock}
-                isError={error}
-              />
-            </AccordionWrapper>
-          )}
+          {isMobile && <StockInput getStock={getStock} />}
 
           {/* On desktop: keep options bar open */}
           {!isMobile && (
@@ -79,13 +66,7 @@ function Stock() {
               <Typography variant="h5" className={classes.subheading}>
                 Options
               </Typography>
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                getStock={getStock}
-                isError={error}
-              />
+              <StockInput getStock={getStock} defaultExpanded={true} />
             </Paper>
           )}
         </Grid>
@@ -93,40 +74,16 @@ function Stock() {
         {/* Right column */}
         <Grid item xs={12} md={8}>
           {/* Search bar */}
-          <Paper elevation={1} className={classes.searchPaper}>
-            <Box display="flex" alignItems="stretch">
-              {/* Search bar */}
-              <TextField
-                className={classes.search}
-                type="search"
-                id="searchbar"
-                label="Search items"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(event) =>
-                  setNameQuery(event.target.value.toLowerCase())
-                }
-              />
-
-              {/* Refresh button */}
-              <IconButton size="medium" color="primary" onClick={getStock}>
-                <RefreshIcon />
-              </IconButton>
-            </Box>
-
-            {/* Basic stock info */}
-            {!loading && !error && (
-              <Typography className={classes.info}>
-                Showing {getFilteredStockItems().length} of {stock.length} total
-                items
-              </Typography>
-            )}
-          </Paper>
+          <SearchBar
+            LANGUAGES={LANGUAGES}
+            stock={stock}
+            getFilteredStockItems={getFilteredStockItems}
+            error={error}
+            getStock={getStock}
+            language={language}
+            setLanguage={setLanguage}
+            setNameQuery={setNameQuery}
+          />
 
           {/* Stock items */}
           {stock &&

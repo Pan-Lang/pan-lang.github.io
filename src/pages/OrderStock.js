@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 /** Material UI Imports */
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Paper from '@material-ui/core/Paper';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import Search from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
@@ -22,6 +19,7 @@ import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockOrderCard from '../components/StockOrderCard';
 import StockOptions from '../components/StockOptions';
+import SearchBar from '../components/SearchBar';
 
 /** Constants, API, Firebase */
 import LANGUAGES from '../constants/Languages';
@@ -33,6 +31,7 @@ import { auth } from '../firebase';
 /** Custom hooks */
 import useStock from '../hooks/useStock';
 import useNameSearch from '../hooks/useNameSearch';
+import { ORDER_STEPS } from '../constants/Order';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -45,7 +44,10 @@ function OrderStock() {
 
   const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [setNameQuery, getFilteredStockItems] = useNameSearch(stock, language.tag);
+  const [setNameQuery, getFilteredStockItems] = useNameSearch(
+    stock,
+    language.tag
+  );
   const [personInfo] = useState(
     fromForm
       ? location.state.personInfo
@@ -181,13 +183,20 @@ function OrderStock() {
     }
   }
 
-
   const classes = useStyles();
   return (
     <Container className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Select order for {personInfo.firstName} {personInfo.lastName}
       </Typography>
+
+      <Stepper activeStep={1} className={classes.stepper}>
+        {ORDER_STEPS.map((step) => (
+          <Step key={step}>
+            <StepLabel>{step}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
 
       {requestedStockItems.map((r) => (
         <Typography key={r.name}>
@@ -209,7 +218,7 @@ function OrderStock() {
       {/* Two column desktop layout, one column mobile layout */}
       <Grid container spacing={isMobile ? 0 : 2}>
         {/* Left column */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={5}>
           {/* On mobile: hide options in accordion */}
           {isMobile && (
             <AccordionWrapper summary="Options">
@@ -223,11 +232,11 @@ function OrderStock() {
             </AccordionWrapper>
           )}
 
-          {/* On desktop: keep options bar open */}
+          {/* On desktop: keep order open */}
           {!isMobile && (
             <Paper elevation={2} className={classes.column}>
               <Typography variant="h5" className={classes.subheading}>
-                Options
+                Order
               </Typography>
               <StockOptions
                 languages={LANGUAGES}
@@ -241,42 +250,18 @@ function OrderStock() {
         </Grid>
 
         {/* Right column */}
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={7}>
           {/* Search bar */}
-          <Paper elevation={1} className={classes.searchPaper}>
-            <Box display="flex" alignItems="stretch">
-              {/* Search bar */}
-              <TextField
-                className={classes.search}
-                type="search"
-                id="searchbar"
-                label="Search items"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  ),
-                }}
-                onChange={(event) =>
-                  setNameQuery(event.target.value.toLowerCase())
-                }
-              />
-
-              {/* Refresh button */}
-              <IconButton size="medium" color="primary" onClick={getStock}>
-                <RefreshIcon />
-              </IconButton>
-            </Box>
-
-            {/* Basic stock info */}
-            {!loading && !error && (
-              <Typography className={classes.info}>
-                Showing {getFilteredStockItems().length} of {stock.length} total
-                items
-              </Typography>
-            )}
-          </Paper>
+          <SearchBar
+            LANGUAGES={LANGUAGES}
+            stock={stock}
+            getFilteredStockItems={getFilteredStockItems}
+            error={error}
+            getStock={getStock}
+            language={language}
+            setLanguage={setLanguage}
+            setNameQuery={setNameQuery}
+          />
 
           {/* Stock items */}
           {stock &&
@@ -370,6 +355,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '10px',
     },
+  },
+  stepper: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: theme.breakpoints.values.sm,
   },
 }));
 
