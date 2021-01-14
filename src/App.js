@@ -25,11 +25,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
  * Highest level App component for routing
  */
 function App() {
-  const [user, loading] = useAuthState(auth);
+  // `user` is unused
+  const [, loading] = useAuthState(auth);
 
   if (loading) {
     return (
-      <Splash loading={loading} key={user} />
+      <Splash loading={loading} />
     );
   }
 

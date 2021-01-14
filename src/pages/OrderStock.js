@@ -26,10 +26,10 @@ import StockOptions from '../components/StockOptions';
 /** Constants, API, Firebase */
 import LANGUAGES from '../constants/Languages';
 import { LANDING, ORDER_FORM } from '../constants/Routes';
-import { fetchStock } from '../api/Stock';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
 import { auth } from '../firebase';
+import useStock from '../hooks/useStock';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -40,9 +40,7 @@ function OrderStock() {
   const location = useLocation();
   const fromForm = location.state !== undefined;
 
-  const [stock, setStock] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
   const [personInfo] = useState(
@@ -64,7 +62,6 @@ function OrderStock() {
       history.push(ORDER_FORM);
     } else {
       localStorage.setItem('personInfo', JSON.stringify(personInfo));
-      getStock();
       console.log(personInfo);
     }
   }, [fromForm, history, personInfo]);
@@ -76,26 +73,6 @@ function OrderStock() {
     } else {
       return defaultValue;
     }
-  }
-
-  function getStock(timeout = 0) {
-    // Set stock empty to begin loading spinner
-    setStock([]);
-    setError(false);
-    setLoading(true);
-
-    // Fetch stock after designated time
-    setTimeout(() => {
-      fetchStock(auth.currentUser.uid)
-        .then((res) => {
-          setStock(res.data);
-          setLoading(false);
-        })
-        .catch((e) => {
-          setLoading(false);
-          setError(true);
-        });
-    }, timeout);
   }
 
   /**

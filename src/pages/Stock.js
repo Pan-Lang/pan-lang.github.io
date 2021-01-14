@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+/** Material UI imports */
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -10,62 +13,35 @@ import Search from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+
+/** Component imports */
 import AccordionWrapper from '../components/AccordionWrapper';
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockCard from '../components/StockCard';
 import StockOptions from '../components/StockOptions';
+
+/** Constants, Firebase, API */
 import LANGUAGES from '../constants/Languages';
-import { fetchStock } from '../api/Stock';
-import { auth } from '../firebase';
-import { useHistory } from 'react-router-dom';
 import { LANDING } from '../constants/Routes';
+import { auth } from '../firebase';
+import useStock from '../hooks/useStock';
 
 /**
  * Page displaying the stock of food pantry with options for language
  */
 function Stock() {
-  const [stock, setStock] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
   const [nameQuery, setNameQuery] = useState('');
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const history = useHistory();
 
   /**
-   * Fetches stock from API and stores in state
-   * @param {Number} timeout ms to wait before fetching stock
-   */
-  function getStock(timeout = 0) {
-    // Set stock empty to begin loading spinner
-    setStock([]);
-    setError(null);
-    setLoading(true);
-
-    // Fetch stock after designated time
-    setTimeout(() => {
-      fetchStock(auth.currentUser.uid)
-        .then((res) => {
-          setStock(res.data);
-          console.log(res.data);
-          setLoading(false);
-        })
-        .catch((e) => {
-          setError(e);
-          setLoading(false);
-        });
-    }, timeout);
-  }
-
-  /**
    * Fetch stock as soon as page is rendered, if user is signed in
    */
   useEffect(() => {
-    if (Boolean(auth.currentUser)) {
-      getStock();
-    } else {
-      // Redirect to home page
+    if (!Boolean(auth.currentUser)) {
       history.push(LANDING);
     }
   }, [history]);
