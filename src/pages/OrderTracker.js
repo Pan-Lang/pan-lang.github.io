@@ -8,6 +8,7 @@ import { db, auth } from '../firebase';
 import { LANDING } from '../constants/Routes';
 import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
 import Loading from '../components/Loading';
+import Dialog from '../components/Dialog';
 
 /**
  * Page with list of people with unfulfilled orders
@@ -49,10 +50,12 @@ function OrderTracker() {
 
   return (
     <Container>
+        
         {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
         {userLoading && <span>User: Loading...</span>}
         {snapError && <strong>Collection Error: {JSON.stringify(snapError)}</strong>}
         {snapLoading && <Loading/>}
+        {snapshot && snapshot.docs.length === 0 && <Dialog/>}
         {snapshot && (
             snapshot.docs.map((doc) => (
               <UnfulfilledOrderCard
