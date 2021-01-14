@@ -27,7 +27,8 @@ function StockInput({ getStock }) {
 
     // Create item with user's id
     const item = {
-      ...values,
+      name: values.name,
+      count: parseInt(values.count),
       pantry: auth.currentUser.uid,
     };
 
