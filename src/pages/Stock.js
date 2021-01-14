@@ -25,7 +25,10 @@ import StockOptions from '../components/StockOptions';
 import LANGUAGES from '../constants/Languages';
 import { LANDING } from '../constants/Routes';
 import { auth } from '../firebase';
+
+/** Custom hooks */
 import useStock from '../hooks/useStock';
+import useNameSearch from '../hooks/useNameSearch';
 
 /**
  * Page displaying the stock of food pantry with options for language
@@ -33,7 +36,7 @@ import useStock from '../hooks/useStock';
 function Stock() {
   const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [nameQuery, setNameQuery] = useState('');
+  const [setNameQuery, getFilteredStockItems] = useNameSearch(stock, language.tag);
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const history = useHistory();
 
@@ -45,29 +48,6 @@ function Stock() {
       history.push(LANDING);
     }
   }, [history]);
-
-  /**
-   * Returns filtered stock array based on search queries
-   * Name query: allows if EITHER English or translated name includes query
-   */
-  function getFilteredStockItems() {
-    return stock.filter((item) => {
-      // Check if query is included in English name
-      const inEnglishName = item.name.toLowerCase().includes(nameQuery);
-
-      let inTranslatedName = false;
-
-      // Check first if translations have loaded
-      let translations = item.translations;
-      if (Boolean(translations) && translations[language.tag] !== undefined) {
-        // Check if query is included in translated name
-        inTranslatedName = item.translations[language.tag]
-          .toLowerCase()
-          .includes(nameQuery);
-      }
-      return inEnglishName || inTranslatedName;
-    });
-  }
 
   const classes = useStyles();
   return (
