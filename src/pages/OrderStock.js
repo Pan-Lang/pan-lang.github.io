@@ -48,14 +48,17 @@ function OrderStock() {
     stock,
     language.tag
   );
+
   const [personInfo] = useState(
     fromForm
       ? location.state.personInfo
       : retrieveFromStorage('personInfo', undefined)
   );
+
   const [requestedStockItems, setRequestedStockItems] = useState(
     retrieveFromStorage('requestedStockItems', [])
   );
+
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
@@ -118,6 +121,19 @@ function OrderStock() {
       'requestedStockItems',
       JSON.stringify(updatedRequestedItems)
     );
+  }
+
+  /**
+   * Removes a requested item from list, if present
+   * @param requestedItem item in order to remove
+   */
+  function removeRequestedItem(requestedItem) {
+    const index = requestedStockItems.indexOf(requestedItem);
+    if (index > -1) {
+      const updatedRequest = [...requestedStockItems];
+      updatedRequest.splice(index, 1);
+      setRequestedStockItems(updatedRequest);
+    }
   }
 
   function writeRequestToNotes() {
@@ -207,11 +223,14 @@ function OrderStock() {
           {isMobile && (
             <AccordionWrapper
               summary={orderTitle}
-              defaultExpanded={requestedStockItems.length > 0}
             >
               {/* Requested items */}
               {requestedStockItems.map((r) => (
-                <RequestedItemCard requestedItem={r} onRequest={onRequest} />
+                <RequestedItemCard
+                  requestedItem={r}
+                  onRequest={onRequest}
+                  removeRequestedItem={removeRequestedItem}
+                />
               ))}
 
               {/* Submit button */}
@@ -238,7 +257,11 @@ function OrderStock() {
 
               {/* Requested items */}
               {requestedStockItems.map((r) => (
-                <RequestedItemCard requestedItem={r} onRequest={onRequest} />
+                <RequestedItemCard
+                  requestedItem={r}
+                  onRequest={onRequest}
+                  removeRequestedItem={removeRequestedItem}
+                />
               ))}
 
               {/* Submit button */}

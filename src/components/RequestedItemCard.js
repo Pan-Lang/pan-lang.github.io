@@ -13,13 +13,18 @@ import OrderModal from './OrderModal';
 /**
  * Card displaying a requested stock item on Order Stock page
  */
-function RequestedItemCard({ requestedItem, onRequest }) {
+function RequestedItemCard({ requestedItem, onRequest, removeRequestedItem }) {
   const { id, name, requestedCount, countAfterRequest } = requestedItem;
   const [showOrderModal, setShowAmountModal] = useState(false);
 
   // Handlers for showing/closing modal when ordering item
   const handleClose = () => setShowAmountModal(false);
   const handleShow = () => setShowAmountModal(true);
+
+  // Removes requested item from list using callback
+  function removeItem() {
+    removeRequestedItem(requestedItem)
+  }
 
   const classes = useStyles();
   return (
@@ -36,7 +41,7 @@ function RequestedItemCard({ requestedItem, onRequest }) {
             <IconButton color="primary" onClick={handleShow}>
               <EditIcon />
             </IconButton>
-            <IconButton color="secondary">
+            <IconButton color="secondary" onClick={removeItem}>
               <CancelIcon />
             </IconButton>
           </CardActions>
