@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Paper from '@material-ui/core/Paper';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Search from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -144,22 +147,29 @@ function Stock() {
         <Grid item xs={12} md={8}>
           {/* Search bar */}
           <Paper elevation={1} className={classes.searchPaper}>
-            <TextField
-              className={classes.search}
-              type="search"
-              id="searchbar"
-              label="Search items"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
-              onChange={(event) =>
-                setNameQuery(event.target.value.toLowerCase())
-              }
-            />
+            
+            <Box display="flex" alignItems="stretch">
+              <TextField
+                className={classes.search}
+                type="search"
+                id="searchbar"
+                label="Search items"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={(event) =>
+                  setNameQuery(event.target.value.toLowerCase())
+                }
+              />
+
+              <IconButton size="medium" color="primary" onClick={getStock}>
+                <RefreshIcon />
+              </IconButton>
+            </Box>
 
             {/* Basic stock info */}
             {!loading && !error && (
