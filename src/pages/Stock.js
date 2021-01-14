@@ -45,6 +45,7 @@ function Stock() {
       fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
+          console.log(res.data);
           setLoading(false);
         })
         .catch((e) => {
@@ -80,11 +81,19 @@ function Stock() {
    */
   function getFilteredStockItems() {
     return stock.filter((item) => {
-      let inEnglishName = item.name.toLowerCase().includes(nameQuery);
-      let inTranslatedName =
-        item[language] === undefined
-          ? false
-          : item[language].toLowerCase().includes(nameQuery);
+      // Check if query is included in English name
+      const inEnglishName = item.name.toLowerCase().includes(nameQuery);
+
+      let inTranslatedName = false;
+
+      // Check first if translations have loaded
+      let translations = item.translations;
+      if (Boolean(translations) && translations[language.tag] !== undefined) {
+        // Check if query is included in translated name
+        inTranslatedName = item.translations[language.tag]
+          .toLowerCase()
+          .includes(nameQuery);
+      }
       return inEnglishName || inTranslatedName;
     });
   }
@@ -124,7 +133,6 @@ function Stock() {
                 languages={LANGUAGES}
                 currentLanguage={language}
                 setLanguage={setLanguage}
-                capitalize={capitalize}
                 getStock={getStock}
                 isError={error}
               />
@@ -155,7 +163,8 @@ function Stock() {
             {/* Basic stock info */}
             {!loading && !error && (
               <Typography className={classes.info}>
-                Showing {getFilteredStockItems().length} of {stock.length} total items
+                Showing {getFilteredStockItems().length} of {stock.length} total
+                items
               </Typography>
             )}
           </Paper>
@@ -167,7 +176,7 @@ function Stock() {
                 stockItem={item}
                 getStock={getStock}
                 // Key of English name is always 'name'
-                lang={language === 'english' ? 'name' : language}
+                languageTag={language.tag}
                 key={item.name}
               />
             ))}
@@ -233,7 +242,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '10px',
     },
-  }
+  },
 }));
 
 export default Stock;

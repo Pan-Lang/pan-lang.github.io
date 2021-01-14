@@ -15,7 +15,6 @@ import StockInput from './StockInput';
 function StockOptions({
   languages,
   currentLanguage,
-  capitalize,
   setLanguage,
   isError,
   getStock,
@@ -30,7 +29,6 @@ function StockOptions({
           languages={languages}
           currentLanguage={currentLanguage}
           buttonClass={classes.button}
-          capitalize={capitalize}
           setLanguage={setLanguage}
           isError={isError}
         />

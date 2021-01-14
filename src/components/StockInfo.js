@@ -12,11 +12,12 @@ import { makeStyles } from '@material-ui/core';
  */
 function StockInfo({
   stockItem,
-  lang,
+  languageTag,
   hasLanguage,
   handleShow,
   disableClick = false,
   visibleStockCount = stockItem.count,
+  showEnglishOnly,
   style,
 }) {
   /**
@@ -31,7 +32,11 @@ function StockInfo({
 
   const classes = useStyles();
   return (
-    <Card className={classes.card} onClick={disableClick ? null : handleShow} style={style}>
+    <Card
+      className={classes.card}
+      onClick={disableClick ? null : handleShow}
+      style={style}
+    >
       {/* Action area makes entire component focusable */}
       <CardActionArea
         className={classes.cardAction}
@@ -43,18 +48,20 @@ function StockInfo({
           <Box className={classes.topContent}>
             {/* Name and translation (left) */}
             <Box className={classes.nameContainer}>
-              {/* Name */}
+              {/* Translated name */}
               <Typography variant="h4" className={classes.name}>
-                {hasLanguage ? stockItem[lang] : stockItem.name}
+                {showEnglishOnly || !hasLanguage
+                  ? stockItem.name
+                  : stockItem.translations[languageTag]}
               </Typography>
 
-              {/* Translation */}
+              {/* English translation, if necessary */}
               <Typography variant="h5" className={classes.subname}>
-                {hasLanguage && lang !== 'name' ? stockItem.name : ''}
+                {showEnglishOnly || !hasLanguage ? '' : stockItem.name}
               </Typography>
 
               {/* No translation alert */}
-              {!hasLanguage && (
+              {!showEnglishOnly && !hasLanguage && (
                 <Chip
                   className={classes.noTranslation}
                   size="small"

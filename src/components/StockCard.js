@@ -7,7 +7,7 @@ import StockInfo from './StockInfo';
  * Card component that displays a stock item and allows
  * for editing its amount through a modal popup
  */
-function StockCard({ stockItem, getStock, lang = 'name' }) {
+function StockCard({ stockItem, getStock, languageTag = 'en' }) {
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [hasLanguage, setHasLanguage] = useState(false);
 
@@ -17,17 +17,21 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
 
   // Determine whether this stock item has a name in the specified language
   useEffect(() => {
-    setHasLanguage(stockItem[lang] !== undefined);
-  }, [lang, stockItem]);
+    setHasLanguage(
+      Boolean(stockItem.translations) &&
+        stockItem.translations[languageTag] !== undefined
+    );
+  }, [languageTag, stockItem]);
 
   return (
     <>
       <Fade in={true} exit={true} enter={true}>
         <StockInfo
           stockItem={stockItem}
-          lang={lang}
+          languageTag={languageTag}
           hasLanguage={hasLanguage}
           handleShow={handleShow}
+          showEnglishOnly={languageTag === 'en'}
         />
       </Fade>
 
@@ -36,7 +40,9 @@ function StockCard({ stockItem, getStock, lang = 'name' }) {
         show={showAmountModal}
         handleClose={handleClose}
         getStock={getStock}
-        stockName={hasLanguage ? stockItem[lang] : stockItem.name}
+        stockName={
+          hasLanguage ? stockItem.translations[languageTag] : stockItem.name
+        }
         stockId={stockItem._id}
         stockCount={stockItem.count}
       />

@@ -8,7 +8,6 @@ function LanguageMenu({
   languages = [],
   currentLanguage,
   buttonClass,
-  capitalize,
   setLanguage,
   isError = false,
 }) {
@@ -20,7 +19,9 @@ function LanguageMenu({
   };
 
   const handleMenuItemClick = (event, index) => {
-    setLanguage(event.currentTarget.textContent.toLowerCase());
+    const locale = event.currentTarget.textContent;
+    const selectedLanguage = languages.find((lang) => lang.locale === locale);
+    setLanguage(selectedLanguage);
     setSelectedIndex(index);
     setAnchorEl(null);
   };
@@ -34,7 +35,7 @@ function LanguageMenu({
     <div>
       {/* Button to toggle menu */}
       <Button onClick={handleClickListItem} className={buttonClass}>
-        {`Language: ${capitalize(currentLanguage)}`}
+        {`Language: ${currentLanguage.locale}`}
       </Button>
 
       {/* Language menu */}
@@ -56,12 +57,12 @@ function LanguageMenu({
       >
         {languages.map((lang, index) => (
           <MenuItem
-            key={lang}
+            key={lang.tag}
             selected={index === selectedIndex}
             onClick={(event) => handleMenuItemClick(event, index)}
             className={classes.menuItem}
           >
-            {capitalize(lang)}
+            {lang.locale}
           </MenuItem>
         ))}
       </Menu>
