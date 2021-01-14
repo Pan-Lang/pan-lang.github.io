@@ -47,7 +47,6 @@ function StockOrderCard({
       <OrderModal
         show={showOrderModal}
         handleClose={handleClose}
-        getStock={getStock}
         stockName={stockItem.name}
         stockId={stockItem._id}
         stockCount={stockItem.count}

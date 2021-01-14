@@ -28,7 +28,7 @@ function SearchBar({
   const classes = useStyles();
   return (
     <Paper elevation={1} className={classes.searchPaper}>
-      <Box display="flex" alignItems="stretch">
+      <Box display="flex" alignItems="center">
         {/* Search bar */}
         <TextField
           className={classes.search}

@@ -9,10 +9,10 @@ import { makeStyles } from '@material-ui/core';
 /**
  * Component that wraps children in accordion
  */
-function AccordionWrapper({ summary, children }) {
+function AccordionWrapper({ summary, defaultExpanded = false, children }) {
   const classes = useStyles();
   return (
-    <Accordion>
+    <Accordion defaultExpanded={defaultExpanded}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="stock-input-content"

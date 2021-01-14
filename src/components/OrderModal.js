@@ -20,13 +20,13 @@ import { makeStyles } from '@material-ui/core/styles';
 function OrderModal({
   show,
   handleClose,
-  getStock,
   stockId,
   stockName,
   stockCount,
   onRequest,
+  defaultAmount = 1,
 }) {
-  const [selectedAmount, setSelectedAmount] = useState(1);
+  const [selectedAmount, setSelectedAmount] = useState(defaultAmount);
 
   /** Decreases selected amount by 1 */
   function handleDecrease() {

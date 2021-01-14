@@ -18,8 +18,8 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockOrderCard from '../components/StockOrderCard';
-import StockOptions from '../components/StockOptions';
 import SearchBar from '../components/SearchBar';
+import RequestedItemCard from '../components/RequestedItemCard';
 
 /** Constants, API, Firebase */
 import LANGUAGES from '../constants/Languages';
@@ -184,6 +184,7 @@ function OrderStock() {
   }
 
   const classes = useStyles();
+  const orderTitle = `Current order (${requestedStockItems.length})`;
   return (
     <Container className={classes.root}>
       <Typography variant="h1" className={classes.title}>
@@ -198,53 +199,59 @@ function OrderStock() {
         ))}
       </Stepper>
 
-      {requestedStockItems.map((r) => (
-        <Typography key={r.name}>
-          {r.name}: {r.requestedCount}
-        </Typography>
-      ))}
-
-      <Button
-        fullWidth
-        onClick={submitRequest}
-        disabled={requestedStockItems.length === 0}
-        variant="contained"
-      >
-        {requestedStockItems.length > 0
-          ? 'Submit request'
-          : 'Select items below'}
-      </Button>
-
       {/* Two column desktop layout, one column mobile layout */}
       <Grid container spacing={isMobile ? 0 : 2}>
         {/* Left column */}
         <Grid item xs={12} md={5}>
-          {/* On mobile: hide options in accordion */}
+          {/* On mobile: hide order in accordion */}
           {isMobile && (
-            <AccordionWrapper summary="Options">
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                getStock={getStock}
-                isError={error}
-              />
+            <AccordionWrapper
+              summary={orderTitle}
+              defaultExpanded={requestedStockItems.length > 0}
+            >
+              {/* Requested items */}
+              {requestedStockItems.map((r) => (
+                <RequestedItemCard requestedItem={r} onRequest={onRequest} />
+              ))}
+
+              {/* Submit button */}
+              <Button
+                fullWidth
+                onClick={submitRequest}
+                disabled={requestedStockItems.length === 0}
+                variant="contained"
+              >
+                {requestedStockItems.length > 0
+                  ? 'Submit request'
+                  : 'Select items'}
+              </Button>
             </AccordionWrapper>
           )}
 
           {/* On desktop: keep order open */}
           {!isMobile && (
             <Paper elevation={2} className={classes.column}>
+              {/* Title */}
               <Typography variant="h5" className={classes.subheading}>
-                Order
+                {orderTitle}
               </Typography>
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                getStock={getStock}
-                isError={error}
-              />
+
+              {/* Requested items */}
+              {requestedStockItems.map((r) => (
+                <RequestedItemCard requestedItem={r} onRequest={onRequest} />
+              ))}
+
+              {/* Submit button */}
+              <Button
+                fullWidth
+                onClick={submitRequest}
+                disabled={requestedStockItems.length === 0}
+                variant="contained"
+              >
+                {requestedStockItems.length > 0
+                  ? 'Submit request'
+                  : 'Select items'}
+              </Button>
             </Paper>
           )}
         </Grid>
