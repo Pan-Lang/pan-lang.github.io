@@ -4,12 +4,12 @@ import { Button, Modal } from 'react-bootstrap';
 /**
  * Confirmation modal when fulfilling a person's order
  */
-function FulfillModal({ person, show, handleClose, fulfillPerson }) {
+function FulfillModal({ person, personId, show, handleClose, fulfillPerson }) {
   /**
    * Handles confirmation of fulfilling a person's order
    */
   function handleConfirm() {
-    fulfillPerson(person._id);
+    fulfillPerson(personId);
     handleClose();
   }
 
@@ -23,7 +23,7 @@ function FulfillModal({ person, show, handleClose, fulfillPerson }) {
       <Modal.Header>Confirm fulfillment</Modal.Header>
       <Modal.Body>
         <h5>
-          Are you sure that {person.firstname}'s order is correct and has been
+          Are you sure that {person.firstName}'s order is correct and has been
           fulfilled?
         </h5>
         <p>{person['order-notes']}</p>
