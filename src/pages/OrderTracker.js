@@ -37,7 +37,7 @@ function OrderTracker() {
   const [snapshot, snapLoading, snapError] = useCollection(query);
 
   function fulfillOrder(id) {
-    console.log(snapshot.size);
+
     console.log('trying to fulfill', id);
     const requestBody = {
       pantry: user.uid,
@@ -57,6 +57,7 @@ function OrderTracker() {
             snapshot.docs.map((doc) => (
               <UnfulfilledOrderCard
                 person={doc.data()}
+                id={doc.id}
                 fulfillPerson = {fulfillOrder}
                 key={doc._id}
               /> 

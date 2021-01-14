@@ -16,7 +16,7 @@ import FulfillModal from './FulfillModal';
  * - button that sends a socket emit to backend that
  *   sets fulfill to true
  */
-function UnfulfilledOrderCard({ person, fulfillPerson }) {
+function UnfulfilledOrderCard({ person, id, fulfillPerson }) {
   const [showFulfillModal, setShowFulfillModal] = useState(false);
 
   // Handlers for showing/closing modal when ordering item
@@ -28,20 +28,21 @@ function UnfulfilledOrderCard({ person, fulfillPerson }) {
     <>
       <Card variant="outlined">
         <CardContent>
-          <Typography variant="h4">
+          <Typography variant="h5">
             {person['firstName']} {person['lastName']}
           </Typography>
-          <Typography variant="h5">
+          <Typography className={classes.order}>
             {person['order-notes']}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={handleShow} class={classes.button} variant="contained">Fulfill Order</Button>
+          <Button onClick={handleShow} className={classes.button} variant="contained" disableElevation>Fulfill Order</Button>
         </CardActions>       
       </Card>
 
       <FulfillModal
         person={person}
+        personId={id}
         show={showFulfillModal}
         handleClose={handleClose}
         fulfillPerson={fulfillPerson}
@@ -54,11 +55,8 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  title: {
-    fontSize: 14,
-  },
   order:{
-    fontsize: 8
+    fontsize: 12,
   },
   button: {
     borderRadius: 10,
@@ -69,7 +67,6 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: '#119178',
     },
-    marginTop: 5,
     marginBottom: 5
   },
 })
