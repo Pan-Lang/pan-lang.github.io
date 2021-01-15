@@ -31,15 +31,12 @@ function OrderTracker() {
           .collection('people')
           .where('fulfilled', '==', false)
       );
-      console.log(user.uid);
     }
   }, [history, user]);
 
   const [snapshot, snapLoading, snapError] = useCollection(query);
 
   function fulfillOrder(id) {
-
-    console.log('trying to fulfill', id);
     const requestBody = {
       pantry: user.uid,
       _id: id,
@@ -50,22 +47,22 @@ function OrderTracker() {
 
   return (
     <Container>
-        
-        {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
-        {userLoading && <span>User: Loading...</span>}
-        {snapError && <strong>Collection Error: {JSON.stringify(snapError)}</strong>}
-        {snapLoading && <Loading/>}
-        {snapshot && snapshot.docs.length === 0 && <Dialog/>}
-        {snapshot && (
-            snapshot.docs.map((doc) => (
-              <UnfulfilledOrderCard
-                person={doc.data()}
-                id={doc.id}
-                fulfillPerson = {fulfillOrder}
-                key={doc._id}
-              /> 
-            ))
-        )}
+      {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
+      {userLoading && <span>User: Loading...</span>}
+      {snapError && (
+        <strong>Collection Error: {JSON.stringify(snapError)}</strong>
+      )}
+      {snapLoading && <Loading />}
+      {snapshot && snapshot.docs.length === 0 && <Dialog />}
+      {snapshot &&
+        snapshot.docs.map((doc) => (
+          <UnfulfilledOrderCard
+            person={doc.data()}
+            id={doc.id}
+            fulfillPerson={fulfillOrder}
+            key={doc._id}
+          />
+        ))}
     </Container>
   );
 }

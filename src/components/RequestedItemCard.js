@@ -66,7 +66,7 @@ function RequestedItemCard({
         handleClose={handleClose}
         stockName={name}
         stockId={id}
-        stockCount={countAfterRequest}
+        stockCount={countAfterRequest + requestedCount}
         onRequest={onRequest}
         defaultAmount={requestedCount}
       />

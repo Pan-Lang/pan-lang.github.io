@@ -71,7 +71,6 @@ function OrderStock() {
       history.push(ORDER_FORM);
     } else {
       localStorage.setItem('personInfo', JSON.stringify(personInfo));
-      console.log(personInfo);
     }
   }, [fromForm, history, personInfo]);
 
@@ -163,11 +162,6 @@ function OrderStock() {
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
-      console.log(
-        'making promise... ',
-        item.countAfterRequest,
-        auth.currentUser.uid
-      );
       let body = {
         pantry: auth.currentUser.uid,
         _id: item.id,
@@ -177,9 +171,9 @@ function OrderStock() {
       return updateStockCount(body);
     });
 
-    await Promise.all(stockUpdatePromises).then((responses) =>
-      console.log(responses)
-    );
+    // TODO: handle case where some update doesn't go through
+    // Make sure all updates are good
+    await Promise.all(stockUpdatePromises);
 
     // Clear local storage
     localStorage.removeItem('requestedStockItems');

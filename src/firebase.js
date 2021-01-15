@@ -25,7 +25,6 @@ const yahooProvider = new firebase.auth.OAuthProvider('yahoo.com');
 // Sends request to create pantry for new users
 // Does nothing if user already exists in database
 export const sendPantryCreationRequest = () => {
-  console.log(auth);
   let body = {
     uid: auth.currentUser.uid,
     email: auth.currentUser.email,

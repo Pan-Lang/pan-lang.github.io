@@ -26,7 +26,6 @@ function useStock() {
       fetchStock(auth.currentUser.uid)
         .then((res) => {
           setStock(res.data);
-          console.log(res.data);
           setLoading(false);
         })
         .catch((e) => {
