@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 /**
  * Form component that handles creation of new stock items
  */
-function StockInput({ getStock }) {
+function StockInput({ getStock, defaultExpanded = false }) {
   const [loading, setLoading] = useState(false);
   /**
    * Handles sending new stock item requests to API
@@ -27,7 +27,8 @@ function StockInput({ getStock }) {
 
     // Create item with user's id
     const item = {
-      ...values,
+      name: values.name,
+      count: parseInt(values.count),
       pantry: auth.currentUser.uid,
     };
 
@@ -41,14 +42,14 @@ function StockInput({ getStock }) {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Accordion>
+      <Accordion defaultExpanded={defaultExpanded}>
         {/* Accordion toggle area */}
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="stock-input-content"
           id="stock-input-header"
         >
-          <Typography>Click here to insert a stock item</Typography>
+          <Typography>Insert a stock item</Typography>
         </AccordionSummary>
 
         {/* Accordion expandable area */}
