@@ -145,7 +145,7 @@ function OrderStock() {
     return orderNotes.slice(0, -2);
   }
 
-  function submitRequest() {
+  function submitRequest(additionalNotes) {
     // Send full person info to API
     const requestBody = {
       pantry: auth.currentUser.uid,
@@ -155,8 +155,10 @@ function OrderStock() {
       children: parseInt(personInfo.children),
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
+      additionalNotes: additionalNotes,
       fulfilled: false,
     };
+    
     addPersonInfo(requestBody);
 
     // Send updates for each requested item to API

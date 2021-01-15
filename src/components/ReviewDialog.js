@@ -1,5 +1,4 @@
-import React from 'react';
-import Backdrop from '@material-ui/core/Backdrop';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Fade from '@material-ui/core/Fade';
@@ -19,7 +18,13 @@ function ReviewDialog({
   requestedStockItems,
   personInfo,
 }) {
+  const [additionalNotes, setAdditionalNotes] = useState('');
   const { firstName, lastName, adults, children, zipcode } = personInfo;
+  
+  function onSubmit() {
+    submitRequest(additionalNotes);
+  }
+
   const classes = useStyles();
   return (
     <Dialog
@@ -82,6 +87,7 @@ function ReviewDialog({
             variant="filled"
             label="Additional notes"
             className={classes.additionalNotes}
+            onChange={(e) => setAdditionalNotes(e.currentTarget.value)}
             multiline
           />
 
@@ -89,7 +95,7 @@ function ReviewDialog({
           <Button
             variant="contained"
             color="primary"
-            onClick={submitRequest}
+            onClick={onSubmit}
             fullWidth
           >
             Submit request
