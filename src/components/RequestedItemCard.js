@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
+import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
@@ -13,7 +14,12 @@ import OrderModal from './OrderModal';
 /**
  * Card displaying a requested stock item on Order Stock page
  */
-function RequestedItemCard({ requestedItem, onRequest, removeRequestedItem }) {
+function RequestedItemCard({
+  requestedItem,
+  onRequest,
+  removeRequestedItem,
+  showActions = true,
+}) {
   const { id, name, requestedCount, countAfterRequest } = requestedItem;
   const [showOrderModal, setShowAmountModal] = useState(false);
 
@@ -23,30 +29,37 @@ function RequestedItemCard({ requestedItem, onRequest, removeRequestedItem }) {
 
   // Removes requested item from list using callback
   function removeItem() {
-    removeRequestedItem(requestedItem)
+    removeRequestedItem(requestedItem);
   }
 
   const classes = useStyles();
   return (
     <>
-      <Card className={classes.card} variant="outlined" raised>
-        <Box display="flex" justifyContent="space-between">
-          <CardContent display="flex">
-            <Typography>
-              {name}:{' '}
-              <font style={{ fontWeight: 'bold' }}>{requestedCount}</font>
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <IconButton color="primary" onClick={handleShow}>
-              <EditIcon />
-            </IconButton>
-            <IconButton color="secondary" onClick={removeItem}>
-              <CancelIcon />
-            </IconButton>
-          </CardActions>
-        </Box>
-      </Card>
+      <Fade in>
+        <Card className={classes.card} variant="outlined" raised>
+          <Box display="flex" justifyContent="space-between">
+            {/* Item name and count */}
+            <CardContent display="flex">
+              <Typography>
+                {name}:{' '}
+                <font style={{ fontWeight: 'bold' }}>{requestedCount}</font>
+              </Typography>
+            </CardContent>
+
+            {/* Edit count and remove item */}
+            {showActions && (
+              <CardActions>
+                <IconButton color="primary" onClick={handleShow}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton color="secondary" onClick={removeItem}>
+                  <CancelIcon />
+                </IconButton>
+              </CardActions>
+            )}
+          </Box>
+        </Card>
+      </Fade>
 
       <OrderModal
         show={showOrderModal}

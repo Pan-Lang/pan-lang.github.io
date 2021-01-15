@@ -14,16 +14,17 @@ import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 /** Component imports */
 import AccordionWrapper from '../components/AccordionWrapper';
-import ConfirmationModal from '../components/ConfirmationModal';
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockOrderCard from '../components/StockOrderCard';
 import SearchBar from '../components/SearchBar';
 import RequestedItemCard from '../components/RequestedItemCard';
+import ReviewDialog from '../components/ReviewDialog';
 
 /** Constants, API, Firebase */
 import LANGUAGES from '../constants/Languages';
 import { LANDING, ORDER_FORM } from '../constants/Routes';
+import { ORDER_STEPS } from '../constants/Order';
 import { addPersonInfo } from '../api/People';
 import { updateStockCount } from '../api/Stock';
 import { auth } from '../firebase';
@@ -31,7 +32,6 @@ import { auth } from '../firebase';
 /** Custom hooks */
 import useStock from '../hooks/useStock';
 import useNameSearch from '../hooks/useNameSearch';
-import { ORDER_STEPS } from '../constants/Order';
 
 /**
  * Allows user to order stock items only after they've filled out form
@@ -48,18 +48,19 @@ function OrderStock() {
     stock,
     language.tag
   );
+  const [showReview, setShowReview] = useState(false);
 
+  // Patron info from order form page, kept in local storage if necessary
   const [personInfo] = useState(
     fromForm
       ? location.state.personInfo
       : retrieveFromStorage('personInfo', undefined)
   );
 
+  // List of requested items, kept in lcoal storage if necessary
   const [requestedStockItems, setRequestedStockItems] = useState(
     retrieveFromStorage('requestedStockItems', [])
   );
-
-  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     if (!Boolean(auth.currentUser)) {
@@ -151,7 +152,7 @@ function OrderStock() {
       firstName: personInfo.firstName,
       lastName: personInfo.lastName,
       adults: parseInt(personInfo.adults),
-      children: parseInt(personInfo.adults),
+      children: parseInt(personInfo.children),
       zipcode: personInfo.zipcode,
       'order-notes': writeRequestToNotes(),
       fulfilled: false,
@@ -182,8 +183,8 @@ function OrderStock() {
     localStorage.removeItem('requestedStockItems');
     localStorage.removeItem('personInfo');
 
-    // Show confirmation popup
-    setShowConfirmation(true);
+    setShowReview(false);
+    history.push('/'); // Redirect back home
   }
 
   /**
@@ -201,13 +202,15 @@ function OrderStock() {
 
   const classes = useStyles();
   const orderTitle = `Current order (${requestedStockItems.length})`;
+  const buttonText =
+    requestedStockItems.length > 0 ? 'Review order' : 'Select items';
   return (
     <Container className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Select order for {personInfo.firstName} {personInfo.lastName}
       </Typography>
 
-      <Stepper activeStep={1} className={classes.stepper}>
+      <Stepper activeStep={showReview ? 2 : 1} className={classes.stepper}>
         {ORDER_STEPS.map((step) => (
           <Step key={step}>
             <StepLabel>{step}</StepLabel>
@@ -221,9 +224,7 @@ function OrderStock() {
         <Grid item xs={12} md={5}>
           {/* On mobile: hide order in accordion */}
           {isMobile && (
-            <AccordionWrapper
-              summary={orderTitle}
-            >
+            <AccordionWrapper summary={orderTitle}>
               {/* Requested items */}
               {requestedStockItems.map((r) => (
                 <RequestedItemCard
@@ -236,13 +237,12 @@ function OrderStock() {
               {/* Submit button */}
               <Button
                 fullWidth
-                onClick={submitRequest}
+                onClick={() => setShowReview(true)}
                 disabled={requestedStockItems.length === 0}
                 variant="contained"
+                color="primary"
               >
-                {requestedStockItems.length > 0
-                  ? 'Submit request'
-                  : 'Select items'}
+                {buttonText}
               </Button>
             </AccordionWrapper>
           )}
@@ -267,13 +267,12 @@ function OrderStock() {
               {/* Submit button */}
               <Button
                 fullWidth
-                onClick={submitRequest}
+                onClick={() => setShowReview(true)}
                 disabled={requestedStockItems.length === 0}
                 variant="contained"
+                color="primary"
               >
-                {requestedStockItems.length > 0
-                  ? 'Submit request'
-                  : 'Select items'}
+                {buttonText}
               </Button>
             </Paper>
           )}
@@ -328,21 +327,15 @@ function OrderStock() {
         </Grid>
       </Grid>
 
-      {/* Confirmation popup */}
-      <ConfirmationModal
-        style={{
-          backgroundColor: '#16AB8D',
-          borderColor: '#16AB8D',
-          color: '#FFFFFF',
-        }}
-        title="Order successfully placed!"
-        body="Thanks for your patronage! Your order will be fulfilled shortly."
-        buttonText="Back to Home"
-        show={showConfirmation}
+      {/* Review popup */}
+      <ReviewDialog
+        show={showReview}
         handleClose={() => {
-          setShowConfirmation(false);
-          history.push('/'); // Redirect back home
+          setShowReview(false);
         }}
+        requestedStockItems={requestedStockItems}
+        personInfo={personInfo}
+        submitRequest={submitRequest}
       />
     </Container>
   );
