@@ -57,7 +57,7 @@ function ReviewDialog({
   return (
     <Dialog
       open={show}
-      onClose={handleClose}
+      onClose={requestSuccess ? finishOrder : handleClose}
       scroll="paper"
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
