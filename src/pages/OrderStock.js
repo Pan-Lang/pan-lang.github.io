@@ -145,7 +145,7 @@ function OrderStock() {
     return orderNotes.slice(0, -2);
   }
 
-  function submitRequest(additionalNotes) {
+  async function submitRequest(additionalNotes) {
     // Send full person info to API
     const requestBody = {
       pantry: auth.currentUser.uid,
@@ -159,7 +159,7 @@ function OrderStock() {
       fulfilled: false,
     };
     
-    addPersonInfo(requestBody);
+    await addPersonInfo(requestBody);
 
     // Send updates for each requested item to API
     const stockUpdatePromises = requestedStockItems.map((item) => {
@@ -177,7 +177,7 @@ function OrderStock() {
       return updateStockCount(body);
     });
 
-    Promise.all(stockUpdatePromises).then((responses) =>
+    await Promise.all(stockUpdatePromises).then((responses) =>
       console.log(responses)
     );
 
@@ -185,8 +185,7 @@ function OrderStock() {
     localStorage.removeItem('requestedStockItems');
     localStorage.removeItem('personInfo');
 
-    setShowReview(false);
-    history.push('/'); // Redirect back home
+    return true;
   }
 
   /**
@@ -233,6 +232,7 @@ function OrderStock() {
                   requestedItem={r}
                   onRequest={onRequest}
                   removeRequestedItem={removeRequestedItem}
+                  key={r.id}
                 />
               ))}
 
@@ -263,6 +263,7 @@ function OrderStock() {
                   requestedItem={r}
                   onRequest={onRequest}
                   removeRequestedItem={removeRequestedItem}
+                  key={r.id}
                 />
               ))}
 
