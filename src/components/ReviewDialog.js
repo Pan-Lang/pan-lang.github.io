@@ -62,6 +62,7 @@ function ReviewDialog({
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
       className={classes.modal}
+      fullWidth
     >
       <Fade in={show}>
         <Paper className={classes.paper}>
@@ -155,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     borderRadius: '15px',
+    minWidth: '30vw',
   },
   title: {
     fontSize: theme.typography.h4.fontSize,
