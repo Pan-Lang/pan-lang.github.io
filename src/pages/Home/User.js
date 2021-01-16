@@ -11,7 +11,9 @@ import { ORDER_FORM, STOCK } from '../../constants/Routes';
  */
 function User() {
   return (
-    <Container style={{ textAlign: 'center' }}>
+    <Container
+      style={{ textAlign: 'center', marginTop: 110, minHeight: '100vh' }}
+    >
       <div style={{ marginBottom: 20 }}>
         <br></br>
         <h1>Welcome to </h1>{' '}

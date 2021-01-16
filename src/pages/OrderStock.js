@@ -340,6 +340,7 @@ function OrderStock() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 110,
     [theme.breakpoints.only('xs')]: {
       paddingLeft: 2,
       paddingRight: 2,

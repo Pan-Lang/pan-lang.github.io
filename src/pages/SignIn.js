@@ -66,6 +66,7 @@ function SignIn() {
 
 const useStyles = makeStyles((theme) => ({
   page: {
+    marginTop: 110,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -33,7 +33,7 @@ function About() {
 
   const classes = useStyles();
   return (
-    <Container>
+    <Container className={classes.root}>
       <Container
         maxWidth="md"
         style={{
@@ -88,6 +88,10 @@ function About() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 110,
+    flexGrow: 1,
+  },
   p: {
     marginTop: 8,
     marginBottom: 8,

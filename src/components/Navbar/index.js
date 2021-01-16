@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import CollapsingMenu from './CollapsingMenu';
@@ -9,13 +10,16 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 /**
  * Navigation bar at the top of window
  */
-function Navbar() {
+function Navbar({ drawerOpen }) {
   const classes = useStyles();
   const trigger = useScrollTrigger();
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      <AppBar className={classes.navigation}>
+      <AppBar
+        position="absolute"
+        className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
+      >
         <Toolbar>
           {/* Logo */}
           <Link to="/">
@@ -34,13 +38,27 @@ function Navbar() {
   );
 }
 
+const drawerWidth = 275;
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
-  navigation: {
+  appBar: {
     backgroundColor: 'white',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
 }));
 

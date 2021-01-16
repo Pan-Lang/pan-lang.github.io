@@ -221,6 +221,7 @@ function OrderForm() {
 
 const useStyles = makeStyles((theme) => ({
   page: {
+    marginTop: 110,
     paddingBottom: '120px',
   },
   title: {
