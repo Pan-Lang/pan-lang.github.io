@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import { Box, Fade, Paper } from '@material-ui/core';
+import { Fade, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 
 /**
@@ -12,8 +12,8 @@ function FulfillModal({ person, personId, show, handleClose, fulfillPerson }) {
    * Handles confirmation of fulfilling a person's order
    */
   function handleConfirm() {
+    handleClose(); //closes first so that repeat requests are not sent
     fulfillPerson(personId);
-    handleClose();
   }
 
   const classes = useStyles();
