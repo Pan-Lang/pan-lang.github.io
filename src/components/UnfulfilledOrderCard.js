@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { CardActions } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import FulfillModal from './FulfillModal';
 
 /**
@@ -22,16 +23,37 @@ function UnfulfilledOrderCard({ person, id, fulfillPerson }) {
   const handleShow = () => setShowFulfillModal(true);
 
   const classes = useStyles();
+
+  function formatDate(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let strTime = date.toDateString() + " " + hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
   return (
     <>
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5">
+            
             {person['firstName']} {person['lastName']}
           </Typography>
-          <Typography className={classes.order}>
+          <Typography>
+            <Box textAlign="right">
+              {formatDate(person['timestamp'].toDate())} 
+            </Box>    
+          </Typography>
+          <Typography variant="body1">
             {person['order-notes']}
           </Typography>
+          <Typography variant="body2">
+            {person['additionalNotes']}
+          </Typography>
+          
         </CardContent>
         <CardActions>
           <Button
@@ -62,6 +84,9 @@ const useStyles = makeStyles({
   },
   order: {
     fontsize: 12,
+  },
+  additional: {
+    fontsize: 10,
   },
   button: {
     borderRadius: 10,
