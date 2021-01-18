@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import CsvModal from '../../components/CSVModal';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { ORDER_FORM, STOCK } from '../../constants/Routes';
@@ -10,6 +11,12 @@ import { ORDER_FORM, STOCK } from '../../constants/Routes';
  * The default screen for users logged in to Pan-Lang.
  */
 function User() {
+  const [showCSVModal, setShowCSVModal] = useState(false);
+
+  // Handlers for showing/closing modal when downloading csv
+  const handleClose = () => setShowCSVModal(false);
+  const handleShow = () => setShowCSVModal(true);
+
   return (
     <Container style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 20 }}>
@@ -37,6 +44,7 @@ function User() {
           </Button>
         </Link>
       </div>
+      <div>
       <Link to={STOCK} style={{ color: 'white' }}>
         <Button
           style={{
@@ -52,6 +60,12 @@ function User() {
           Edit and add stock items
         </Button>{' '}
       </Link>
+      </div>
+      <div>
+        <Button
+          onClick={handleShow}> Download Data
+        </Button>
+      </div>
 
       <br></br>
       <br></br>
@@ -69,7 +83,13 @@ function User() {
       >
         Sign out
       </Button>
+      <CsvModal
+      show={showCSVModal}
+      handleClose={handleClose}>
+
+      </CsvModal>
     </Container>
+    
   );
 }
 
