@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -7,23 +7,46 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 function NavDrawer({ open, handleOpen, handleClose }) {
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const classes = useStyles();
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    if (open) {
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  };
+
   return (
     <SwipeableDrawer
-      variant="permanent"
+      anchor="left"
+      variant={isMobile ? 'temporary' : 'permanent'}
       classes={{
-        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        paper: clsx(
+          classes.drawerPaper,
+          !open && classes.drawerPaperClose,
+          !open && isMobile && classes.drawerPaperCloseMobile
+        ),
       }}
       open={open}
+      onClose={toggleDrawer('left', false)}
+      onOpen={toggleDrawer('left', true)}
+      disableBackdropTransition={!iOS}
+      disableDiscovery={iOS}
     >
       <div className={classes.toolbarIcon}>
         <IconButton onClick={handleClose}>
@@ -37,14 +60,9 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       </List>
       <Divider />
       <List>
-        <ListItem>Order</ListItem>
         <ListItem>Stock</ListItem>
-        <ListItem>Order</ListItem>
-        <ListItem>Stock</ListItem>
-        <ListItem>Order</ListItem>
-        <ListItem>Stock</ListItem>
-        <ListItem>Order</ListItem>
-        <ListItem>Stock</ListItem>
+        <ListItem>Order Form</ListItem>
+        <ListItem>Order Tracker</ListItem>
       </List>
       <Divider />
       <div className={classes.toolbarIcon}>
@@ -56,7 +74,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
   );
 }
 
-const drawerWidth = 275;
+const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -70,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     position: 'relative',
+    [theme.breakpoints.down('md')]: {
+      position: 'absolute',
+    },
     whiteSpace: 'nowrap',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -87,6 +108,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
+  },
+  drawerPaperCloseMobile: {
+    width: 0,
   },
 }));
 

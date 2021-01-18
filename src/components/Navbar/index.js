@@ -3,14 +3,17 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import CollapsingMenu from './CollapsingMenu';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu'
 
 /**
  * Navigation bar at the top of window
  */
-function Navbar({ drawerOpen }) {
+function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
+  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const classes = useStyles();
   const trigger = useScrollTrigger();
 
@@ -21,6 +24,12 @@ function Navbar({ drawerOpen }) {
         className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
       >
         <Toolbar>
+          {isMobile && hasUser && (
+            <IconButton onClick={toggleDrawer}>
+              <MenuIcon />
+            </IconButton>
+          )}
+
           {/* Logo */}
           <Link to="/">
             <img
@@ -38,7 +47,7 @@ function Navbar({ drawerOpen }) {
   );
 }
 
-const drawerWidth = 275;
+const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginLeft: -12,

@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
   },
   buttonBar: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
     margin: '10px',

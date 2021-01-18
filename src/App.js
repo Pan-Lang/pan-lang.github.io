@@ -27,14 +27,18 @@ import { useAuthState } from 'react-firebase-hooks/auth';
  */
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [openDrawer, setOpenDrawer] = useState();
+  const [drawerOpen, setDrawerOpen] = useState();
 
   const handleDrawerOpen = () => {
-    setOpenDrawer(true);
+    setDrawerOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpenDrawer(false);
+    setDrawerOpen(false);
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   if (loading) {
@@ -45,12 +49,12 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <div style={{ display: 'flex' }}>
         {/* Navigation bar on top of screen */}
-        <Navbar drawerOpen={openDrawer} />
+        <Navbar drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} hasUser={Boolean(user)} />
 
         {/* Navigation drawer, only visible for users */}
         {Boolean(user) && (
           <NavDrawer
-            open={openDrawer}
+            open={drawerOpen}
             handleOpen={handleDrawerOpen}
             handleClose={handleDrawerClose}
           />
