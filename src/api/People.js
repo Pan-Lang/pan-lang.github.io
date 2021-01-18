@@ -1,3 +1,4 @@
+
 import Client from './Client';
 
 export const PEOPLE_ENDPOINT = '/people';
@@ -12,8 +13,10 @@ export async function addPersonInfo(item) {
     });
 }
 
-export async function fetchPeople() {
-  const promise = await Client.get(PEOPLE_ENDPOINT);
+export async function fetchPeople(pantry, month, year) {
+  let query = "?pantry=" + pantry + "&month=" + month + "&year=" + year;
+  console.log(PEOPLE_ENDPOINT + query)
+  const promise = await Client.get(PEOPLE_ENDPOINT + query);
   return promise;
 }
 
