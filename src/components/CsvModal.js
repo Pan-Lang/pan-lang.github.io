@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import { Dialog, DialogActions, DialogTitle, InputLabel, MenuItem, TextField, Typography } from '@material-ui/core';
@@ -7,8 +7,10 @@ import { makeStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Backdrop from '@material-ui/core/Backdrop';
-import { fetchPeople } from '../api/People';
-import Button from 'react-bootstrap/esm/Button';
+import { PEOPLE_ENDPOINT } from '../api/People';
+import { auth } from '../firebase';
+import { BASE_API_URL } from '../api/Client';
+
 
 /**
  * Popup modal for downloading a csv file
@@ -19,8 +21,8 @@ function CSVModal({
     handleClose
 }) {
 
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    const [month, setMonth] = useState(new Date().getMonth() + 1);
+    const [year, setYear] = useState(new Date().getFullYear());
 
     const handleMonthChange = (event) => {
         setMonth(event.target.value);
@@ -28,9 +30,6 @@ function CSVModal({
 
     const handleYearChange = (event) => {
         setYear(event.target.value);
-    }
-    async function getPeople() {
-        fetchPeople()
     }
     //Current working on: getting both the forms to do things and send the API request, maybe need to reform the People.js in API too 
     const classes = useStyles();
@@ -51,6 +50,7 @@ function CSVModal({
                         <FormControl className={classes.formControl}>
                             <InputLabel id="month-select-label">Month</InputLabel>
                             <Select
+                                required
                                 labelId="month-select-label"
                                 id="month-select"
                                 value={month}
@@ -80,11 +80,13 @@ function CSVModal({
                                 defaultValue={new Date().getFullYear()}></TextField>
                         </FormControl>
                     <DialogActions>
-                        <Button
-                            id="get-people"
-                            onClick={getPeople}>
-                            Download Order Data
-                        </Button>
+                        <a
+                            href={`${BASE_API_URL}${PEOPLE_ENDPOINT}?pantry=${auth.currentUser.uid}&month=${month}&year=${year}`}
+                        >
+                            <Button id="get-people">
+                                Download Order Data
+                            </Button>
+                        </a>
                     </DialogActions>
                 </Paper>
             </Fade>
