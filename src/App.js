@@ -27,7 +27,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
  */
 function App() {
   const [user, loading] = useAuthState(auth);
-  const [drawerOpen, setDrawerOpen] = useState();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);

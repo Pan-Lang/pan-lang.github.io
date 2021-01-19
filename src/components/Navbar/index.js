@@ -7,10 +7,14 @@ import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu'
+import MenuIcon from '@material-ui/icons/Menu';
+import logo from '../../images/logo_nobg.png';
 
 /**
  * Navigation bar at the top of window
+ * TODO: make logo smaller/disappear on mobile
+ * TODO: make buttons navigate
+ * TODO: use icons
  */
 function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
@@ -21,7 +25,10 @@ function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
     <Slide appear={false} direction="down" in={!trigger}>
       <AppBar
         position="absolute"
-        className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
+        className={clsx(
+          classes.appBar,
+          drawerOpen && !isMobile && classes.appBarShift
+        )}
       >
         <Toolbar>
           {isMobile && hasUser && (
@@ -31,13 +38,15 @@ function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
           )}
 
           {/* Logo */}
-          <Link to="/">
-            <img
-              src={require('../../images/logo_nobg.png')}
-              alt="Pan-Lang logo"
-              style={{ width: 75, height: 75 }}
-            />
-          </Link>
+          {
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Pan-Lang logo"
+                style={{ width: 75, height: 75 }}
+              />
+            </Link>
+          }
 
           {/* Navigation menu */}
           <CollapsingMenu />

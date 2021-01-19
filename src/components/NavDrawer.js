@@ -7,6 +7,9 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 function NavDrawer({ open, handleOpen, handleClose }) {
@@ -55,7 +58,12 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       </div>
       <Divider />
       <List>
-        <ListItem>Home</ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
         <ListItem>Logout</ListItem>
       </List>
       <Divider />
