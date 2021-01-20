@@ -157,7 +157,7 @@ function OrderStock() {
       additionalNotes: additionalNotes,
       fulfilled: false,
     };
-    
+
     await addPersonInfo(requestBody);
 
     // Send updates for each requested item to API
@@ -205,7 +205,11 @@ function OrderStock() {
         Select order for {personInfo.firstName} {personInfo.lastName}
       </Typography>
 
-      <Stepper activeStep={showReview ? 2 : 1} className={classes.stepper}>
+      <Stepper
+        activeStep={showReview ? 2 : 1}
+        className={classes.stepper}
+        alternativeLabel
+      >
         {ORDER_STEPS.map((step) => (
           <Step key={step}>
             <StepLabel>{step}</StepLabel>
@@ -378,11 +382,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   stepper: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: theme.breakpoints.values.sm,
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+    backgroundColor: 'rgba(0, 0, 0, 0)',
   },
 }));
 
