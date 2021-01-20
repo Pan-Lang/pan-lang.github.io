@@ -79,8 +79,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#119178',
     },
     borderRadius: '200px',
-    minWidth: '500px',
     margin: '5px',
+    width: '100%',
+    maxWidth: 500,
   },
 }));
 export default User;
