@@ -15,13 +15,21 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  ABOUT,
+  LANDING,
+  ORDER_FORM,
+  ORDER_TRACKER,
+  STOCK,
+} from '../constants/Routes';
+import { auth } from '../firebase';
 
 function NavDrawer({ open, handleOpen, handleClose }) {
+  const history = useHistory();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
-  const classes = useStyles();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -39,6 +47,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
     }
   };
 
+  const classes = useStyles();
   return (
     <SwipeableDrawer
       anchor="left"
@@ -64,7 +73,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       <Divider />
       <List>
         {/* Home */}
-        <ListItem button>
+        <ListItem button onClick={() => history.push(LANDING)}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -72,7 +81,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Stock */}
-        <ListItem button>
+        <ListItem button onClick={() => history.push(STOCK)}>
           <ListItemIcon>
             <KitchenIcon />
           </ListItemIcon>
@@ -80,7 +89,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Order Form */}
-        <ListItem button>
+        <ListItem button onClick={() => history.push(ORDER_FORM)}>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
@@ -88,7 +97,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Order Tracker */}
-        <ListItem button>
+        <ListItem button onClick={() => history.push(ORDER_TRACKER)}>
           <ListItemIcon>
             <AssignmentTurnedInIcon />
           </ListItemIcon>
@@ -96,7 +105,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* About Pan-Lang */}
-        <ListItem button>
+        <ListItem button onClick={() => history.push(ABOUT)}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
@@ -109,7 +118,10 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       {/* User specific routes */}
       <List>
         {/* Logout */}
-        <ListItem button>
+        <ListItem button onClick={async () => {
+          await auth.signOut();          
+          history.push(LANDING);
+        }}>
           <ListItemIcon>
             <ExitToAppIcon />
           </ListItemIcon>
