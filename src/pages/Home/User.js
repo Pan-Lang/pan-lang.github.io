@@ -68,7 +68,6 @@ function User() {
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 110,
-    minHeight: '100vh',
   },
   button: {
     backgroundColor: '#16AB8D',

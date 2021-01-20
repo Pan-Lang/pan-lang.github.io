@@ -10,6 +10,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 /** Component imports */
@@ -133,6 +134,7 @@ function OrderStock() {
       const updatedRequest = [...requestedStockItems];
       updatedRequest.splice(index, 1);
       setRequestedStockItems(updatedRequest);
+      // TODO: update local storage
     }
   }
 
@@ -196,7 +198,7 @@ function OrderStock() {
   }
 
   const classes = useStyles();
-  const orderTitle = `Current order (${requestedStockItems.length})`;
+  const orderTitle = `Review order (${requestedStockItems.length})`;
   const buttonText =
     requestedStockItems.length > 0 ? 'Review order' : 'Select items';
   return (
@@ -218,12 +220,22 @@ function OrderStock() {
       </Stepper>
 
       {/* Two column desktop layout, one column mobile layout */}
-      <Grid container spacing={isMobile ? 0 : 2}>
+      <Grid container spacing={isMobile ? 1 : 2}>
         {/* Left column */}
         <Grid item xs={12} md={5}>
           {/* On mobile: hide order in accordion */}
           {isMobile && (
-            <AccordionWrapper summary={orderTitle}>
+            <AccordionWrapper
+              summary={
+                <Badge
+                  badgeContent={requestedStockItems.length}
+                  color="secondary"
+                >
+                  {'Review Order Here'}
+                </Badge>
+              }
+              usePrimary={requestedStockItems.length > 0}
+            >
               {/* Requested items */}
               {requestedStockItems.map((r) => (
                 <RequestedItemCard

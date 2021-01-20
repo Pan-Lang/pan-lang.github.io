@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -9,10 +10,12 @@ import { makeStyles } from '@material-ui/core';
 /**
  * Component that wraps children in accordion
  */
-function AccordionWrapper({ summary, children }) {
+function AccordionWrapper({ summary, children, usePrimary = false }) {
   const classes = useStyles();
   return (
-    <Accordion>
+    <Accordion
+      className={clsx(classes.accordion, usePrimary && classes.primary)}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="stock-input-content"
@@ -28,6 +31,17 @@ function AccordionWrapper({ summary, children }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  accordion: {
+    width: '100%',
+  },
+  primary: {
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
+  },
   details: {
     display: 'block',
   },
