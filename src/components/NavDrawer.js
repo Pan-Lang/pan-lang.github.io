@@ -9,7 +9,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import HomeIcon from '@material-ui/icons/Home';
+import KitchenIcon from '@material-ui/icons/Kitchen';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import InfoIcon from '@material-ui/icons/Info';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
 function NavDrawer({ open, handleOpen, handleClose }) {
@@ -58,21 +63,62 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       </div>
       <Divider />
       <List>
+        {/* Home */}
         <ListItem button>
           <ListItemIcon>
-            <DashboardIcon />
+            <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary="Home" />
         </ListItem>
-        <ListItem>Logout</ListItem>
+
+        {/* Stock */}
+        <ListItem button>
+          <ListItemIcon>
+            <KitchenIcon />
+          </ListItemIcon>
+          <ListItemText primary="Stock" />
+        </ListItem>
+
+        {/* Order Form */}
+        <ListItem button>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Order Form" />
+        </ListItem>
+
+        {/* Order Tracker */}
+        <ListItem button>
+          <ListItemIcon>
+            <AssignmentTurnedInIcon />
+          </ListItemIcon>
+          <ListItemText primary="Order Tracker" />
+        </ListItem>
+
+        {/* About Pan-Lang */}
+        <ListItem button>
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About Pan-Lang" />
+        </ListItem>
       </List>
+
       <Divider />
+
+      {/* User specific routes */}
       <List>
-        <ListItem>Stock</ListItem>
-        <ListItem>Order Form</ListItem>
-        <ListItem>Order Tracker</ListItem>
+        {/* Logout */}
+        <ListItem button>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
       </List>
       <Divider />
+
+      {/* Expand/hide dashboard */}
       <div className={classes.toolbarIcon}>
         <IconButton onClick={open ? handleClose : handleOpen}>
           {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
