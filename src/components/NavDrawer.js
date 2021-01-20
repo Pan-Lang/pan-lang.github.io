@@ -47,6 +47,17 @@ function NavDrawer({ open, handleOpen, handleClose }) {
     }
   };
 
+  /**
+   * Navigates user to specified page upon clicking drawer
+   */
+  function navigateTo(location) {
+    history.push(location);
+    // Close the drawer on mobile
+    if (isMobile) {
+      setTimeout(handleClose, 0);
+    }
+  }
+
   const classes = useStyles();
   return (
     <SwipeableDrawer
@@ -62,8 +73,9 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       open={open}
       onClose={toggleDrawer('left', false)}
       onOpen={toggleDrawer('left', true)}
-      disableBackdropTransition={!iOS}
+      disableBackdropTransition={true}
       disableDiscovery={iOS}
+      transitionDuration={{ enter: 100, exit: 400 }}
     >
       <div className={classes.toolbarIcon}>
         <IconButton onClick={handleClose}>
@@ -73,7 +85,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       <Divider />
       <List>
         {/* Home */}
-        <ListItem button onClick={() => history.push(LANDING)}>
+        <ListItem button onClick={() => navigateTo(LANDING)}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -81,7 +93,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Stock */}
-        <ListItem button onClick={() => history.push(STOCK)}>
+        <ListItem button onClick={() => navigateTo(STOCK)}>
           <ListItemIcon>
             <KitchenIcon />
           </ListItemIcon>
@@ -89,7 +101,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Order Form */}
-        <ListItem button onClick={() => history.push(ORDER_FORM)}>
+        <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
@@ -97,7 +109,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* Order Tracker */}
-        <ListItem button onClick={() => history.push(ORDER_TRACKER)}>
+        <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
           <ListItemIcon>
             <AssignmentTurnedInIcon />
           </ListItemIcon>
@@ -105,7 +117,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </ListItem>
 
         {/* About Pan-Lang */}
-        <ListItem button onClick={() => history.push(ABOUT)}>
+        <ListItem button onClick={() => navigateTo(ABOUT)}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
@@ -120,7 +132,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         {/* Logout */}
         <ListItem button onClick={async () => {
           await auth.signOut();          
-          history.push(LANDING);
+          navigateTo(LANDING);
         }}>
           <ListItemIcon>
             <ExitToAppIcon />
@@ -163,6 +175,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    minHeight: '100vh',
   },
   drawerPaperClose: {
     overflowX: 'hidden',

@@ -13,8 +13,6 @@ import logo from '../../images/logo_nobg.png';
 /**
  * Navigation bar at the top of window
  * TODO: make logo smaller/disappear on mobile
- * TODO: make buttons navigate
- * TODO: use icons
  */
 function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
@@ -24,14 +22,14 @@ function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
   return (
     <Slide appear={false} direction="down" in={!trigger}>
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(
           classes.appBar,
           drawerOpen && !isMobile && classes.appBarShift
         )}
       >
         <Toolbar>
-          {isMobile && hasUser && (
+          {isMobile && (
             <IconButton onClick={toggleDrawer}>
               <MenuIcon />
             </IconButton>
