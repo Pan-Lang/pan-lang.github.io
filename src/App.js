@@ -49,16 +49,19 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <div style={{ display: 'flex' }}>
         {/* Navigation bar on top of screen */}
-        <Navbar drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} hasUser={Boolean(user)} />
+        <Navbar
+          drawerOpen={drawerOpen}
+          toggleDrawer={toggleDrawer}
+          openDrawer={handleDrawerOpen}
+          hasUser={Boolean(user)}
+        />
 
-        {/* Navigation drawer, only visible for users */}
-        {Boolean(user) && (
-          <NavDrawer
-            open={drawerOpen}
-            handleOpen={handleDrawerOpen}
-            handleClose={handleDrawerClose}
-          />
-        )}
+        {/* Navigation drawer */}
+        <NavDrawer
+          open={drawerOpen}
+          handleOpen={handleDrawerOpen}
+          handleClose={handleDrawerClose}
+        />
 
         {/* Routes */}
         <Switch>

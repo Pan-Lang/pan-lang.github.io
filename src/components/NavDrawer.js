@@ -15,6 +15,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import InfoIcon from '@material-ui/icons/Info';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import {
@@ -22,6 +23,7 @@ import {
   LANDING,
   ORDER_FORM,
   ORDER_TRACKER,
+  SIGN_IN,
   STOCK,
 } from '../constants/Routes';
 import { auth } from '../firebase';
@@ -31,6 +33,9 @@ function NavDrawer({ open, handleOpen, handleClose }) {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
 
+  /**
+   * Callback that toggles drawer on mobile
+   */
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -58,6 +63,14 @@ function NavDrawer({ open, handleOpen, handleClose }) {
     }
   }
 
+  /**
+   * Function to sign out from nav drawer
+   */
+  async function signOut() {
+    await auth.signOut();
+    navigateTo(LANDING);
+  }
+
   const classes = useStyles();
   return (
     <SwipeableDrawer
@@ -75,7 +88,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       onOpen={toggleDrawer('left', true)}
       disableBackdropTransition={true}
       disableDiscovery={iOS}
-      transitionDuration={{ enter: 100, exit: 400 }}
+      transitionDuration={{ appear: 100, enter: 100, exit: 400 }}
     >
       <div className={classes.toolbarIcon}>
         <IconButton onClick={handleClose}>
@@ -92,29 +105,34 @@ function NavDrawer({ open, handleOpen, handleClose }) {
           <ListItemText primary="Home" />
         </ListItem>
 
-        {/* Stock */}
-        <ListItem button onClick={() => navigateTo(STOCK)}>
-          <ListItemIcon>
-            <KitchenIcon />
-          </ListItemIcon>
-          <ListItemText primary="Stock" />
-        </ListItem>
+        {/* Navigation only available to users */}
+        {Boolean(auth.currentUser) && (
+          <>
+            {/* Stock */}
+            <ListItem button onClick={() => navigateTo(STOCK)}>
+              <ListItemIcon>
+                <KitchenIcon />
+              </ListItemIcon>
+              <ListItemText primary="Stock" />
+            </ListItem>
 
-        {/* Order Form */}
-        <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
-          <ListItemIcon>
-            <ShoppingCartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Order Form" />
-        </ListItem>
+            {/* Order Form */}
+            <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Order Form" />
+            </ListItem>
 
-        {/* Order Tracker */}
-        <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
-          <ListItemIcon>
-            <AssignmentTurnedInIcon />
-          </ListItemIcon>
-          <ListItemText primary="Order Tracker" />
-        </ListItem>
+            {/* Order Tracker */}
+            <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
+              <ListItemIcon>
+                <AssignmentTurnedInIcon />
+              </ListItemIcon>
+              <ListItemText primary="Order Tracker" />
+            </ListItem>
+          </>
+        )}
 
         {/* About Pan-Lang */}
         <ListItem button onClick={() => navigateTo(ABOUT)}>
@@ -129,16 +147,25 @@ function NavDrawer({ open, handleOpen, handleClose }) {
 
       {/* User specific routes */}
       <List>
-        {/* Logout */}
-        <ListItem button onClick={async () => {
-          await auth.signOut();          
-          navigateTo(LANDING);
-        }}>
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
+        {/* Sign in */}
+        {!Boolean(auth.currentUser) && (
+          <ListItem button onClick={() => navigateTo(SIGN_IN)}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sign in" />
+          </ListItem>
+        )}
+
+        {/* Sign out */}
+        {Boolean(auth.currentUser) && (
+          <ListItem button onClick={signOut}>
+            <ListItemIcon>
+              <TransitEnterexitIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sign out" />
+          </ListItem>
+        )}
       </List>
       <Divider />
 

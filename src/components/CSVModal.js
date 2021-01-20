@@ -34,9 +34,16 @@ function CSVModal({ show, handleClose }) {
     setYear(event.target.value);
   };
 
+  function getDownloadUrl() {
+    if (Boolean(auth.currentUser)) {
+      return `${BASE_API_URL}${PEOPLE_ENDPOINT}?pantry=${auth.currentUser.uid}&month=${month}&year=${year}`;
+    } else {
+      return '';
+    }
+  }
+
   //Current working on: getting both the forms to do things and send the API request, maybe need to reform the People.js in API too
   const classes = useStyles();
-  const downloadUrl = `${BASE_API_URL}${PEOPLE_ENDPOINT}?pantry=${auth.currentUser.uid}&month=${month}&year=${year}`;
   return (
     <Dialog
       open={show}
@@ -87,8 +94,8 @@ function CSVModal({ show, handleClose }) {
           <DialogActions>
             {/* Check user is signed in before accessing user's UID in download URL */}
             {Boolean(auth.currentUser) && (
-              <a href={downloadUrl}>
-                <Button id="get-people">Download Order Data</Button>
+              <a href={getDownloadUrl()}>
+                <Button disabled={!Boolean(auth.currentUser)} id="get-people">Download Order Data</Button>
               </a>
             )}
           </DialogActions>

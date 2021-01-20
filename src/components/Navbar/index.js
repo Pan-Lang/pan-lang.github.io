@@ -14,7 +14,7 @@ import logo from '../../images/logo_nobg.png';
  * Navigation bar at the top of window
  * TODO: make logo smaller/disappear on mobile
  */
-function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
+function Navbar({ drawerOpen, toggleDrawer, openDrawer, hasUser = false }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const classes = useStyles();
   const trigger = useScrollTrigger();
@@ -30,7 +30,7 @@ function Navbar({ drawerOpen, toggleDrawer, hasUser = false }) {
       >
         <Toolbar>
           {isMobile && (
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={openDrawer}>
               <MenuIcon />
             </IconButton>
           )}
