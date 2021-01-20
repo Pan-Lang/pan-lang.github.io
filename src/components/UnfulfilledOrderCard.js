@@ -93,7 +93,6 @@ const useStyles = makeStyles({
     backgroundColor: '#16AB8D',
     borderColor: '#FFFFF5',
     color: '#FFFFFF',
-    textTransform: 'none',
     '&:hover': {
       backgroundColor: '#119178',
     },

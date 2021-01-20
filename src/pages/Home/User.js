@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core';
 import CsvModal from '../../components/CSVModal';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
@@ -17,8 +18,10 @@ function User() {
   const handleClose = () => setShowCSVModal(false);
   const handleShow = () => setShowCSVModal(true);
 
+  const classes = useStyles();
   return (
-    <Container style={{ textAlign: 'center' }}>
+    <Container
+    align="center">
       <div style={{ marginBottom: 20 }}>
         <br></br>
         <h1>Welcome to </h1>{' '}
@@ -30,15 +33,8 @@ function User() {
       <div>
         <Link to={ORDER_FORM} style={{ color: 'white' }}>
           <Button
-            style={{
-              backgroundColor: '#16AB8D',
-              borderColor: '#FFFFF5',
-              color: '#FFFFFF',
-              borderRadius: '200px',
-            }}
-            size="lg"
-            className="mb-3"
-            block
+            className={classes.button}
+            size="large"
           >
             Start a new order
           </Button>
@@ -47,15 +43,8 @@ function User() {
       <div>
       <Link to={STOCK} style={{ color: 'white' }}>
         <Button
-          style={{
-            backgroundColor: '#16AB8D',
-            borderColor: '#FFFFF5',
-            color: '#FFFFFF',
-            borderRadius: '200px',
-          }}
-          size="lg"
-          className="mb-3"
-          block
+          className={classes.button}
+          size="large"
         >
           Edit and add stock items
         </Button>{' '}
@@ -63,23 +52,19 @@ function User() {
       </div>
       <div>
         <Button
-          onClick={handleShow}> Download Data
+          className={classes.button}
+          onClick={handleShow}
+          size="large"> Download Data
+          
         </Button>
       </div>
 
       <br></br>
       <br></br>
       <Button
-        style={{
-          backgroundColor: '#16AB8D',
-          borderColor: '#FFFFF5',
-          color: '#FFFFFF',
-          borderRadius: '200px',
-        }}
-        size="lg"
-        className="mb-3"
-        block
+        className={classes.button}
         onClick={() => auth.signOut()}
+        size="large"
       >
         Sign out
       </Button>
@@ -91,6 +76,22 @@ function User() {
     </Container>
     
   );
+ 
 }
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
+    borderRadius: '200px',
+    minWidth: '500px',
+    margin: '5px',
+  },
+  
+}))
 export default User;

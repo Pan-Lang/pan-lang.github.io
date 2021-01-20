@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import { Dialog, DialogActions, DialogTitle, InputLabel, MenuItem, TextField, Typography } from '@material-ui/core';
+import { Dialog, DialogActions, DialogTitle, InputLabel, MenuItem, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -77,7 +77,8 @@ function CSVModal({
                                 required
                                 id="year-textfield"
                                 label="year"
-                                defaultValue={new Date().getFullYear()}></TextField>
+                                defaultValue={new Date().getFullYear()}
+                                onChange={handleYearChange}></TextField>
                         </FormControl>
                     <DialogActions>
                         <a
