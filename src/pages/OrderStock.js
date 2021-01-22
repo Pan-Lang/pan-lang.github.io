@@ -11,7 +11,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 /** Component imports */
 import AccordionWrapper from '../components/AccordionWrapper';
@@ -33,13 +33,14 @@ import { auth } from '../firebase';
 /** Custom hooks */
 import useStock from '../hooks/useStock';
 import useNameSearch from '../hooks/useNameSearch';
+import useMobile from '../hooks/useMobile';
 
 /**
  * Allows user to order stock items only after they've filled out form
  */
 function OrderStock() {
   const history = useHistory();
-  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
+  const isMobile = useMobile();
   const location = useLocation();
   const fromForm = location.state !== undefined;
 
