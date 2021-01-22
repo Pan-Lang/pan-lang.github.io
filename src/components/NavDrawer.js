@@ -20,7 +20,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Tooltip from '@material-ui/core/Tooltip';
 import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 // Routes and auth
 import {
@@ -32,6 +32,7 @@ import {
   STOCK,
 } from '../constants/Routes';
 import { auth } from '../firebase';
+import useMobile from '../hooks/useMobile';
 
 /**
  * Left-anchored expandable drawer for navigation
@@ -39,7 +40,7 @@ import { auth } from '../firebase';
 function NavDrawer({ open, handleOpen, handleClose }) {
   const history = useHistory();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
+  const isMobile = useMobile();
 
   /**
    * Callback that toggles drawer on mobile
@@ -76,6 +77,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
    */
   async function signOut() {
     await auth.signOut();
+    handleClose();
     navigateTo(LANDING);
   }
 

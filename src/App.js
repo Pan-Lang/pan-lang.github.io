@@ -21,6 +21,7 @@ import {
 } from './constants/Routes';
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import useMobile from './hooks/useMobile';
 
 /**
  * Highest level App component for routing
@@ -28,6 +29,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 function App() {
   const [user, loading] = useAuthState(auth);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const isMobile = useMobile();
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -57,11 +59,11 @@ function App() {
         />
 
         {/* Navigation drawer */}
-        <NavDrawer
+        {(Boolean(user) || isMobile) && <NavDrawer
           open={drawerOpen}
           handleOpen={handleDrawerOpen}
           handleClose={handleDrawerClose}
-        />
+        />}
 
         {/* Routes */}
         <Switch>

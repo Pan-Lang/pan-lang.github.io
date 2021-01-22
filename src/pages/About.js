@@ -5,6 +5,7 @@ import QwertycowMoo from '../images/QwertycowMoo.png';
 import kgs5 from '../images/kgs5.png';
 import renzol2 from '../images/renzol2.png';
 import evanmm3 from '../images/evanmm3.png';
+import Footer from '../components/Footer';
 
 /**
  * About page for Pan-Lang
@@ -83,6 +84,8 @@ function About() {
           ))}
         </Container>
       </Container>
+
+      <Footer />
     </Container>
   );
 }
