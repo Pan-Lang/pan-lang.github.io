@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Menu } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu'
+import MenuIcon from '@material-ui/icons/Menu';
 
 /**
  * Responsive button for use in navbar
@@ -13,9 +13,7 @@ function CollapsingButton({ children, isOpen, setOpen }) {
 
   return (
     <div className={classes.buttonCollapse}>
-      <IconButton
-        onClick={(event) => setOpen(Boolean(event.currentTarget))}
-      >
+      <IconButton onClick={(event) => setOpen(Boolean(event.currentTarget))}>
         <MenuIcon />
       </IconButton>
       <Menu
@@ -40,7 +38,7 @@ function CollapsingButton({ children, isOpen, setOpen }) {
 
 const useStyles = makeStyles((theme) => ({
   buttonCollapse: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
     margin: '10px',

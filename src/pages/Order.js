@@ -66,7 +66,7 @@ function OrderForm() {
         Order Form
       </Typography>
 
-      <Stepper activeStep={0} className={classes.stepper}>
+      <Stepper activeStep={0} className={classes.stepper} alternativeLabel>
         {ORDER_STEPS.map((step) => (
           <Step key={step}>
             <StepLabel>{step}</StepLabel>
@@ -221,6 +221,7 @@ function OrderForm() {
 
 const useStyles = makeStyles((theme) => ({
   page: {
+    marginTop: 110,
     paddingBottom: '120px',
   },
   title: {
@@ -229,6 +230,11 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     marginTop: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   formPaper: {
     marginTop: theme.spacing(2),
