@@ -2,17 +2,15 @@ import React from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
-import CollapsingMenu from './CollapsingMenu';
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
-import Slide from '@material-ui/core/Slide';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Slide from '@material-ui/core/Slide';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import logo from '../../images/logo_nobg.png';
 
 /**
  * Navigation bar at the top of window
- * TODO: make logo smaller/disappear on mobile
  */
 function Navbar({ drawerOpen, toggleDrawer, openDrawer, hasUser = false }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
@@ -41,13 +39,10 @@ function Navbar({ drawerOpen, toggleDrawer, openDrawer, hasUser = false }) {
               <img
                 src={logo}
                 alt="Pan-Lang logo"
-                style={{ width: 75, height: 75 }}
+                style={{ width: 60, height: 60 }}
               />
             </Link>
           }
-
-          {/* Navigation menu */}
-          <CollapsingMenu />
         </Toolbar>
       </AppBar>
     </Slide>

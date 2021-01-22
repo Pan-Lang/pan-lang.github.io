@@ -1,23 +1,27 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
+
+// Material UI
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import KitchenIcon from '@material-ui/icons/Kitchen';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import KitchenIcon from '@material-ui/icons/Kitchen';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import InfoIcon from '@material-ui/icons/Info';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
-import { useHistory } from 'react-router-dom';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+
+// Routes and auth
 import {
   ABOUT,
   LANDING,
@@ -28,6 +32,9 @@ import {
 } from '../constants/Routes';
 import { auth } from '../firebase';
 
+/**
+ * Left-anchored expandable drawer for navigation
+ */
 function NavDrawer({ open, handleOpen, handleClose }) {
   const history = useHistory();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -96,78 +103,82 @@ function NavDrawer({ open, handleOpen, handleClose }) {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {/* Home */}
-        <ListItem button onClick={() => navigateTo(LANDING)}>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
 
-        {/* Navigation only available to users */}
-        {Boolean(auth.currentUser) && (
-          <>
-            {/* Stock */}
-            <ListItem button onClick={() => navigateTo(STOCK)}>
-              <ListItemIcon>
-                <KitchenIcon />
-              </ListItemIcon>
-              <ListItemText primary="Stock" />
-            </ListItem>
-
-            {/* Order Form */}
-            <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Order Form" />
-            </ListItem>
-
-            {/* Order Tracker */}
-            <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
-              <ListItemIcon>
-                <AssignmentTurnedInIcon />
-              </ListItemIcon>
-              <ListItemText primary="Order Tracker" />
-            </ListItem>
-          </>
-        )}
-
-        {/* About Pan-Lang */}
-        <ListItem button onClick={() => navigateTo(ABOUT)}>
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary="About Pan-Lang" />
-        </ListItem>
-      </List>
-
-      <Divider />
-
-      {/* User specific routes */}
-      <List>
-        {/* Sign in */}
-        {!Boolean(auth.currentUser) && (
-          <ListItem button onClick={() => navigateTo(SIGN_IN)}>
+      {/* Navigation */}
+      <nav>
+        <List>
+          {/* Home */}
+          <ListItem button onClick={() => navigateTo(LANDING)}>
             <ListItemIcon>
-              <ExitToAppIcon />
+              <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Sign in" />
+            <ListItemText primary="Home" />
           </ListItem>
-        )}
 
-        {/* Sign out */}
-        {Boolean(auth.currentUser) && (
-          <ListItem button onClick={signOut}>
+          {/* Navigation only available to users */}
+          {Boolean(auth.currentUser) && (
+            <>
+              {/* Stock */}
+              <ListItem button onClick={() => navigateTo(STOCK)}>
+                <ListItemIcon>
+                  <KitchenIcon />
+                </ListItemIcon>
+                <ListItemText primary="Stock" />
+              </ListItem>
+
+              {/* Order Form */}
+              <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order Form" />
+              </ListItem>
+
+              {/* Order Tracker */}
+              <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
+                <ListItemIcon>
+                  <AssignmentTurnedInIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order Tracker" />
+              </ListItem>
+            </>
+          )}
+
+          {/* About Pan-Lang */}
+          <ListItem button onClick={() => navigateTo(ABOUT)}>
             <ListItemIcon>
-              <TransitEnterexitIcon />
+              <InfoIcon />
             </ListItemIcon>
-            <ListItemText primary="Sign out" />
+            <ListItemText primary="About Pan-Lang" />
           </ListItem>
-        )}
-      </List>
-      <Divider />
+        </List>
+
+        <Divider />
+
+        {/* User specific routes */}
+        <List>
+          {/* Sign in */}
+          {!Boolean(auth.currentUser) && (
+            <ListItem button onClick={() => navigateTo(SIGN_IN)}>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign in" />
+            </ListItem>
+          )}
+
+          {/* Sign out */}
+          {Boolean(auth.currentUser) && (
+            <ListItem button onClick={signOut}>
+              <ListItemIcon>
+                <TransitEnterexitIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign out" />
+            </ListItem>
+          )}
+        </List>
+        <Divider />
+      </nav>
 
       {/* Expand/hide dashboard */}
       <div className={classes.toolbarIcon}>
@@ -188,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '13px 8px',
+    padding: '8px 8px',
     ...theme.mixins.toolbar,
   },
   drawerPaper: {

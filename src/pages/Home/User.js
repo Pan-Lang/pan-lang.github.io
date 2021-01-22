@@ -23,7 +23,7 @@ function User() {
   return (
     <Container align="center" className={classes.root}>
       <div style={{ marginBottom: 20 }}>
-        <Typography variant="h2" component="h1">
+        <Typography variant="h3" component="h1">
           Welcome to{' '}
           <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-Lang</font>
         </Typography>
