@@ -10,6 +10,7 @@ import { ABOUT, SIGN_IN } from '../../constants/Routes';
 import { makeStyles } from '@material-ui/core';
 import useMobile from '../../hooks/useMobile';
 import { INFO } from '../../constants/Landing';
+import Footer from '../../components/Footer';
 
 /**
  * Landing page for Pan-Lang.
@@ -76,6 +77,7 @@ function Landing() {
 
       <Divider />
 
+      {/* Info */}
       <Grid container className={classes.info}>
         {INFO.map((section) => (
           <Grid item md={4} xs={12} className={classes.infoSection}>
@@ -132,31 +134,7 @@ function Landing() {
         </Grid>
       </Container>
 
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          {'Pan-Lang'}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          {
-            'Helping the language barrier between food pantry coordinators and non-English speakers.'
-          }
-        </Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          align="center"
-          className={classes.copyright}
-        >
-          {'Copyright © '}
-          Pan-Lang {new Date().getFullYear()}
-          {'.'}
-        </Typography>
-      </footer>
+      <Footer />
     </Container>
   );
 }
@@ -164,8 +142,6 @@ function Landing() {
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 110,
-    display: 'flex',
-    flexDirection: 'column',
     minHeight: '100vh',
   },
   subtitle: {
@@ -189,15 +165,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(2),
     },
-  },
-  footer: {
-    width: '100%',
-    marginTop: 'auto',
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  copyright: {
-    marginTop: theme.spacing(3),
   },
 }));
 

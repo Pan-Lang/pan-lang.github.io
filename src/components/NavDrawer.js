@@ -77,6 +77,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
    */
   async function signOut() {
     await auth.signOut();
+    handleClose();
     navigateTo(LANDING);
   }
 
