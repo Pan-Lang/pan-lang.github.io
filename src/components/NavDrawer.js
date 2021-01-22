@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Tooltip from '@material-ui/core/Tooltip';
 import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
@@ -66,7 +67,7 @@ function NavDrawer({ open, handleOpen, handleClose }) {
     history.push(location);
     // Close the drawer on mobile
     if (isMobile) {
-      setTimeout(handleClose, 0);
+      handleClose();
     }
   }
 
@@ -77,6 +78,56 @@ function NavDrawer({ open, handleOpen, handleClose }) {
     await auth.signOut();
     navigateTo(LANDING);
   }
+
+  // List of pages displayed in drawer for navigation
+  const navigationItems = [
+    {
+      title: 'Home',
+      destination: LANDING,
+      icon: <HomeIcon />,
+      userOnly: false,
+    },
+    {
+      title: 'Stock',
+      destination: STOCK,
+      icon: <KitchenIcon />,
+      userOnly: true,
+    },
+    {
+      title: 'Order Form',
+      destination: ORDER_FORM,
+      icon: <ShoppingCartIcon />,
+      userOnly: true,
+    },
+    {
+      title: 'Order Tracker',
+      destination: ORDER_TRACKER,
+      icon: <AssignmentTurnedInIcon />,
+      userOnly: true,
+    },
+    {
+      title: 'About Pan-Lang',
+      destination: ABOUT,
+      icon: <InfoIcon />,
+      userOnly: false,
+    },
+  ];
+
+  // List of items in drawer related to users & auth
+  const userItems = [
+    {
+      title: 'Sign in',
+      onClick: () => navigateTo(SIGN_IN),
+      icon: <ExitToAppIcon />,
+      forUsers: false,
+    },
+    {
+      title: 'Sign Out',
+      onClick: signOut,
+      icon: <TransitEnterexitIcon />,
+      forUsers: true,
+    },
+  ];
 
   const classes = useStyles();
   return (
@@ -107,74 +158,48 @@ function NavDrawer({ open, handleOpen, handleClose }) {
       {/* Navigation */}
       <nav>
         <List>
-          {/* Home */}
-          <ListItem button onClick={() => navigateTo(LANDING)}>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-
-          {/* Navigation only available to users */}
-          {Boolean(auth.currentUser) && (
-            <>
-              {/* Stock */}
-              <ListItem button onClick={() => navigateTo(STOCK)}>
-                <ListItemIcon>
-                  <KitchenIcon />
-                </ListItemIcon>
-                <ListItemText primary="Stock" />
-              </ListItem>
-
-              {/* Order Form */}
-              <ListItem button onClick={() => navigateTo(ORDER_FORM)}>
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Order Form" />
-              </ListItem>
-
-              {/* Order Tracker */}
-              <ListItem button onClick={() => navigateTo(ORDER_TRACKER)}>
-                <ListItemIcon>
-                  <AssignmentTurnedInIcon />
-                </ListItemIcon>
-                <ListItemText primary="Order Tracker" />
-              </ListItem>
-            </>
+          {navigationItems.map(
+            (item) =>
+              (Boolean(auth.currentUser) || !item.userOnly) && (
+                <Tooltip
+                  title={item.title}
+                  placement="right"
+                  arrow
+                  enterDelay={0}
+                  disableHoverListener={open}
+                  key={item.destination}
+                >
+                  <ListItem button onClick={() => navigateTo(item.destination)}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItem>
+                </Tooltip>
+              )
           )}
-
-          {/* About Pan-Lang */}
-          <ListItem button onClick={() => navigateTo(ABOUT)}>
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-            <ListItemText primary="About Pan-Lang" />
-          </ListItem>
         </List>
 
         <Divider />
 
         {/* User specific routes */}
         <List>
-          {/* Sign in */}
-          {!Boolean(auth.currentUser) && (
-            <ListItem button onClick={() => navigateTo(SIGN_IN)}>
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sign in" />
-            </ListItem>
-          )}
-
-          {/* Sign out */}
-          {Boolean(auth.currentUser) && (
-            <ListItem button onClick={signOut}>
-              <ListItemIcon>
-                <TransitEnterexitIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sign out" />
-            </ListItem>
+          {userItems.map(
+            (item) =>
+              ((item.forUsers && Boolean(auth.currentUser)) ||
+                !(item.forUsers || Boolean(auth.currentUser))) && (
+                <Tooltip
+                  title={item.title}
+                  placement="right"
+                  arrow
+                  enterDelay={0}
+                  disableHoverListener={open}
+                  key={item.title}
+                >
+                  <ListItem button onClick={item.onClick}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.title} />
+                  </ListItem>
+                </Tooltip>
+              )
           )}
         </List>
         <Divider />
