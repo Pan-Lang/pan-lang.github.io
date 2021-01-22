@@ -1,8 +1,8 @@
 # Frontend
-Repository for the front for UI.
+Repository for Pan-Lang's frontend/UI.
 
 # Access Here
-https://pan-lang.github.io/panlang-ui/
+https://pan-lang.github.io
 
 ## Project Motivation
 One of our team members currently volunteers at the Mckinley Foundation Food Pantry at the Garden Hills Elementary. He noticed that there were communication barriers between the pantry coordinator and the non-english speaking people. Our team decided to tackle this problem by creating a webapp and helping the food pantry coordinator with direct translations of stock items and common phrases/questions for multiple languages, while also keeping track of the stock of the food items.
@@ -10,16 +10,22 @@ One of our team members currently volunteers at the Mckinley Foundation Food Pan
 ## Tech Stack
 The frontend was built with:
   - [React](https://reactjs.org/)
-  - [Socket.io](https://socket.io/)
+  - [Material-UI](https://material-ui.com/)
+  - [Firebase](https://firebase.google.com/)
   - [Node.js](https://nodejs.org/en/)
-  - [Express](https://expressjs.com/)
+  - [Axios](https://github.com/axios/axios)
+  - [Socket.io](https://socket.io/)
   
-  ## Layout
-  ![Home Screen](https://i.imgur.com/MBkCd2z.png)
+  ## Layout (desktop)
+  ![Home Page](src/images/home-page.png)
   
-  ![Order Page](https://i.imgur.com/XOxpZuT.png)
+  ![Sign-in Page](src/images/login-screen.png)
+
+  ![Post-Login Home Page](src/images/post-login-home-page.png)
+
+  ![Order Form](src/images/order-form.png)
   
-  ![Stock Page](https://i.imgur.com/KGQU9MB.png)
+  ![Stock Dashboard](src/images/stock-dashboard.png)
   
   ## Installation
   1. Make sure to have npm installed on your machine. Instructions for installing npm can be found [here](https://www.npmjs.com/get-npm).

@@ -1,93 +1,50 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+/** Material UI imports */
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Paper from '@material-ui/core/Paper';
-import Search from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
-import AccordionWrapper from '../components/AccordionWrapper';
+
+/** Component imports */
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockCard from '../components/StockCard';
-import StockOptions from '../components/StockOptions';
+import SearchBar from '../components/SearchBar';
+
+/** Constants, Firebase, API */
 import LANGUAGES from '../constants/Languages';
-import { fetchStock } from '../api/Stock';
-import { auth } from '../firebase';
-import { useHistory } from 'react-router-dom';
 import { LANDING } from '../constants/Routes';
+import { auth } from '../firebase';
+
+/** Custom hooks */
+import useStock from '../hooks/useStock';
+import useNameSearch from '../hooks/useNameSearch';
+import StockInput from '../components/StockInput';
 
 /**
  * Page displaying the stock of food pantry with options for language
  */
 function Stock() {
-  const [stock, setStock] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [stock, loading, error, getStock] = useStock();
   const [language, setLanguage] = useState(LANGUAGES[0]);
-  const [nameQuery, setNameQuery] = useState('');
+  const [setNameQuery, getFilteredStockItems] = useNameSearch(
+    stock,
+    language.tag
+  );
   const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
   const history = useHistory();
-
-  /**
-   * Fetches stock from API and stores in state
-   * @param {Number} timeout ms to wait before fetching stock
-   */
-  function getStock(timeout = 0) {
-    // Set stock empty to begin loading spinner
-    setStock([]);
-    setError(null);
-    setLoading(true);
-
-    // Fetch stock after designated time
-    setTimeout(() => {
-      fetchStock(auth.currentUser.uid)
-        .then((res) => {
-          setStock(res.data);
-          setLoading(false);
-        })
-        .catch((e) => {
-          setError(e);
-          setLoading(false);
-        });
-    }, timeout);
-  }
 
   /**
    * Fetch stock as soon as page is rendered, if user is signed in
    */
   useEffect(() => {
-    if (Boolean(auth.currentUser)) {
-      getStock();
-    } else {
-      // Redirect to home page
+    if (!Boolean(auth.currentUser)) {
       history.push(LANDING);
     }
   }, [history]);
-
-  /**
-   * Capitalizes the first letter of a string
-   * @param {String} s string to capitalize
-   */
-  function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  /**
-   * Returns filtered stock array based on search queries
-   * Name query: allows if EITHER English or translated name includes query
-   */
-  function getFilteredStockItems() {
-    return stock.filter((item) => {
-      let inEnglishName = item.name.toLowerCase().includes(nameQuery);
-      let inTranslatedName =
-        item[language] === undefined
-          ? false
-          : item[language].toLowerCase().includes(nameQuery);
-      return inEnglishName || inTranslatedName;
-    });
-  }
 
   const classes = useStyles();
   return (
@@ -101,18 +58,7 @@ function Stock() {
         {/* Left column */}
         <Grid item xs={12} md={4}>
           {/* On mobile: hide options in accordion */}
-          {isMobile && (
-            <AccordionWrapper summary="Options">
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                capitalize={capitalize}
-                getStock={getStock}
-                isError={error}
-              />
-            </AccordionWrapper>
-          )}
+          {isMobile && <StockInput getStock={getStock} />}
 
           {/* On desktop: keep options bar open */}
           {!isMobile && (
@@ -120,14 +66,7 @@ function Stock() {
               <Typography variant="h5" className={classes.subheading}>
                 Options
               </Typography>
-              <StockOptions
-                languages={LANGUAGES}
-                currentLanguage={language}
-                setLanguage={setLanguage}
-                capitalize={capitalize}
-                getStock={getStock}
-                isError={error}
-              />
+              <StockInput getStock={getStock} defaultExpanded={true} />
             </Paper>
           )}
         </Grid>
@@ -135,30 +74,16 @@ function Stock() {
         {/* Right column */}
         <Grid item xs={12} md={8}>
           {/* Search bar */}
-          <Paper elevation={1} className={classes.searchPaper}>
-            <TextField
-              className={classes.search}
-              id="searchbar"
-              label="Search items"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
-              }}
-              onChange={(event) =>
-                setNameQuery(event.target.value.toLowerCase())
-              }
-            />
-
-            {/* Basic stock info */}
-            {!loading && !error && (
-              <Typography className={classes.info}>
-                Showing {getFilteredStockItems().length} of {stock.length} total items
-              </Typography>
-            )}
-          </Paper>
+          <SearchBar
+            LANGUAGES={LANGUAGES}
+            stock={stock}
+            getFilteredStockItems={getFilteredStockItems}
+            error={error}
+            getStock={getStock}
+            language={language}
+            setLanguage={setLanguage}
+            setNameQuery={setNameQuery}
+          />
 
           {/* Stock items */}
           {stock &&
@@ -167,7 +92,7 @@ function Stock() {
                 stockItem={item}
                 getStock={getStock}
                 // Key of English name is always 'name'
-                lang={language === 'english' ? 'name' : language}
+                languageTag={language.tag}
                 key={item.name}
               />
             ))}
@@ -198,6 +123,8 @@ function Stock() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 110,
+    flexGrow: 1,
     [theme.breakpoints.only('xs')]: {
       paddingLeft: 2,
       paddingRight: 2,
@@ -233,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '10px',
     },
-  }
+  },
 }));
 
 export default Stock;

@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core';
 function Landing() {
   const classes = useStyles();
   return (
-    <Container>
+    <Container className={classes.root}>
       <Typography variant="h1">Pan-Lang</Typography>
       <Typography variant="h2">
         Helping the language barrier between food pantry coordinators and
@@ -66,6 +66,9 @@ function Landing() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 110,
+  },
   signInLink: {
     marginTop: theme.spacing(3),
   },

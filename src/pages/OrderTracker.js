@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import { Button } from 'react-bootstrap';
+import Container from '@material-ui/core/Container';
 import { updatePerson } from '../api/People';
 import { useHistory } from 'react-router-dom';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { db, auth } from '../firebase';
 import { LANDING } from '../constants/Routes';
+import UnfulfilledOrderCard from '../components/UnfulfilledOrderCard';
+import Loading from '../components/Loading';
+import Dialog from '../components/EmptyDialog';
+import { makeStyles } from '@material-ui/core';
 
 /**
  * Page with list of people with unfulfilled orders
@@ -29,15 +32,12 @@ function OrderTracker() {
           .collection('people')
           .where('fulfilled', '==', false)
       );
-      console.log(user.uid);
     }
   }, [history, user]);
 
   const [snapshot, snapLoading, snapError] = useCollection(query);
 
   function fulfillOrder(id) {
-    console.log(snapshot.size);
-    console.log('trying to fulfill', id);
     const requestBody = {
       pantry: user.uid,
       _id: id,
@@ -46,33 +46,33 @@ function OrderTracker() {
     updatePerson(requestBody);
   }
 
+  const classes = useStyles();
   return (
-    <Container>
-      <p>
-        {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
-        {userLoading && <span>User: Loading...</span>}
-        {snapError && <strong>Collection Error: {JSON.stringify(snapError)}</strong>}
-        {snapLoading && <span>Collection: Loading...</span>}
-        {snapshot && (
-          <span>
-            Collection:{' '}
-            {snapshot.docs.map((doc) => (
-              <React.Fragment key={doc.id}>
-                {JSON.stringify(doc.data())},{' '}
-                <Button
-                  onClick={() => {
-                    fulfillOrder(doc.id);
-                  }}
-                >
-                  Fulfill Person
-                </Button>
-              </React.Fragment>
-            ))}
-          </span>
-        )}
-      </p>
+    <Container className={classes.root}>
+      {userError && <strong>User Error: {JSON.stringify(snapError)}</strong>}
+      {userLoading && <span>User: Loading...</span>}
+      {snapError && (
+        <strong>Collection Error: {JSON.stringify(snapError)}</strong>
+      )}
+      {snapLoading && <Loading />}
+      {snapshot && snapshot.docs.length === 0 && <Dialog />}
+      {snapshot &&
+        snapshot.docs.map((doc) => (
+          <UnfulfilledOrderCard
+            person={doc.data()}
+            id={doc.id}
+            fulfillPerson={fulfillOrder}
+            key={doc._id}
+          />
+        ))}
     </Container>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 110,
+  },
+}));
 
 export default OrderTracker;

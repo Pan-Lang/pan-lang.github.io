@@ -3,28 +3,37 @@ import { MenuItem, Menu, Button, makeStyles } from '@material-ui/core';
 
 /**
  * Menu to select language when viewing Stock
+ * @param {{
+ *   languages: Array<{ tag: String, locale: String }>,
+ *   currentLanguage: { tag: String, locale: String },
+ *   setLanguage: Function,
+ *   isError: Error | Boolean
+ * }}
  */
 function LanguageMenu({
   languages = [],
   currentLanguage,
-  buttonClass,
-  capitalize,
   setLanguage,
   isError = false,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
+  /** Toggler for opening/closing menu */
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  /** Handler for selecting a new language */
   const handleMenuItemClick = (event, index) => {
-    setLanguage(event.currentTarget.textContent.toLowerCase());
+    const locale = event.currentTarget.textContent;
+    const selectedLanguage = languages.find((lang) => lang.locale === locale);
+    setLanguage(selectedLanguage);
     setSelectedIndex(index);
     setAnchorEl(null);
   };
 
+  /** Closes menu */
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -33,8 +42,13 @@ function LanguageMenu({
   return (
     <div>
       {/* Button to toggle menu */}
-      <Button onClick={handleClickListItem} className={buttonClass}>
-        {`Language: ${capitalize(currentLanguage)}`}
+      <Button
+        variant="contained"
+        onClick={handleClickListItem}
+        className={classes.toggle}
+        size="small"
+      >
+        {currentLanguage.locale}
       </Button>
 
       {/* Language menu */}
@@ -56,12 +70,12 @@ function LanguageMenu({
       >
         {languages.map((lang, index) => (
           <MenuItem
-            key={lang}
+            key={lang.tag}
             selected={index === selectedIndex}
             onClick={(event) => handleMenuItemClick(event, index)}
             className={classes.menuItem}
           >
-            {capitalize(lang)}
+            {lang.locale}
           </MenuItem>
         ))}
       </Menu>
@@ -71,10 +85,20 @@ function LanguageMenu({
 
 const useStyles = makeStyles((theme) => ({
   menuItem: {
-    paddingLeft: '50px',
-    paddingRight: '50px',
     textAlign: 'center',
   },
+  toggle: {
+    backgroundColor: '#16AB8D',
+    borderColor: '#FFFFF5',
+    color: '#FFFFFF',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: '#119178',
+    },
+    width: '100%',
+    marginTop: 5,
+    marginBottom: 5,
+  }
 }));
 
 export default LanguageMenu;
