@@ -17,76 +17,78 @@ function User() {
   // Handlers for showing/closing modal when downloading csv
   const handleClose = () => setShowCSVModal(false);
   const handleShow = () => setShowCSVModal(true);
-
+  
   const classes = useStyles();
   return (
-    <Container
-    align="center">
-      <div style={{ marginBottom: 20 }}>
-        <br></br>
-        <h1>Welcome to </h1>{' '}
-        <h1>
-          <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-</font>
-          <font style={{ color: '#2EFFD5', fontWeight: 'bold' }}>Lang</font>
-        </h1>
-      </div>
-      <div>
-        <Link to={ORDER_FORM} style={{ color: 'white' }}>
+      <Container
+      align="center">
+        <div style={{ marginBottom: 20 }}>
+          <br></br>
+          <h1>Welcome to </h1>{' '}
+          <h1>
+            <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-</font>
+            <font style={{ color: '#2EFFD5', fontWeight: 'bold' }}>Lang</font>
+          </h1>
+        </div>
+        <div>
+          <Link to={ORDER_FORM} style={{ color: 'white' }}>
+            <Button
+              className={classes.button}
+              size="large"
+            >
+              Start a new order
+            </Button>
+          </Link>
+        </div>
+        <div>
+        <Link to={STOCK} style={{ color: 'white' }}>
           <Button
             className={classes.button}
             size="large"
           >
-            Start a new order
-          </Button>
+            Edit and add stock items
+          </Button>{' '}
         </Link>
-      </div>
-      <div>
-      <Link to={STOCK} style={{ color: 'white' }}>
+        </div>
+        <div>
+          <Button
+            className={classes.button}
+            onClick={handleShow}
+            size="large"> Download Data
+            
+          </Button>
+        </div>
+
+        <br></br>
+        <br></br>
         <Button
           className={classes.button}
+          onClick={() => auth.signOut()}
           size="large"
         >
-          Edit and add stock items
-        </Button>{' '}
-      </Link>
-      </div>
-      <div>
-        <Button
-          className={classes.button}
-          onClick={handleShow}
-          size="large"> Download Data
-          
+          Sign out
         </Button>
-      </div>
+        <CsvModal
+        show={showCSVModal}
+        handleClose={handleClose}>
 
-      <br></br>
-      <br></br>
-      <Button
-        className={classes.button}
-        onClick={() => auth.signOut()}
-        size="large"
-      >
-        Sign out
-      </Button>
-      <CsvModal
-      show={showCSVModal}
-      handleClose={handleClose}>
-
-      </CsvModal>
-    </Container>
+        </CsvModal>
+      </Container>
+    
     
   );
  
 }
 
+
 const useStyles = makeStyles((theme) => ({
   button: {
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
     borderRadius: '200px',
     minWidth: '500px',

@@ -185,11 +185,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '15px',
   },
   button: {
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
+    textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
     width: '100%',
     marginBottom: 5,

@@ -165,12 +165,13 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0,
   },
   button: {
-    backgroundColor: '#16AB8D',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
+    textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
     marginRight: theme.spacing(1),
   },
 }));

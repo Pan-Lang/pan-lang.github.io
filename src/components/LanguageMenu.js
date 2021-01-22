@@ -88,12 +88,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   toggle: {
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
     width: '100%',
     marginTop: 5,

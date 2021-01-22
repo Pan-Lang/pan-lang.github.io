@@ -4,10 +4,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import cart from '../images/empty-cart.svg';
 import Grid from '@material-ui/core/Grid';
+import theme from '../constants/Theme';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,19 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#00c853',
-    },
-    secondary: {
-      main: '#00c853',
-    },
-    action: {
-      main: '#00c853',
-    },
-  },
-});
 
 export default function AlertDialogSlide() {
   const classes = useStyles();
@@ -53,7 +40,7 @@ export default function AlertDialogSlide() {
 
   return (
     <div>
-      <MuiThemeProvider theme={Theme}>
+      <MuiThemeProvider theme={theme}>
         <Dialog
           open={open}
           maxWidth="lg"

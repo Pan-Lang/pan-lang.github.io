@@ -20,6 +20,8 @@ import {
 } from './constants/Routes';
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import theme from './constants/Theme';
+import { ThemeProvider } from '@material-ui/core';
 
 /**
  * Highest level App component for routing
@@ -35,39 +37,41 @@ function App() {
   }
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <Navbar />
-      {/* FIXME: naive fix for keeping a fixed navbar */}
-      <div style={{ padding: 55 }} />
-      <Switch>
-        <Route exact path={LANDING}>
-          <Home />
-        </Route>
-        <Route exact path={ABOUT}>
-          <About />
-        </Route>
-        <Route path={STOCK}>
-          <Stock />
-        </Route>
-        <Route path={ORDER_FORM}>
-          <Order />
-        </Route>
-        <Route path={ORDER_STOCK}>
-          <OrderStock />
-        </Route>
-        <Route path={ORDER_TRACKER}>
-          <OrderTracker />
-        </Route>
-        <Route path={SIGN_IN}>
-          <SignIn />
-        </Route>
-        <Route path="*">
-          <h1>
-            Welcome to <font style={{ color: '#26B020' }}>Pan-Lang</font>!
-          </h1>
-        </Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router basename={process.env.PUBLIC_URL}>
+        <Navbar />
+        {/* FIXME: naive fix for keeping a fixed navbar */}
+        <div style={{ padding: 55 }} />
+        <Switch>
+          <Route exact path={LANDING}>
+            <Home />
+          </Route>
+          <Route exact path={ABOUT}>
+            <About />
+          </Route>
+          <Route path={STOCK}>
+            <Stock />
+          </Route>
+          <Route path={ORDER_FORM}>
+            <Order />
+          </Route>
+          <Route path={ORDER_STOCK}>
+            <OrderStock />
+          </Route>
+          <Route path={ORDER_TRACKER}>
+            <OrderTracker />
+          </Route>
+          <Route path={SIGN_IN}>
+            <SignIn />
+          </Route>
+          <Route path="*">
+            <h1>
+              Welcome to <font style={{ color: '#26B020' }}>Pan-Lang</font>!
+            </h1>
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 
