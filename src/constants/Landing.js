@@ -5,7 +5,7 @@ import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 export const INFO = [
   {
-    icon: <FlagIcon fontSize="large" />,
+    icon: <FlagIcon fontSize="large" color="primary" />,
     title: 'Automatic Translations',
     body: [
       'Pan-Lang automatically translates stock items to multiple languages, ensuring that all members of your community can understand your available stock. ',
@@ -13,7 +13,7 @@ export const INFO = [
     ],
   },
   {
-    icon: <ListAltIcon fontSize="large" />,
+    icon: <ListAltIcon fontSize="large" color="primary" />,
     title: 'Seamless, Accessible Forms',
     body: [
       'Info, Order, Review. With a simple 3-step process, your patrons can order necessary items in their preferred language.',
@@ -21,7 +21,7 @@ export const INFO = [
     ],
   },
   {
-    icon: <SyncAltIcon fontSize="large"/>,
+    icon: <SyncAltIcon fontSize="large" color="primary" />,
     title: 'Track Orders in Real-Time',
     body: [
       'With the Order Tracker, multiple pantry workers and volunteers can track unfulfilled orders in real time, complete with necessary items, basic patron info, and additional notes if necessary.',
