@@ -27,7 +27,7 @@ function Landing() {
         component="h1"
         align="center"
       >
-        <b>Pan-Lang</b>
+        <font style={{ color: '#26B020', fontWeight: 'bold' }}>Pan-Lang</font>
       </Typography>
 
       {/* Subtitle */}
@@ -81,7 +81,7 @@ function Landing() {
           <Grid item md={4} xs={12} className={classes.infoSection}>
             {section.icon}
             <Typography
-              variant={isMobile ? 'h5' : 'h5'}
+              variant="h5"
               component="h3"
               className={classes.sectionTitle}
             >
@@ -93,6 +93,44 @@ function Landing() {
           </Grid>
         ))}
       </Grid>
+
+      <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+        Join <b>Pan-Lang</b> today.
+      </Typography>
+
+      {/* Actions */}
+      <Container maxWidth="sm" className={classes.actions}>
+        <Grid container spacing={2}>
+          {/* Link to sign in */}
+          <Grid item md={6} xs={12}>
+            <Button
+              component={Link}
+              variant="contained"
+              color="primary"
+              to={SIGN_IN}
+              className={classes.heroButton}
+              fullWidth
+            >
+              Get Started
+              <ChevronRightIcon />
+            </Button>
+          </Grid>
+
+          {/* Link to About */}
+          <Grid item md={6} xs={12}>
+            <Button
+              component={Link}
+              variant="outlined"
+              color="primary"
+              to={ABOUT}
+              className={classes.heroButton}
+              fullWidth
+            >
+              About Pan-Lang
+            </Button>
+          </Grid>
+        </Grid>
+      </Container>
 
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
@@ -160,7 +198,7 @@ const useStyles = makeStyles((theme) => ({
   },
   copyright: {
     marginTop: theme.spacing(3),
-  }
+  },
 }));
 
 export default Landing;
