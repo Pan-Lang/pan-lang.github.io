@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - firebase-auth
+      - nav-drawer
 
 jobs:
   build:

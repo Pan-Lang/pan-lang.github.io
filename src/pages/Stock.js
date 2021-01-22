@@ -123,6 +123,8 @@ function Stock() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 110,
+    flexGrow: 1,
     [theme.breakpoints.only('xs')]: {
       paddingLeft: 2,
       paddingRight: 2,

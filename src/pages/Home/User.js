@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core';
 import CsvModal from '../../components/CSVModal';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { ORDER_FORM, STOCK } from '../../constants/Routes';
@@ -20,42 +21,31 @@ function User() {
 
   const classes = useStyles();
   return (
-    <Container
-    align="center">
+    <Container align="center" className={classes.root}>
       <div style={{ marginBottom: 20 }}>
-        <br></br>
-        <h1>Welcome to </h1>{' '}
-        <h1>
-          <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-</font>
-          <font style={{ color: '#2EFFD5', fontWeight: 'bold' }}>Lang</font>
-        </h1>
+        <Typography variant="h3" component="h1">
+          Welcome to{' '}
+          <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-Lang</font>
+        </Typography>
       </div>
       <div>
         <Link to={ORDER_FORM} style={{ color: 'white' }}>
-          <Button
-            className={classes.button}
-            size="large"
-          >
+          <Button className={classes.button} size="large">
             Start a new order
           </Button>
         </Link>
       </div>
       <div>
-      <Link to={STOCK} style={{ color: 'white' }}>
-        <Button
-          className={classes.button}
-          size="large"
-        >
-          Edit and add stock items
-        </Button>{' '}
-      </Link>
+        <Link to={STOCK} style={{ color: 'white' }}>
+          <Button className={classes.button} size="large">
+            Edit and add stock items
+          </Button>{' '}
+        </Link>
       </div>
       <div>
-        <Button
-          className={classes.button}
-          onClick={handleShow}
-          size="large"> Download Data
-          
+        <Button className={classes.button} onClick={handleShow} size="large">
+          {' '}
+          Download Data
         </Button>
       </div>
 
@@ -68,18 +58,17 @@ function User() {
       >
         Sign out
       </Button>
-      <CsvModal
-      show={showCSVModal}
-      handleClose={handleClose}>
 
-      </CsvModal>
+      {/* Download data modal */}
+      <CsvModal show={showCSVModal} handleClose={handleClose} />
     </Container>
-    
   );
- 
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 110,
+  },
   button: {
     backgroundColor: '#16AB8D',
     borderColor: '#FFFFF5',
@@ -89,9 +78,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#119178',
     },
     borderRadius: '200px',
-    minWidth: '500px',
     margin: '5px',
+    width: '100%',
+    maxWidth: 500,
   },
-  
-}))
+}));
 export default User;

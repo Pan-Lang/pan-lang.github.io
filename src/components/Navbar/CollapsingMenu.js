@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { MenuItem, Button } from '@material-ui/core';
-import CollapsingButton from './CollapsingButton';
+import {  Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -20,7 +19,6 @@ import { auth } from '../../firebase';
  * Base code from: https://codesandbox.io/s/64kr4k1lww?file=/demo.js
  */
 function CollapsingMenu() {
-  const [isOpen, setOpen] = useState(false);
   const [user] = useAuthState(auth);
 
   // Pages to navigate to
@@ -58,32 +56,6 @@ function CollapsingMenu() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {/* Mobile */}
-      <CollapsingButton isOpen={isOpen} setOpen={setOpen}>
-        {navigation.map((nav) => (
-          <MenuItem
-            key={nav.to}
-            component={Link}
-            to={nav.to}
-            // FIXME: sometimes causes menu to pop up in weird places
-            // try: open menu -> About -> open menu again
-            onClick={() => setOpen(false)}
-          >
-            {nav.page}
-          </MenuItem>
-        ))}
-        <MenuItem
-          component={Link}
-          to={getAuthButtonLink()}
-          onClick={() => setOpen(false)}
-        >
-          {getAuthButtonText()}
-          {Boolean(user) && (
-            <AccountCircleIcon className={classes.profileIcon} />
-          )}
-        </MenuItem>
-      </CollapsingButton>
-
       {/* Desktop */}
       <nav className={classes.buttonBar} id="appbar-collapse">
         {navigation.map((nav) => (
@@ -118,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
   },
   buttonBar: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
     margin: '10px',
