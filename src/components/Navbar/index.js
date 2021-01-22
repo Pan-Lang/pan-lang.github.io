@@ -20,7 +20,7 @@ function Navbar({ drawerOpen, toggleDrawer, openDrawer, hasUser = false }) {
   const trigger = useScrollTrigger();
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction="down" in={!isMobile || !trigger}>
       <AppBar
         position="fixed"
         className={clsx(
