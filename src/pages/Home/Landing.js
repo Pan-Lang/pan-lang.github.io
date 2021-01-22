@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { ABOUT, SIGN_IN } from '../../constants/Routes';
 import { makeStyles } from '@material-ui/core';
 import useMobile from '../../hooks/useMobile';
+import { INFO } from '../../constants/Landing';
 
 /**
  * Landing page for Pan-Lang.
@@ -36,7 +37,7 @@ function Landing() {
         align="center"
         className={classes.subtitle}
       >
-        Helping the language barrier between pantry coordinators and patrons
+        Helping food pantry coordinators and patrons communicate
       </Typography>
 
       {/* Actions */}
@@ -75,29 +76,49 @@ function Landing() {
 
       <Divider />
 
+      <Grid container className={classes.info}>
+        {INFO.map((section) => (
+          <Grid item md={4} xs={12} className={classes.infoSection}>
+            {section.icon}
+            <Typography
+              variant={isMobile ? 'h5' : 'h5'}
+              component="h3"
+              className={classes.sectionTitle}
+            >
+              <b>{section.title}</b>
+            </Typography>
+            {section.body.map((p) => (
+              <Typography paragraph>{p}</Typography>
+            ))}
+          </Grid>
+        ))}
+      </Grid>
+
       <footer className={classes.footer}>
-        <Container maxWidth="lg">
-          <Typography variant="h6" align="center" gutterBottom>
-            {'Pan-Lang'}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="textSecondary"
-            component="p"
-          >
-            {
-              'Helping the language barrier between food pantry coordinators and non-English speakers.'
-            }
-          </Typography>
-          <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            Pan-Lang {new Date().getFullYear()}
-            {'.'}
-          </Typography>
-        </Container>
+        <Typography variant="h6" align="center" gutterBottom>
+          {'Pan-Lang'}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          {
+            'Helping the language barrier between food pantry coordinators and non-English speakers.'
+          }
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          align="center"
+          className={classes.copyright}
+        >
+          {'Copyright © '}
+          Pan-Lang {new Date().getFullYear()}
+          {'.'}
+        </Typography>
       </footer>
-      <br></br>
     </Container>
   );
 }
@@ -119,9 +140,27 @@ const useStyles = makeStyles((theme) => ({
   heroButton: {
     padding: theme.spacing(2),
   },
-  footer: {
-    marginTop: 'auto',
+  info: {
+    marginTop: theme.spacing(6),
+    marginBottom: theme.spacing(8),
   },
+  sectionTitle: {
+    marginTop: theme.spacing(1),
+  },
+  infoSection: {
+    [theme.breakpoints.down('md')]: {
+      margin: theme.spacing(2),
+    },
+  },
+  footer: {
+    width: '100%',
+    marginTop: 'auto',
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  copyright: {
+    marginTop: theme.spacing(3),
+  }
 }));
 
 export default Landing;
