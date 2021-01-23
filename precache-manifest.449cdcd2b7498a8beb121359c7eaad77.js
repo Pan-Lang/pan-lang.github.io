@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7ef2464891777341bffd554eeb6e5465",
+    "revision": "2335d58fdd68195d6407248339ebf6ec",
     "url": "/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.69233f45.chunk.css"
   },
   {
-    "revision": "93540a96da89b52b6c29",
+    "revision": "ddf8268732281dcd195e",
     "url": "/static/css/main.6cf4088d.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.20a71289.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "93540a96da89b52b6c29",
-    "url": "/static/js/main.747300a6.chunk.js"
+    "revision": "ddf8268732281dcd195e",
+    "url": "/static/js/main.f32bd0f5.chunk.js"
   },
   {
     "revision": "3b7b72403357f61126ff",
@@ -44,8 +44,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/kgs5.ed891ef2.png"
   },
   {
-    "revision": "484389dc057713082ddc290527bb9d30",
-    "url": "/static/media/logo_nobg.484389dc.png"
+    "revision": "bc92eabcefda2f229783ca21fb17dec4",
+    "url": "/static/media/logo_nobg.bc92eabc.png"
   },
   {
     "revision": "726b433f5125e61080d5f97288a77cde",
