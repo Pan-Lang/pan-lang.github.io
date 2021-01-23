@@ -6,13 +6,14 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 /** Component imports */
 import ErrorAlert from '../components/ErrorAlert';
 import Loading from '../components/Loading';
 import StockCard from '../components/StockCard';
 import SearchBar from '../components/SearchBar';
+import StockInput from '../components/StockInput';
 
 /** Constants, Firebase, API */
 import LANGUAGES from '../constants/Languages';
@@ -22,7 +23,7 @@ import { auth } from '../firebase';
 /** Custom hooks */
 import useStock from '../hooks/useStock';
 import useNameSearch from '../hooks/useNameSearch';
-import StockInput from '../components/StockInput';
+import useMobile from '../hooks/useMobile';
 
 /**
  * Page displaying the stock of food pantry with options for language
@@ -34,7 +35,7 @@ function Stock() {
     stock,
     language.tag
   );
-  const isMobile = useMediaQuery(useTheme().breakpoints.down('md'));
+  const isMobile = useMobile();
   const history = useHistory();
 
   /**

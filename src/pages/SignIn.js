@@ -15,6 +15,8 @@ import {
 import { makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { LANDING } from '../constants/Routes';
+import logo from '../images/logo_nobg.png';
+import Footer from '../components/Footer';
 
 /**
  * Sign in page for Pan-Lang
@@ -32,11 +34,7 @@ function SignIn() {
   return (
     <Container maxWidth="md" className={classes.page}>
       {/* Logo */}
-      <img
-        src={require('../images/logo_nobg.png')}
-        alt="Pan-Lang logo"
-        style={{ width: 120, height: 120 }}
-      />
+      <img src={logo} alt="Pan-Lang logo" style={{ width: 120, height: 120 }} />
 
       <Typography variant="h2" className={classes.title}>
         Join Pan-Lang today.
@@ -60,6 +58,8 @@ function SignIn() {
 
       {/* Error */}
       {error && <ErrorAlert body="An error occurred." />}
+
+      <Footer />
     </Container>
   );
 }
