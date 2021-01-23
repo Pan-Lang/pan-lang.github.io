@@ -26,7 +26,7 @@ function User() {
       <div style={{ marginBottom: 20 }}>
         <Typography variant="h3" component="h1">
           Welcome to{' '}
-          <font style={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>Pan-Lang</font>
+          <font style={{ color: theme.palette.primary.altText, fontWeight: 'bold' }}>Pan-Lang</font>
         </Typography>
       </div>
       <div>

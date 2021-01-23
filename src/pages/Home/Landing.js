@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core';
 import useMobile from '../../hooks/useMobile';
 import { INFO } from '../../constants/Landing';
 import Footer from '../../components/Footer';
+import theme from '../../constants/Theme';
 
 /**
  * Landing page for Pan-Lang.
@@ -28,7 +29,7 @@ function Landing() {
         component="h1"
         align="center"
       >
-        <font style={{ color: '#26B020', fontWeight: 'bold' }}>Pan-Lang</font>
+        <font style={{ color: theme.palette.primary.altText, fontWeight: 'bold' }}>Pan-Lang</font>
       </Typography>
 
       {/* Subtitle */}
