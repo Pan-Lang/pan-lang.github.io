@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { ORDER_FORM, STOCK } from '../../constants/Routes';
+import theme from '../../constants/Theme';
 
 /**
  * User's home page for Pan-Lang.
@@ -25,7 +26,7 @@ function User() {
       <div style={{ marginBottom: 20 }}>
         <Typography variant="h3" component="h1">
           Welcome to{' '}
-          <font style={{ color: '#35E82A', fontWeight: 'bold' }}>Pan-Lang</font>
+          <font style={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>Pan-Lang</font>
         </Typography>
       </div>
       <div>
@@ -70,12 +71,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 110,
   },
   button: {
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
     borderRadius: '200px',
     margin: '5px',

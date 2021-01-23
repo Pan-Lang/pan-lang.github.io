@@ -56,13 +56,14 @@ function FulfillModal({ person, personId, show, handleClose, fulfillPerson }) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  confirm:{
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+  confirm: {
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
+    textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
-    }, 
+      backgroundColor:  theme.palette.primary.dark,
+    },
     borderRadius: '200px'
   },
   close:{

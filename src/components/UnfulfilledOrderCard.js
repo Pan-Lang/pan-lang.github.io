@@ -78,7 +78,7 @@ function UnfulfilledOrderCard({ person, id, fulfillPerson }) {
   );
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   root: {
     minWidth: 275,
   },
@@ -89,15 +89,15 @@ const useStyles = makeStyles({
     fontsize: 10,
   },
   button: {
-    borderRadius: 10,
-    backgroundColor: '#16AB8D',
-    borderColor: '#FFFFF5',
-    color: '#FFFFFF',
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.borderColor,
+    color:  theme.palette.primary.contrastText,
+    textTransform: 'none',
     '&:hover': {
-      backgroundColor: '#119178',
+      backgroundColor:  theme.palette.primary.dark,
     },
     marginBottom: 5,
   },
-});
+}));
 
 export default UnfulfilledOrderCard;
