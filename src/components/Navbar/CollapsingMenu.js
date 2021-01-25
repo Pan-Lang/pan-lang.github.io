@@ -103,9 +103,15 @@ const useStyles = makeStyles((theme) => ({
   link: {
     margin: theme.spacing(1, 1),
     color: 'gray',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
   login: {
     margin: '10px',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
   profileIcon: {
     marginLeft: '4px',

@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core';
 import useMobile from '../../hooks/useMobile';
 import { INFO } from '../../constants/Landing';
 import Footer from '../../components/Footer';
-import theme from '../../constants/Theme';
 
 /**
  * Landing page for Pan-Lang.
@@ -28,8 +27,9 @@ function Landing() {
         variant={isMobile ? 'h3' : 'h1'}
         component="h1"
         align="center"
+        className={classes.title}
       >
-        <font style={{ color: theme.palette.primary.altText, fontWeight: 'bold' }}>Pan-Lang</font>
+        Pan-Lang
       </Typography>
 
       {/* Subtitle */}
@@ -52,7 +52,7 @@ function Landing() {
               variant="contained"
               color="primary"
               to={SIGN_IN}
-              className={classes.heroButton}
+              className={classes.containedButton}
               fullWidth
             >
               Get Started
@@ -111,7 +111,7 @@ function Landing() {
               variant="contained"
               color="primary"
               to={SIGN_IN}
-              className={classes.heroButton}
+              className={classes.containedButton}
               fullWidth
             >
               Get Started
@@ -145,6 +145,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 110,
     minHeight: '100vh',
   },
+  title: {
+    fontWeight: 'bold',
+    color: theme.palette.primary.main,
+  },
   subtitle: {
     fontWeight: 'lighter',
   },
@@ -152,8 +156,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(6),
   },
+  containedButton: {
+    '&:hover': {
+      color: theme.palette.common.white,
+    },
+    padding: theme.spacing(2),
+  },
   heroButton: {
     padding: theme.spacing(2),
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
   },
   info: {
     marginTop: theme.spacing(6),
