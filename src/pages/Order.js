@@ -20,10 +20,13 @@ import { auth } from '../firebase';
 const orderSchema = Yup.object({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
-  adults: Yup.number().integer().positive().required('# of adults is required'),
+  adults: Yup.number()
+    .integer()
+    .moreThan(-1)
+    .required('# of adults is required'),
   children: Yup.number()
     .integer()
-    .positive()
+    .moreThan(-1)
     .required('# of children is required'),
   zipcode: Yup.string()
     .length(5)
@@ -198,10 +201,7 @@ function OrderForm() {
 
             {/* Submit and clear buttons */}
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <Button
-                onClick={handleSubmit}
-                className={classes.submit}
-              >
+              <Button onClick={handleSubmit} className={classes.submit}>
                 Select order
               </Button>
               <Button
@@ -234,7 +234,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: 0,
       paddingRight: 0,
     },
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   formPaper: {
     marginTop: theme.spacing(2),
@@ -251,10 +251,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     backgroundColor: theme.palette.primary.main,
     borderColor: theme.palette.primary.borderColor,
-    color:  theme.palette.primary.contrastText,
+    color: theme.palette.primary.contrastText,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor:  theme.palette.primary.dark,
+      backgroundColor: theme.palette.primary.dark,
     },
     marginLeft: theme.spacing(2),
   },
